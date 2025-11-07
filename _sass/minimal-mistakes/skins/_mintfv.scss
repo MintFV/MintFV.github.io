@@ -1,0 +1,34 @@
+/* MINTarium Custom Skin */
+$background-color: #ffffff;
+$text-color: #333333;
+$primary-color:rgb(172, 181, 217);
+$link-color: #0066cc;
+$masthead-link-color: rgb(114, 57, 199);
+// $masthead-link-color: $primary-color;
+
+/* Minimalistischer Hero-Bereich -- Nachbau des alten Headers */
+.page__hero {
+  background-color: #180b90 !important;
+  background-image:
+    linear-gradient(hsla(205,50%,50%,0.8) 0%, #180b90 50%, hsla(225,30%,10%,0.4) 100%),
+    linear-gradient(40deg, #180b90 0%, rgba(255, 255, 255, .5) 60%);
+  padding-top: 50px;
+  padding-bottom: 80px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #cfcfcf;
+    // ...existing code...
+}
+
+
+/* Minimalistischer Footer-Balken */
+.page__footer {
+  background: rgb(172, 181, 217);
+  min-height: 20px;
+  height: 20px;
+  margin-top: 40px;
+  border: none;
+  box-shadow: none;
+}
+.page__footer > * {
+  display: none;
+}

@@ -1,0 +1,176 @@
+# Site Settings
+locale: "de-DE"
+title: "Förderverein MINTarium Hamburg e.V."
+subtitle: "MINT zum Erleben in Mümmelmannsberg"
+name: "Förderverein MINTarium Hamburg e. V."
+description: "Das MINTarium in Mümmelmannsberg macht Mathematik, Informatik, Naturwissenschaften und Technik zum Erlebnis."
+url: "https://www.mintarium-fv.de"
+baseurl: ""
+repository: "mintfv/mintfv.github.io"
+github_username: "MintFV"
+
+
+# Theme Settings
+theme: minimal-mistakes-jekyll
+minimal_mistakes_skin: "mintfv" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
+search: true
+# Logo
+logo: "/assets/images/logo.png"
+# Site Author
+author:
+  name: "Förderverein MINTarium Hamburg e.V."
+  bio: "Personelle und finanzielle Unterstützung des MINTariums"
+  location: "Hamburg-Mümmelmannsberg"
+  email: "info@mintarium-fv.de"
+  links:
+    - label: "MINTarium Website"
+      icon: "fas fa-fw fa-link"
+      url: "https://li.hamburg.de/ausserschulische-lernorte/mintarium"
+    - label: "Instagram"
+      icon: "fab fa-fw fa-instagram"
+      url: "https://www.instagram.com/mintarium_fv/"
+    - label: "github"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/MintFV"
+
+# Reading Files
+include:
+  - .htaccess
+  - _pages
+exclude:
+  - "*.sublime-project"
+  - "*.sublime-workspace"
+  - vendor
+  - .asset-cache
+  - .bundle
+  - .jekyll-assets-cache
+  - .sass-cache
+  - assets/js/plugins
+  - assets/js/_main.js
+  - assets/js/vendor
+  - Capfile
+  - CHANGELOG
+  - config
+  - Gemfile
+  - Gruntfile.js
+  - gulpfile.js
+  - LICENSE
+  - log
+  - node_modules
+  - package.json
+  - Rakefile
+  - README
+  - tmp
+
+# Conversion
+markdown: kramdown
+remote_theme: mmistakes/minimal-mistakes
+highlighter: rouge
+lsi: false
+excerpt_separator: "\n\n"
+incremental: false
+
+# Markdown Processing
+kramdown:
+  input: GFM
+  hard_wrap: false
+  auto_ids: true
+  footnote_nr: 1
+  entity_output: as_char
+  toc_levels: 1..6
+  smart_quotes: lsquo,rsquo,ldquo,rdquo
+  enable_coderay: false
+
+# # Sass/SCSS
+# sass:
+#   sass_dir: _sass
+#   style: compressed
+
+# Outputting
+permalink: /:categories/:title/
+paginate: 3
+paginate_path: /page:num/
+timezone: Europe/Berlin
+
+# Pagination with jekyll-paginate-v2
+# See https://github.com/sverrirs/jekyll-paginate-v2/blob/master/README-GENERATOR.md#site-configuration
+#   for configuration details
+pagination:
+  # Set enabled to true to use paginate v2
+  # enabled: true
+  debug: false
+  collection: 'posts'
+  per_page: 10
+  permalink: '/page/:num/'
+  title: ':title - page :num'
+  limit: 0
+  sort_field: 'date'
+  sort_reverse: true
+  category: 'posts'
+  tag: ''
+  locale: ''
+  trail:
+    before: 2
+    after: 2
+
+
+
+# Plugins
+plugins:
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-gist
+  - jekyll-feed
+  - jekyll-include-cache
+  # - jemoji
+
+
+
+# Archives
+category_archive:
+  type: liquid
+  path: /categories/
+tag_archive:
+  type: liquid
+  path: /tags/
+
+# HTML Compression
+compress_html:
+  clippings: all
+  ignore:
+    envs: development
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: single
+      author_profile: false
+      read_time: false
+      comments: false
+      share: true
+      related: true
+  # _pages
+  - scope:
+      path: "_pages"
+      type: pages
+    values:
+      layout: single
+      author_profile: false
+
+category_archive:
+  type: liquid
+  path: /categories/
+tag_archive:
+  type: liquid
+  path: /tags/
+
+
+# Footer
+footer:
+  # links:
+  #   - label: "Instagram"
+  #     icon: "fab fa-fw fa-instagram"
+  #     url: "https://www.instagram.com/mintarium_fv/"

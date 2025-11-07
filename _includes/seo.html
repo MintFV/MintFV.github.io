@@ -1,0 +1,99 @@
+<!-- SEO Meta Tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+{%- if page.title -%}
+  <title>{{ page.title }} | {{ site.title }}</title>
+  <meta property="og:title" content="{{ page.title }} | {{ site.title }}">
+  <meta name="twitter:title" content="{{ page.title }} | {{ site.title }}">
+{%- else -%}
+  <title>{{ site.title }} | {{ site.description }}</title>
+  <meta property="og:title" content="{{ site.title }}">
+  <meta name="twitter:title" content="{{ site.title }}">
+{%- endif -%}
+
+{%- if page.excerpt -%}
+  <meta name="description" content="{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}">
+  <meta property="og:description" content="{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}">
+  <meta name="twitter:description" content="{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}">
+{%- elsif site.description -%}
+  <meta name="description" content="{{ site.description }}">
+  <meta property="og:description" content="{{ site.description }}">
+  <meta name="twitter:description" content="{{ site.description }}">
+{%- endif -%}
+
+<!-- Canonical URL -->
+{%- if page.url -%}
+<link rel="canonical" href="{{ page.url | absolute_url }}">
+<meta property="og:url" content="{{ page.url | absolute_url }}">
+{%- endif -%}
+
+<!-- Site Name -->
+<meta property="og:site_name" content="{{ site.title }}">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="de_DE">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary">
+{%- if site.twitter_username -%}
+<meta name="twitter:site" content="@{{ site.twitter_username }}">
+{%- endif -%}
+
+<!-- Author -->
+<meta name="author" content="{{ site.author.name }}">
+
+<!-- Keywords -->
+<meta name="keywords" content="MINTarium, MINT, Hamburg, Mümmelmannsberg, Förderverein, Mathematik, Informatik, Naturwissenschaften, Technik, Workshops, Veranstaltungen, Bildung">
+
+<!-- Robots -->
+<meta name="robots" content="index, follow">
+
+<!-- Favicon -->
+<link rel="apple-touch-icon" sizes="57x57" href="{{ '/assets/favicon/apple-icon-57x57.png' | relative_url }}">
+<link rel="apple-touch-icon" sizes="60x60" href="{{ '/assets/favicon/apple-icon-60x60.png' | relative_url }}">
+<link rel="apple-touch-icon" sizes="72x72" href="{{ '/assets/favicon/apple-icon-72x72.png' | relative_url }}">
+<link rel="apple-touch-icon" sizes="76x76" href="{{ '/assets/favicon/apple-icon-76x76.png' | relative_url }}">
+<link rel="apple-touch-icon" sizes="114x114" href="{{ '/assets/favicon/apple-icon-114x114.png' | relative_url }}">
+<link rel="apple-touch-icon" sizes="120x120" href="{{ '/assets/favicon/apple-icon-120x120.png' | relative_url }}">
+<link rel="apple-touch-icon" sizes="144x144" href="{{ '/assets/favicon/apple-icon-144x144.png' | relative_url }}">
+<link rel="apple-touch-icon" sizes="152x152" href="{{ '/assets/favicon/apple-icon-152x152.png' | relative_url }}">
+<link rel="apple-touch-icon" sizes="180x180" href="{{ '/assets/favicon/apple-icon-180x180.png' | relative_url }}">
+<link rel="icon" type="image/png" sizes="192x192" href="{{ '/assets/favicon/android-icon-192x192.png' | relative_url }}">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ '/assets/favicon/favicon-32x32.png' | relative_url }}">
+<link rel="icon" type="image/png" sizes="96x96" href="{{ '/assets/favicon/favicon-96x96.png' | relative_url }}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ '/assets/favicon/favicon-16x16.png' | relative_url }}">
+<link rel="manifest" href="{{ '/assets/favicon/manifest.json' | relative_url }}">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="{{ '/assets/favicon/ms-icon-144x144.png' | relative_url }}">
+<meta name="theme-color" content="#ffffff">
+
+<!-- Language -->
+<meta http-equiv="content-language" content="de">
+
+<!-- Generator -->
+<meta name="generator" content="Jekyll {{ jekyll.version }}">
+
+<!-- Schema.org JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "{{ site.title }}",
+  "url": "{{ site.url }}",
+  "logo": "{{ '/assets/images/logo.png' | absolute_url }}",
+  "description": "{{ site.description }}",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Mümmelmannsberg 75",
+    "addressLocality": "Hamburg",
+    "postalCode": "22115",
+    "addressCountry": "DE"
+  },
+  "telephone": "+49-40-428842120",
+  "email": "info@mintarium-fv.de",
+  "sameAs": [
+    "https://www.instagram.com/mintarium_fv/",
+    "https://li.hamburg.de/ausserschulische-lernorte/mintarium"
+  ]
+}
+</script>
