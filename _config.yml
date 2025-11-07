@@ -11,7 +11,8 @@ github_username: "MintFV"
 
 
 # Theme Settings
-theme: minimal-mistakes-jekyll
+# theme: minimal-mistakes-jekyll
+remote_theme: mmistakes/minimal-mistakes
 minimal_mistakes_skin: "mintfv" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 search: true
 # Logo
@@ -64,7 +65,6 @@ exclude:
 
 # Conversion
 markdown: kramdown
-remote_theme: mmistakes/minimal-mistakes
 highlighter: rouge
 lsi: false
 excerpt_separator: "\n\n"
