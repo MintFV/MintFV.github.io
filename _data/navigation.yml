@@ -13,6 +13,8 @@ main:
     url: https://www.instagram.com/mintarium_fv/
   - title: "Datenschutz"
     url: /datenschutz/
+  - title: "Impressum"
+    url: /impressum/
   - title: "debugPosts"
     url: /posts/
   - title: "debugCategories"
