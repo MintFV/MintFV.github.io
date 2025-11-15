@@ -3,24 +3,102 @@ $background-color: #ffffff;
 $text-color: #333333;
 $primary-color:rgb(172, 181, 217);
 $link-color: #0066cc;
-$masthead-link-color: rgb(114, 57, 199);
-// $masthead-link-color: $primary-color;
+$masthead-link-color: #ffffff;
+$masthead-link-color-hover: #ffffff;
 
 /* Minimalistischer Hero-Bereich -- Nachbau des alten Headers */
 .page__hero {
-  background-color: #180b90 !important;
+  background-color: transparent !important;
   background-image:
     linear-gradient(hsla(205,50%,50%,0.8) 0%, #180b90 50%, hsla(225,30%,10%,0.4) 100%),
-    linear-gradient(40deg, #180b90 0%, rgba(255, 255, 255, .5) 60%);
+    linear-gradient(40deg, #180b90 0%, rgba(255, 255, 255, .5) 60%) !important;
   padding-top: 50px;
   padding-bottom: 80px;
   margin-bottom: 30px;
-  border-bottom: 1px solid #cfcfcf;
-    // ...existing code...
 }
 
+.page__hero--overlay {
+  background-color: #180b90 !important;
+}
+/* Navigationsleiste mit gleichem Blau und Farbverlauf */
+.masthead {
+  background-color: #180b90 !important;
+  background-image:
+    linear-gradient(hsla(205, 50%, 50%, 0.8) 0%, #180b90 50%, hsla(225, 30%, 10%, 0.4) 100%),
+    linear-gradient(40deg, #180b90 0%, rgba(255, 255, 255, .5) 60%);
+  border-bottom: none !important;
+}
 
+/* Logo und Site-Title auf splash-Layout Seiten ausblenden */
+.layout--splash .masthead .site-logo,
+.layout--splash .masthead .site-title {
+  display: none !important;
+}
+/* Alle Elemente in der Masthead transparent machen, damit der Hintergrund durchscheint */
+.masthead * {
+  background: transparent !important;
+}
+
+/* Schriftfarben in der Navigationsleiste anpassen */
+.masthead .site-title,
+.masthead .site-subtitle {
+  color: #ffffff;
+}
+
+.masthead .search__toggle,
+.masthead .greedy-nav__toggle {
+  color: #ffffff;
+}
+
+.masthead .navicon {
+  background-color: #ffffff !important;
+}
+
+.masthead .navicon:before,
+.masthead .navicon:after {
+  background-color: #ffffff !important;
+}
+
+/* Schriftfarben im Hamburger-Menü anpassen (auf weißem Hintergrund) */
+.masthead .hidden-links a {
+  color: #180b90;
+}
+
+/* Hover-Effekt im Hamburger-Menü: Text behält Farbe, Hintergrund leicht grau */
+.masthead .hidden-links a:hover {
+  color: #180b90 !important;
+  background-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Hintergrund des Hamburger-Menüs solid weiß machen */
+.masthead .greedy-nav {
+  background: transparent !important;
+}
+
+.masthead .hidden-links {
+  background: #ffffff !important;
+}
+
+/* Kreuz im geschlossenen Hamburger-Menü im Blau des Hintergrunds machen */
+.masthead .close .navicon:before,
+.masthead .close .navicon:after {
+  background-color: #180b90 !important;
+}
+
+.logo-and-title {
+  display: flex;
+  align-items: center;
+}
+
+.hero-logo {
+  margin-right: 20px;
+  /* Abstand zwischen Logo und Text */
+  max-height: 140px;
+  /* Logo-Größe anpassen */
+}
 /* Minimalistischer Footer-Balken */
+
+
 .page__footer {
   background: rgb(172, 181, 217);
   min-height: 20px;
