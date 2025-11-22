@@ -53,3 +53,16 @@ Wenig bis gar nicht technisch versierte Menschen. Ggf. kann man diesen Menschen 
 - <https://www.mintarium-fv.de/>
 
 im Wesentlichen ist das eine Single-Page Website, analysiere diese, wenn es Dir möglich ist.
+
+## Prmopt für Decap + Verstanstaltungsseite
+
+@workspace für unsere Vereinswebsite habe ich mit jekyll angefangen einige Dateien und Konfigurationen anzulegen. Wir publishen diese Dateien via github. Zur vereinfachten Bearbeitung soll decap benutzt werden. Vor allem für unsere verschiedenen Veranstaltungen
+
+- Mach mit Mathe - Austellung
+- offene Werkstatt
+- Ferienpass Aktionen
+- sonstige Veranstaltungen
+
+die offene Werkstatt ist ca. zweimal im Monat, die Mach mit Mathe Austellung ist einmal im Monat, die Ferienpass Aktionen finden zweimal im Jahr statt, von den sonstigen Verstaltungen gibt es ca. 6 im Jahr.
+
+Die Frage ist, wie wir für Vereinsmitglieder, die von Technik keine Ahnung haben, em einfachsten auf der decap Weboberfläche abbilden und ggf. auch in jekyll?
