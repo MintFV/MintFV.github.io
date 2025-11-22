@@ -13,6 +13,8 @@ Bei der Pflege sind mindestens zwei Modi zu beachten:
    2. neue Veranstaltungstypen einpflegen
    3. neue Webseiten Elemente bzw. Unterseiten zu neuen Themen einpflegen
 
+Einen Einstieg zum Betrieb von Webseiten bei Github findet man unter <https://docs.github.com/de/pages>.
+
 ## inhaltliche Anpassungen
 
 ### einmalige Vorarbeiten
