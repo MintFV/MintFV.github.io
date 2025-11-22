@@ -1,0 +1,65 @@
+# /admin/config.yml
+
+local_backend: true # diese Zeile aktivieren, bevor Sie lokal testen
+
+backend:
+  name: github
+  repo: MintFV/MintFV.github.io # IHR REPOSITORY: PASST BEREITS!
+  branch: main # Der Branch, auf dem gearbeitet wird. "main" ist korrekt.
+  # Wenn Sie GitHub Pages ohne Netlify nutzen, benötigen Sie zusätzlich eine
+  # serverseitige OAuth-Lösung. Siehe Doku zu "Authentication".
+  # Für den Start mit Netlify ist dies die einfachste Konfiguration.
+
+# Wo sollen hochgeladene Bilder und Dateien gespeichert werden?
+media_folder: "assets/images/uploads" # Ordner für neue Uploads im Repository
+public_folder: "/assets/images/uploads" # Öffentlicher Pfad zu den Uploads
+publish_mode: editorial_workflow
+
+# Hier definieren wir die bearbeitbaren Inhalte
+collections:
+  # Collection für die verschiedenen Veranstaltungstypen
+  - name: "events" # Interner Name für die Collection
+    label: "Veranstaltungen" # Angezeigter Name in der CMS-Oberfläche
+    folder: "_events" # Der Ordner im Repo, in dem die Veranstaltungs-Dateien liegen
+    create: true # Erlaubt das Erstellen neuer Veranstaltungen
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}" # Dateiname-Format, z.B. "2025-12-05-roboter-workshop.md"
+    fields: # Die Felder der Eingabemaske für jede Veranstaltung
+      - { label: "Layout", name: "layout", widget: "hidden", default: "single" }
+      - { label: "Titel der Veranstaltung", name: "title", widget: "string" }
+      - { label: "Veranstaltungs-Typ", name: "event_type", widget: "select", options: ["Einzelveranstaltung", "Veranstaltungsreihe", "Dauerangebot"] }
+      - { label: "Datum und Uhrzeit", name: "date", widget: "datetime" }
+      - { label: "Ort", name: "location", widget: "string" }
+      - { label: "Link zur Karte (Google Maps o.ä.)", name: "location_map_url", widget: "string", required: false }
+      - { label: "Titelbild/Ankündigungsbild", name: "hero_image", widget: "image", required: false }
+      - { label: "Kurzbeschreibung (für die Übersichtsseite)", name: "description", widget: "text" }
+      - { label: "Ausführliche Beschreibung", name: "body", widget: "markdown" }
+      - { label: "Anmelde-Link (z.B. zu Pretix)", name: "registration_url", widget: "string", required: false }
+      - { label: "Ansprechpartner", name: "contact_person", widget: "string", required: false }
+      - { label: "Kontakt-E-Mail", name: "contact_email", widget: "string", required: false }
+      - { label: "Bildergalerie (nach der Veranstaltung)", name: "gallery", widget: "list", required: false, fields: [
+          { label: "Bild", name: "image", widget: "image" },
+          { label: "Bildunterschrift", name: "caption", widget: "string", required: false }
+        ]}
+
+  # Eine weitere "Collection" für einzelne Seiten, falls Sie diese auch bearbeiten möchten
+  - name: "pages"
+    label: "Seiten"
+    files:
+      - file: "_pages/impressum.md" # Pfad zur Datei
+        label: "Impressum" # Angezeigter Name
+        name: "impressum"
+        fields:
+          - { label: "Titel", name: "title", widget: "string" }
+          - { label: "Inhalt", name: "body", widget: "markdown" }
+      - file: "_pages/datenschutz.md"
+        label: "Datenschutz"
+        name: "datenschutz"
+        fields:
+          - { label: "Titel", name: "title", widget: "string" }
+          - { label: "Inhalt", name: "body", widget: "markdown" }
+      - file: "_pages/mitgliedschaft.md"
+        label: "Mitgliedschaft"
+        name: "mitgliedschaft"
+        fields:
+          - { label: "Titel", name: "title", widget: "string" }
+          - { label: "Inhalt", name: "body", widget: "markdown" }
