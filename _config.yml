@@ -108,7 +108,7 @@ pagination:
   sort_reverse: true
   category: 'posts'
   tag: ''
-  locale: ''
+  locale: 'de-DE'
   trail:
     before: 2
     after: 2
