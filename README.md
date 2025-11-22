@@ -1,8 +1,36 @@
-# Förderverein MINTarium Hamburg e. V. - Jekyll Website
+# Förderverein MINTarium Hamburg e. V
 
-Diese Website verwendet das [Minimal Mistakes](https://mmistakes.github.io/minimal-mistakes/) Jekyll-Theme.
+Die Webseite des _Förderverein MINTarium Hamburg e. V._ wird ab 2026 bei Github gehostet und gepflegt.
 
-## Installation
+Bei der Pflege sind mindestens zwei Modi zu beachten:
+
+1. inhaltliche Anpassungen einpflegen in vorgegebene Strukturen
+   1. Einpflegen von Verstanstaltungen jeder Art
+   2. Bilder zu Verstaltungen einpflegen
+   3. Anpassung Impressum (z.B. bei Neuwahlen des Vorstandes)
+2. Strukturelle Weiterentwicklung der Webseite
+   1. z.B. grundsätzliche Präsentation von Veranstaltungen anpassen
+   2. neue Veranstaltungstypen einpflegen
+   3. neue Webseiten Elemente bzw. Unterseiten zu neuen Themen einpflegen
+
+## inhaltliche Anpassungen
+
+### einmalige Vorarbeiten
+
+Die Pflege findet bei Github statt im Git-Repository <https://github.com/MintFV/MintFV.github.io>
+Damit man Änderungen im Git-Repository vornehmen kann, braucht man einen [Github Account](https://docs.github.com/de/get-started/start-your-journey/creating-an-account-on-github).
+
+Den Namen des neu erstellten Accounts bitte Andreas nennen, dieser lädt dann den neuen Nutzer in das Repository ein mit Schreibrechten.
+
+### Pflege von Veranstaltungen
+
+TODO
+
+## Strukturelle Weiterentwicklung der Webseite
+
+TODO
+
+### Installation
 
 1. Ruby und Bundler installieren (falls noch nicht vorhanden)
 2. Dependencies installieren:
@@ -11,7 +39,9 @@ Diese Website verwendet das [Minimal Mistakes](https://mmistakes.github.io/minim
    bundle install
    ```
 
-## Lokale Entwicklung
+### Lokale Entwicklung
+
+Diese Website verwendet das [Minimal Mistakes](https://mmistakes.github.io/minimal-mistakes/) Jekyll-Theme.
 
 ```bash
 bundle exec jekyll serve
@@ -19,7 +49,7 @@ bundle exec jekyll serve
 
 Die Website ist dann unter `http://localhost:4000` erreichbar.
 
-## Verzeichnisstruktur
+### Verzeichnisstruktur
 
 - `_config.yml` - Haupt-Konfigurationsdatei
 - `index.md` - Startseite
@@ -29,33 +59,13 @@ Die Website ist dann unter `http://localhost:4000` erreichbar.
 - `assets/images/` - Bilder und Header-Grafiken
 - `Gemfile` - Ruby-Dependencies
 
-## Inhalte aktualisieren
-
-### Veranstaltungen
-
-Bearbeiten Sie die Datei `_pages/veranstaltungen.md`
-
-### Mitgliedschaft
-
-Bearbeiten Sie die Datei `_pages/mitgliedschaft.md`
-
-### Startseite
-
-Bearbeiten Sie die Datei `index.md`
-
-### Navigation
-
-Bearbeiten Sie die Datei `_data/navigation.yml`
-
-## Deployment
-
 Die Website kann auf verschiedenen Plattformen bereitgestellt werden:
 
 - **GitHub Pages**: Bei Push automatisch gebaut (bei Verwendung von `remote_theme`)
 - **Netlify**: Automatisches Deployment über Git
 - **Eigener Server**: Nach `bundle exec jekyll build` den `_site` Ordner hochladen
 
-## Theme-Dokumentation
+### Theme-Dokumentation
 
 Vollständige Dokumentation: [https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/](https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/)
 
