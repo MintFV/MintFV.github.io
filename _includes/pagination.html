@@ -1,0 +1,62 @@
+{% comment %}
+  Pagination-Komponente für Event-Listen
+
+  Verwendet Jekyll Paginate v2 wenn verfügbar, sonst einfache Navigation
+{% endcomment %}
+
+{% if paginator.total_pages > 1 %}
+<nav class="pagination" role="navigation" aria-label="Seitennavigation">
+  <ul class="pagination__list">
+    {% comment %} Vorherige Seite {% endcomment %}
+    {% if paginator.previous_page %}
+      <li class="pagination__item">
+        <a href="{{ paginator.previous_page_path | relative_url }}" class="pagination__link pagination__link--prev" rel="prev">
+          ← Zurück
+        </a>
+      </li>
+    {% else %}
+      <li class="pagination__item pagination__item--disabled">
+        <span class="pagination__link pagination__link--prev">
+          ← Zurück
+        </span>
+      </li>
+    {% endif %}
+
+    {% comment %} Seitenzahlen {% endcomment %}
+    {% for page in (1..paginator.total_pages) %}
+      {% if page == paginator.page %}
+        <li class="pagination__item pagination__item--active">
+          <span class="pagination__link" aria-current="page">{{ page }}</span>
+        </li>
+      {% elsif page == 1 %}
+        <li class="pagination__item">
+          <a href="{{ paginator.first_page_path | relative_url }}" class="pagination__link">{{ page }}</a>
+        </li>
+      {% else %}
+        <li class="pagination__item">
+          <a href="{{ site.paginate_path | relative_url | replace: ':num', page }}" class="pagination__link">{{ page }}</a>
+        </li>
+      {% endif %}
+    {% endfor %}
+
+    {% comment %} Nächste Seite {% endcomment %}
+    {% if paginator.next_page %}
+      <li class="pagination__item">
+        <a href="{{ paginator.next_page_path | relative_url }}" class="pagination__link pagination__link--next" rel="next">
+          Weiter →
+        </a>
+      </li>
+    {% else %}
+      <li class="pagination__item pagination__item--disabled">
+        <span class="pagination__link pagination__link--next">
+          Weiter →
+        </span>
+      </li>
+    {% endif %}
+  </ul>
+
+  <div class="pagination__info">
+    Seite {{ paginator.page }} von {{ paginator.total_pages }}
+  </div>
+</nav>
+{% endif %}

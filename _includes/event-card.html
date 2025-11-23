@@ -1,0 +1,100 @@
+{% comment %}
+  Wiederverwendbare Event-Karte für Übersichtsseiten
+
+  Parameter:
+  - event: Das Event-Objekt
+  - is_past: Boolean, ob das Event in der Vergangenheit liegt (für Styling)
+{% endcomment %}
+
+{% assign event_types = site.data.event_types %}
+{% assign event_type_data = event_types[event.event_type] %}
+
+{% comment %} Berechne ob Event in der Vergangenheit liegt {% endcomment %}
+{% assign now = site.time | date: '%s' %}
+{% assign event_start = event.start_date | date: '%s' %}
+{% assign is_past_event = false %}
+{% if event_start < now %}
+  {% assign is_past_event = true %}
+{% endif %}
+
+<article class="event-card {% if is_past_event or include.is_past %}event-card--past{% endif %} {% if event.cancelled %}event-card--cancelled{% endif %}"
+         data-event-type="{{ event.event_type }}"
+         style="border-left: 4px solid {{ event_type_data.color | default: '#ccc' }};">
+
+  {% comment %} Event Type Badge {% endcomment %}
+  <div class="event-card__badge" style="background-color: {{ event_type_data.color | default: '#ccc' }};">
+    <span class="event-card__emoji">{{ event_type_data.emoji }}</span>
+    <span class="event-card__type-name">{{ event_type_data.name }}</span>
+  </div>
+
+  {% comment %} Teaser-Bild (optional) {% endcomment %}
+  {% if event.teaser_image %}
+    <div class="event-card__image">
+      <img src="{{ event.teaser_image }}"
+           alt="{{ event.teaser_alt | default: event.title }}"
+           loading="lazy">
+    </div>
+  {% endif %}
+
+  <div class="event-card__content">
+    {% comment %} Titel {% endcomment %}
+    <h3 class="event-card__title">
+      <a href="{{ event.url }}">{{ event.title }}</a>
+    </h3>
+
+    {% comment %} Datum und Uhrzeit {% endcomment %}
+    <div class="event-card__datetime">
+      <time datetime="{{ event.start_date | date_to_xmlschema }}">
+        {% if event.end_date %}
+          {% comment %} Multi-Day Event {% endcomment %}
+          {% assign start_day = event.start_date | date: '%d.%m.%Y' %}
+          {% assign end_day = event.end_date | date: '%d.%m.%Y' %}
+          {% if start_day == end_day %}
+            {% comment %} Gleicher Tag, verschiedene Uhrzeiten {% endcomment %}
+            {{ event.start_date | date: '%d.%m.%Y, %H:%M' }} - {{ event.end_date | date: '%H:%M' }} Uhr
+          {% else %}
+            {% comment %} Mehrere Tage {% endcomment %}
+            {{ event.start_date | date: '%d.%m.%Y, %H:%M' }} Uhr<br>
+            bis {{ event.end_date | date: '%d.%m.%Y, %H:%M' }} Uhr
+          {% endif %}
+        {% else %}
+          {% comment %} Single Time Event {% endcomment %}
+          {{ event.start_date | date: '%d.%m.%Y, %H:%M' }} Uhr
+        {% endif %}
+      </time>
+    </div>
+
+    {% comment %} Ort (optional) {% endcomment %}
+    {% if event.location %}
+      <div class="event-card__location">
+        <span class="event-card__icon">📍</span>
+        {{ event.location }}
+      </div>
+    {% endif %}
+
+    {% comment %} Kurzbeschreibung {% endcomment %}
+    {% if event.excerpt %}
+      <div class="event-card__excerpt">
+        {{ event.excerpt }}
+      </div>
+    {% endif %}
+
+    {% comment %} Badges (Anmeldung, Abgesagt) {% endcomment %}
+    <div class="event-card__badges">
+      {% if event.cancelled %}
+        <span class="event-card__status-badge event-card__status-badge--cancelled">
+          ⚠️ Abgesagt
+        </span>
+      {% elsif event.registration_required %}
+        <span class="event-card__status-badge event-card__status-badge--registration">
+          ✉️ Anmeldung erforderlich
+        </span>
+      {% endif %}
+    </div>
+
+    {% comment %} Link zur Detailseite {% endcomment %}
+    <a href="{{ event.url }}" class="event-card__link">
+      Mehr erfahren →
+    </a>
+  </div>
+</article>
