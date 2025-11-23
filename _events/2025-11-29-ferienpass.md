@@ -1,0 +1,39 @@
+---
+event_type: ferienpass
+title: "Ferienpass Aktion: Umweltbox (ESP32) - Teil 2"
+start_date: 2025-11-29 13:00
+end_date: 2025-11-29 16:00
+excerpt: "Fortsetzung des Umweltbox-Workshops: Baue eine elektronische Umweltbox mit ESP32. Vorkenntnisse hilfreich, aber nicht erforderlich. Kostenfrei für 11-15 Jahre."
+published: true
+location: "MINTarium Mümmelmannsberg"
+teaser_image: /assets/images/events/umweltbox.jpg
+teaser_alt: "Umweltbox mit ESP32 Mikrocontroller"
+registration_required: true
+registration_email: info@mintarium-fv.de
+age_group: "11-15 Jahre"
+cost: "Kostenfrei"
+notes: "Dies ist eine Fortsetzungsveranstaltung. Vorkenntnisse aus dem ersten Umweltbox-Workshop sind hilfreich, aber nicht zwingend erforderlich."
+---
+
+## Beschreibung
+
+Du baust eine elektronische Umweltbox, mit der du Temperatur und Feuchtigkeit
+messen kannst. Die Teilnahme ist **kostenfrei**.
+
+Dies ist eine Fortsetzungsveranstaltung. Vorkenntnisse aus dem ersten Umweltbox-Workshop
+sind hilfreich, aber nicht zwingend erforderlich.
+
+## Was lernst du?
+
+- Löten von elektronischen Bauteilen
+- Programmierung von Mikrocontrollern (ESP32)
+- Umweltdaten messen und auswerten
+
+## Anmeldung
+
+Bitte melde dich per E-Mail an: [info@mintarium-fv.de](mailto:info@mintarium-fv.de)
+
+## Downloads
+
+- [Anmeldeformular](/assets/downloads/anmeldung_umweltbox.pdf)
+- [Materialliste](/assets/downloads/materialliste.pdf)

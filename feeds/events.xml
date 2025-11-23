@@ -1,0 +1,160 @@
+---
+layout: null
+permalink: /feeds/events.xml
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+     xmlns:atom="http://www.w3.org/2005/Atom"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>{{ site.name }} - Veranstaltungen</title>
+    <link>{{ site.url }}{{ site.baseurl }}/veranstaltungen/</link>
+    <description>Alle Veranstaltungen des Förderverein MINTarium Hamburg e.V.</description>
+    <language>de-DE</language>
+    <pubDate>{{ site.time | date_to_rfc822 }}</pubDate>
+    <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
+    <atom:link href="{{ '/feeds/events.xml' | absolute_url }}" rel="self" type="application/rss+xml"/>
+    <managingEditor>info@mintarium-fv.de ({{ site.name }})</managingEditor>
+    <webMaster>info@mintarium-fv.de ({{ site.name }})</webMaster>
+    <image>
+      <url>{{ '/assets/images/logo.png' | absolute_url }}</url>
+      <title>{{ site.name }}</title>
+      <link>{{ site.url }}{{ site.baseurl }}/</link>
+    </image>
+
+    {% comment %} Nehme die letzten 50 Events (oder alle verfügbaren) {% endcomment %}
+    {% assign all_events = site.events | where: "published", true | sort: "start_date" | reverse %}
+    {% assign feed_events = all_events | slice: 0, 50 %}
+
+    {% for event in feed_events %}
+      {% assign event_types = site.data.event_types %}
+      {% assign event_type_data = event_types[event.event_type] %}
+
+      <item>
+        <title>{{ event.title | xml_escape }}</title>
+        <link>{{ event.url | absolute_url }}</link>
+        <guid isPermaLink="true">{{ event.url | absolute_url }}</guid>
+        <pubDate>{{ event.start_date | date_to_rfc822 }}</pubDate>
+        <category>{{ event_type_data.name | xml_escape }}</category>
+
+        <description><![CDATA[
+          {% if event.cancelled %}<p><strong>⚠️ Diese Veranstaltung wurde abgesagt</strong></p>{% endif %}
+
+          <p><strong>Wann:</strong> {{ event.start_date | date: '%d.%m.%Y, %H:%M' }} Uhr
+          {% if event.end_date %}
+            {% assign start_day = event.start_date | date: '%d.%m.%Y' %}
+            {% assign end_day = event.end_date | date: '%d.%m.%Y' %}
+            {% if start_day == end_day %}
+              - {{ event.end_date | date: '%H:%M' }} Uhr
+            {% else %}
+              bis {{ event.end_date | date: '%d.%m.%Y, %H:%M' }} Uhr
+            {% endif %}
+          {% endif %}
+          </p>
+
+          {% if event.location %}
+            <p><strong>Wo:</strong> {{ event.location | xml_escape }}</p>
+          {% endif %}
+
+          {% if event.excerpt %}
+            <p>{{ event.excerpt | xml_escape }}</p>
+          {% endif %}
+
+          {% if event.registration_required %}
+            <p><strong>✉️ Anmeldung erforderlich</strong>
+            {% if event.registration_email %} bei <a href="mailto:{{ event.registration_email }}">{{ event.registration_email }}</a>{% endif %}
+            </p>
+          {% endif %}
+
+          {% if event.teaser_image %}
+            <p><img src="{{ event.teaser_image | absolute_url }}" alt="{{ event.title | xml_escape }}" style="max-width: 100%; height: auto;"></p>
+          {% endif %}
+        ]]></description>
+
+        <content:encoded><![CDATA[
+          {% if event.cancelled %}<div style="background-color: #fee; border: 2px solid #c00; padding: 1em; margin-bottom: 1em;"><strong>⚠️ Diese Veranstaltung wurde abgesagt</strong></div>{% endif %}
+
+          <div style="background-color: {{ event_type_data.color }}; padding: 0.5em 1em; margin-bottom: 1em;">
+            <strong>{{ event_type_data.emoji }} {{ event_type_data.name }}</strong>
+          </div>
+
+          <h2>{{ event.title | xml_escape }}</h2>
+
+          <p><strong>📅 Wann:</strong> {{ event.start_date | date: '%A, %d. %B %Y, %H:%M' }} Uhr
+          {% if event.end_date %}
+            {% assign start_day = event.start_date | date: '%d.%m.%Y' %}
+            {% assign end_day = event.end_date | date: '%d.%m.%Y' %}
+            {% if start_day == end_day %}
+              - {{ event.end_date | date: '%H:%M' }} Uhr
+            {% else %}
+              bis {{ event.end_date | date: '%A, %d. %B %Y, %H:%M' }} Uhr
+            {% endif %}
+          {% endif %}
+          </p>
+
+          {% if event.location %}
+            <p><strong>📍 Wo:</strong> {{ event.location | xml_escape }}</p>
+          {% endif %}
+
+          {% if event.age_group %}
+            <p><strong>👥 Alter:</strong> {{ event.age_group | xml_escape }}</p>
+          {% endif %}
+
+          {% if event.cost %}
+            <p><strong>💶 Kosten:</strong> {{ event.cost | xml_escape }}</p>
+          {% endif %}
+
+          {% if event.teaser_image %}
+            <p><img src="{{ event.teaser_image | absolute_url }}" alt="{{ event.teaser_alt | default: event.title | xml_escape }}" style="max-width: 100%; height: auto;"></p>
+          {% endif %}
+
+          {{ event.content }}
+
+          {% if event.registration_required and event.registration_email %}
+            <div style="background-color: #e8f5e9; border-left: 4px solid #4caf50; padding: 1em; margin: 1em 0;">
+              <h3>✉️ Anmeldung</h3>
+              <p>Für diese Veranstaltung ist eine Anmeldung erforderlich.</p>
+              {% if event.registration_deadline %}
+                <p><strong>Anmeldefrist:</strong> {{ event.registration_deadline | date: '%d.%m.%Y' }}</p>
+              {% endif %}
+              {% if event.max_participants %}
+                <p><strong>Maximale Teilnehmerzahl:</strong> {{ event.max_participants }}</p>
+              {% endif %}
+              <p><a href="mailto:{{ event.registration_email }}?subject={{ event.title | uri_escape }}">Jetzt per E-Mail anmelden: {{ event.registration_email }}</a></p>
+            </div>
+          {% endif %}
+
+          {% if event.notes %}
+            <div style="background-color: #fff3cd; border-left: 4px solid #ffc107; padding: 1em; margin: 1em 0;">
+              <h3>ℹ️ Wichtige Hinweise</h3>
+              <p>{{ event.notes | xml_escape }}</p>
+            </div>
+          {% endif %}
+
+          <hr>
+          <p><a href="{{ event.url | absolute_url }}">Vollständige Details zur Veranstaltung ansehen</a></p>
+        ]]></content:encoded>
+
+        {% if event.teaser_image %}
+          {% assign teaser_ext = event.teaser_image | split: '.' | last | downcase %}
+          {% case teaser_ext %}
+            {% when 'jpg' or 'jpeg' %}
+              {% assign teaser_mime = 'image/jpeg' %}
+            {% when 'png' %}
+              {% assign teaser_mime = 'image/png' %}
+            {% when 'gif' %}
+              {% assign teaser_mime = 'image/gif' %}
+            {% when 'svg' %}
+              {% assign teaser_mime = 'image/svg+xml' %}
+            {% else %}
+              {% assign teaser_mime = 'image/*' %}
+          {% endcase %}
+          <enclosure url="{{ event.teaser_image | absolute_url }}" type="{{ teaser_mime }}"/>
+        {% endif %}
+
+        <dc:creator>{{ site.name }}</dc:creator>
+      </item>
+    {% endfor %}
+  </channel>
+</rss>

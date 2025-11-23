@@ -53,3 +53,35 @@ Wenig bis gar nicht technisch versierte Menschen. Ggf. kann man diesen Menschen 
 - <https://www.mintarium-fv.de/>
 
 im Wesentlichen ist das eine Single-Page Website, analysiere diese, wenn es Dir möglich ist.
+
+## Prompt für Decap + Veranstaltungsseite
+
+Für unsere Vereinswebsite habe ich mit jekyll angefangen einige Dateien und Konfigurationen anzulegen, siehe auch: <https://github.com/MintFV/MintFV.github.io/>
+
+Wir publishen diese Dateien via github. Zur vereinfachten Bearbeitung soll decap benutzt werden. Vor allem für unsere verschiedenen Veranstaltungstypen:
+
+- Mach mit Mathe - Austellung
+- offene Werkstatt
+- Ferienpass Aktionen
+- sonstige Veranstaltungen
+
+die offene Werkstatt ist ca. zweimal im Monat, die Mach mit Mathe Austellung ist einmal im Monat, die Ferienpass Aktionen finden zweimal im Jahr statt, von den sonstigen Verstaltungen gibt es ca. 6 im Jahr.
+
+Die Frage ist, wie wir für Vereinsmitglieder, die von Technik keine Ahnung haben, em einfachsten auf der decap Weboberfläche abbilden und ggf. auch in jekyll?
+
+### Darstellung der Veranstaltungen
+
+Es gibt eine zentrale Übersichtsveranstaltungseite mit
+
+- absteigende Sortierung nach Datum
+- es werden insgesamt maximal 6 Einträge gezeigt
+- vier Einträge enthalten ab den aktuellen Tag in die Zukunft Veranstaltungen
+- zwei Einträge sind aus der Vergangenheit, Darstellung leicht ausgegraut ( es soll der Effekt der Kontinuität entstehen )
+- die verschiedenen Veranstaltungstypen haben unterschiedliche Hintergrundfarben. Die Hintergrundfarben sind ganz dezent und sollen nur zur leichten optischen Unterscheidung dienen.
+
+Dazu soll es folgende Zusatzseiten geben:
+
+- Vergangenheit - Zeitraum ein Jahr und dann mit Pagination für die Jahre davor
+- Zukunft - Zeitraum: nächster Monat und dann mit Pagination für weitere Monate
+- Zukunft - Zeitraum: nächstes Jahr und dann mit Pagination für die nächsten Jahre
+- optional: auf allen Seiten gibt es Filter für die verschiedenen Verstanstaltungstypen

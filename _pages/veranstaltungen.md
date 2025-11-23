@@ -1,53 +1,92 @@
 ---
 layout: single
-title: "Öffentliche Veranstaltungen"
+title: "Veranstaltungen"
 permalink: /veranstaltungen/
-toc: true
-toc_label: "Veranstaltungen"
-toc_icon: "calendar"
+header:
+  overlay_color: "#5e616c"
+  overlay_filter: "0.5"
 ---
 
-## Öffentliche Veranstaltungen ab Herbst 2025
+<div class="events-overview">
+  
+  <div class="events-intro">
+    <p>Hier finden Sie unsere aktuellen und kommenden Veranstaltungen. Von interaktiven Mathematik-Ausstellungen über offene Werkstätten bis hin zu Ferienpass-Aktionen – entdecken Sie das vielfältige Angebot des Förderverein MINTarium Hamburg e.V.</p>
+  </div>
 
-[**Flyer – Gesamtübersicht aller Veranstaltungen im Herbst [Download]**](/assets/downloads/MINTarium_FV_Veranstaltungen_Herbst_2025.jpg)
+  {% comment %} Berechne jetzt und filtere Events {% endcomment %}
+  {% assign now = site.time | date: '%s' %}
+  {% assign upcoming_events = '' | split: '' %}
+  {% assign past_events = '' | split: '' %}
 
----
+  {% comment %} Sortiere alle veröffentlichten Events {% endcomment %}
+  {% assign all_events = site.events | where: "published", true | sort: "start_date" %}
 
-### Wir bauen eine Umweltbox – Ferienworkshop
+  {% for event in all_events %}
+    {% assign event_start = event.start_date | date: '%s' %}
+    {% if event_start >= now %}
+      {% assign upcoming_events = upcoming_events | push: event %}
+    {% else %}
+      {% assign past_events = past_events | push: event %}
+    {% endif %}
+  {% endfor %}
 
-**Termin:** Donnerstag, 30. Oktober 2025, 13:00 bis 16:00 Uhr
+  {% comment %} Nimm die ersten 4 zukünftigen Events {% endcomment %}
+  {% assign upcoming_display = upcoming_events | slice: 0, 4 %}
+  
+  {% comment %} Nimm die letzten 2 vergangenen Events (neueste zuerst) {% endcomment %}
+  {% assign past_events_reversed = past_events | reverse %}
+  {% assign past_display = past_events_reversed | slice: 0, 2 %}
 
-Du baust eine elektronische Umweltbox, mit der du Temperatur und Feuchtigkeit messen kannst. Die Teilnahme ist kostenlos. Alter ab 11 bis 15 Jahre, begründete Ausnahmen möglich. Vorkenntnisse sind keine erforderlich. Anmeldung erbeten bis zum 20. Oktober.
+  <div class="events-grid">
+    {% comment %} Zeige zukünftige Events {% endcomment %}
+    {% for event in upcoming_display %}
+      {% include event-card.html event=event is_past=false %}
+    {% endfor %}
 
-[Weitere Informationen](/assets/downloads/MINTarium_FV_Umweltbox_Oktober_2025.jpg){: .btn .btn--info}
+    {% comment %} Zeige vergangene Events {% endcomment %}
+    {% for event in past_display %}
+      {% include event-card.html event=event is_past=true %}
+    {% endfor %}
+  </div>
 
----
+  {% comment %} Hinweis wenn keine Events vorhanden {% endcomment %}
+  {% if upcoming_display.size == 0 and past_display.size == 0 %}
+    <div class="events-empty">
+      <p>Derzeit sind keine Veranstaltungen geplant. Schauen Sie bald wieder vorbei!</p>
+    </div>
+  {% endif %}
 
-### Ausstellung Mach-Mit-Mathe
+  {% comment %} Links zu Archiv-Seiten {% endcomment %}
+  <nav class="events-navigation">
+    {% if upcoming_events.size > 4 %}
+      <a href="/veranstaltungen/zukunft/" class="events-navigation__link">
+        Alle kommenden Veranstaltungen ansehen →
+      </a>
+    {% endif %}
 
-**Termine:**
-- Samstag, 27. September 2025, 14:00 bis 16:00 Uhr
-- Samstag, 29. November 2025, 14:00 bis 16:00 Uhr
+    {% if past_events.size > 2 %}
+      <a href="/veranstaltungen/archiv/" class="events-navigation__link">
+        Vergangene Veranstaltungen ansehen →
+      </a>
+    {% endif %}
+  </nav>
 
-Zahlreiche Exponate laden zum Knobeln, Ausprobieren und Tüfteln ein. Sie werden sich dem Reiz der Exponate kaum entziehen können.
+  {% comment %} iCal/RSS Feeds {% endcomment %}
+  <div class="events-feeds">
+    <h2>📅 Veranstaltungen abonnieren</h2>
+    <p>Bleiben Sie auf dem Laufenden:</p>
+    <div class="events-feeds__links">
+      <a href="/feeds/events.ical" class="events-feeds__link">
+        📅 iCal-Kalender abonnieren
+      </a>
+      <a href="/feeds/events.xml" class="events-feeds__link">
+        📰 RSS-Feed abonnieren
+      </a>
+    </div>
+  </div>
 
-**Eintritt frei**
+</div>
 
----
-
-### Offene Werkstatt für deine Projekte
-
-**Termine:** Vierzehntägig, ab 16. September jeden ersten und dritten Dienstag im Monat, 16 bis 19 Uhr
-
-3D Drucker, Roboter programmieren und mehr. Die Teilnahme ist kostenlos.
-
-{: .notice--warning}
-**Achtung:** Wegen Wartung der Rechner bleibt die Offene Werkstatt in den Herbstferien am 21.10. geschlossen.
-
-{: .notice--success}
-**NEU ab 4. November:** Experimente mit dem Mikrocontroller ESP32. Dieser Mikrocontroller kann für vielfältige Steuerungen und Messungen eingesetzt werden. Beispielsweise für Blumenbewässerungsanlagen, selbstfahrende Autos, Schadstoffwarnapps und vieles mehr. Hier kannst du auch eigene Ideen verwirklichen.
-
-[Weitere Informationen](/assets/downloads/MINTarium_FV_Mitmachwerkstatt.jpg){: .btn .btn--info}
 
 ---
 
