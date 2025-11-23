@@ -1,0 +1,25 @@
+---
+event_type: ferienpass
+title: "Ferienpass Aktion: Nao Roboter Programmierung"
+start_date: 2025-03-18 15:15
+excerpt: erste Nao Programmierung mit Roberta Lab
+published: true
+end_date: 2025-03-18 18:00
+location: MINTarium Eingang B - Mümmelmannsberg 75 - 20255 Hamburg
+teaser_image: /assets/images/NAO-Uli_frei_0744.jpg
+teaser_alt: Kinder programmieren den NAO Roboter
+registration_required: true
+registration_email: info@mintarium-fv.de
+max_participants: 12
+age_group: 9-19 Jahre
+cost: Kostenfrei
+---
+
+## Beschreibung
+
+Wir sind Sarah und Tim, zwei Roboter. Wir können gehen, tanzen, sprechen, singen und noch vieles mehr.
+Erwecke uns zum Leben und programmiere uns.
+
+Du wirst die Naos mit der Software OPEN ROBERTA (<https://lab.open-roberta.org/?loadSystem=nao>) programmieren. Es sind keine Vorkenntnisse erforderlich.
+Du bist noch keine 9 Jahre alt? Nach Absprache bist auch du willkommen, wenn du über erste Programmererfahrungen verfügst.
+Gerne kannst du auch schon ein kleines Programm auf einem USB-Stick mitbringen und dann an einem echtem Nao testen.

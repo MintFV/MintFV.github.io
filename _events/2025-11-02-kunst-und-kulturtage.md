@@ -1,0 +1,22 @@
+---
+event_type: sonstige
+title: "Präsentation des Vereins und Mitmachaktionen bei den Kunst- und Kulturtagen 2025"
+start_date: 2025-11-02 14:00
+end_date: 2025-11-02 17:00
+excerpt: "Wir präsentieren unseren Verein auf den Kunst- und Kulturtagen in Hamburg-Mümmelmannsberg mit einigen Logikpuzzeln und anderen Mitmachaktionen. Kommen Sie vorbei und lernen Sie uns kennen!"
+published: true
+location: "Stadteilschule Mümmelmannsberg"
+registration_required: false
+age_group: "4-99 Jahre"
+cost: "Kostenfrei"
+teaser_image: /assets/images/events/KuK-Logo-ohne-Hintergrund-small.png
+teaser_alt: "Logo der Kunst- und Kulturtage"
+---
+
+## Beschreibung
+
+Wir präsentieren unseren Verein auf den [Kunst- und Kulturtagen](https://www.kunst-und-kulturtage-muemmelmannsberg.de/) in Hamburg-Mümmelmannsberg mit einigen Logikpuzzeln und anderen Mitmachaktionen. Kommen Sie vorbei und lernen Sie uns kennen!
+
+## Anmeldung
+
+nicht notwendig, einfach vorbeikommen
