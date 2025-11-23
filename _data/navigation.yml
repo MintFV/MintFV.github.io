@@ -1,8 +1,6 @@
 main:
   - title: "Start"
     url: /
-  - title: "Veranstaltungen2"
-    url: /veranstaltungen2/
   - title: "Veranstaltungen"
     url: /veranstaltungen/
   - title: "Mitglied werden"
@@ -15,13 +13,6 @@ main:
     url: /datenschutz/
   - title: "Impressum"
     url: /impressum/
-  - title: "debugPosts"
-    url: /posts/
-  - title: "debugCategories"
-    url: /categories/
-  - title: "debugTags"
-    url: /tags/
-  - title: "debugAbout"
-    url: /about/
+
 
 
