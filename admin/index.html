@@ -1,13 +1,115 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="robots" content="noindex" />
-        <title>Content Manager</title>
+        <title>MINT.FV Veranstaltungsverwaltung</title>
+        <link rel="icon" type="image/png" href="/assets/favicon/favicon.png" />
     </head>
     <body>
-        <!-- Include the script that builds the page and powers Decap CMS -->
+        <!-- Decap CMS -->
         <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+<!-- Custom Script: Type-spezifische Defaults -->
+<script>
+    // Event Type Defaults - Zentrale Konfiguration
+    const EVENT_TYPE_DEFAULTS = {
+        'mach-mit-mathe': {
+            location: 'Ausstellungsraum',
+            registration_required: false,
+            registration_email: ''
+        },
+        'offene-werkstatt': {
+            location: 'Werkstatt',
+            registration_required: false,
+            registration_email: ''
+        },
+        'ferienpass': {
+            location: 'Vereinsräume',
+            registration_required: true,
+            registration_email: 'info@mintarium-fv.de'
+        },
+        'sonstige': {
+            location: '',
+            registration_required: false,
+            registration_email: 'info@mintarium-fv.de'
+        }
+    };
+
+    // Warte auf CMS-Initialisierung
+    CMS.registerEventListener({
+        name: 'preSave',
+        handler: ({ entry }) => {
+            // Wird vor dem Speichern ausgeführt
+            return entry;
+        }
+    });
+
+    // Custom Widget Event Listener für Event Type Änderungen
+    // Diese Funktion wird beim Laden und bei Änderungen des event_type aufgerufen
+    CMS.registerEditorComponent({
+        id: 'event-type-defaults',
+        label: 'Event Type Handler',
+        fields: [],
+        pattern: /^$/,
+        fromBlock: () => ({}),
+        toBlock: () => '',
+        toPreview: () => ''
+    });
+
+    // Globaler Event Listener für Feldänderungen
+    document.addEventListener('DOMContentLoaded', function () {
+        // Polling-Mechanismus, da Decap CMS asynchron lädt
+        let retryCount = 0;
+        const maxRetries = 50;
+
+        const initializeEventTypeHandler = () => {
+            // Suche nach dem Event Type Select-Element
+            const eventTypeSelect = document.querySelector('select[name="event_type"]');
+
+            if (eventTypeSelect) {
+                console.log('Event Type Handler initialisiert');
+
+                eventTypeSelect.addEventListener('change', function (e) {
+                    const selectedType = e.target.value;
+                    const defaults = EVENT_TYPE_DEFAULTS[selectedType];
+
+                    if (defaults) {
+                        console.log('Setze Defaults für Typ:', selectedType);
+
+                        // Finde und setze die entsprechenden Felder
+                        setTimeout(() => {
+                            // Location
+                            const locationInput = document.querySelector('input[name="location"]');
+                            if (locationInput && !locationInput.value) {
+                                locationInput.value = defaults.location;
+                                locationInput.dispatchEvent(new Event('input', { bubbles: true }));
+                            }
+
+                            // Registration Required
+                            const regRequiredSelect = document.querySelector('select[name="registration_required"]');
+                            if (regRequiredSelect) {
+                                regRequiredSelect.value = defaults.registration_required;
+                                regRequiredSelect.dispatchEvent(new Event('change', { bubbles: true }));
+                            }
+
+                            // Registration Email
+                            const regEmailInput = document.querySelector('input[name="registration_email"]');
+                            if (regEmailInput && !regEmailInput.value) {
+                                regEmailInput.value = defaults.registration_email;
+                                regEmailInput.dispatchEvent(new Event('input', { bubbles: true }));
+                            }
+                        }, 100);
+                    }
+                });
+            } else if (retryCount < maxRetries) {
+                retryCount++;
+                setTimeout(initializeEventTypeHandler, 200);
+            }
+        };
+
+        initializeEventTypeHandler();
+    });
+</script>
     </body>
 </html>
