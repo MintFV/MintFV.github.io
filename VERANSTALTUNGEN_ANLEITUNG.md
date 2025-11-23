@@ -237,7 +237,9 @@ Nach dem Speichern/Veröffentlichen dauert es ca. 2-5 Minuten, bis die Änderung
 ## Support
 
 Bei Fragen oder Problemen wenden Sie sich an:
-- **E-Mail:** webmaster@mintfv.de
+
+- **Website:** https://www.mintarium-fv.de/
+- **E-Mail:** <info@mintarium-fv.de>
 - **GitHub Issues:** https://github.com/MintFV/MintFV.github.io/issues
 
 ## Feeds

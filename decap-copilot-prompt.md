@@ -50,7 +50,7 @@ Das System muss 4 verschiedene Veranstaltungstypen unterscheiden:
 ### 4. Sonstige Veranstaltungen
 - **Frequenz:** ~6x pro Jahr
 - **Anmeldung:** Standard NEIN
-- **E-Mail:** info@mintfv.de (falls Anmeldung aktiviert wird)
+- **E-Mail:** <info@mintarium-fv.de> (falls Anmeldung aktiviert wird)
 - **Farbe:** Dezentes Helllila (#F5F0F8 oder ähnlich)
 
 **Wichtig:** Die Farben dienen nur zur dezenten visuellen Unterscheidung, nicht als dominantes Design-Element.

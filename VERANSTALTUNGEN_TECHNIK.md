@@ -469,13 +469,15 @@ Option 2: **GitHub OAuth App**
 
 ## Support & Weiterentwicklung
 
+**Website:** https://www.mintarium-fv.de/
+
 **Repository:** https://github.com/MintFV/MintFV.github.io
 
 **Issues:** https://github.com/MintFV/MintFV.github.io/issues
 
 **Pull Requests:** Willkommen!
 
-**Kontakt:** webmaster@mintfv.de
+**Kontakt:** <info@mintarium-fv.de>
 
 ## Lizenz
 

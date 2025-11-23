@@ -54,7 +54,7 @@ Wenig bis gar nicht technisch versierte Menschen. Ggf. kann man diesen Menschen 
 
 im Wesentlichen ist das eine Single-Page Website, analysiere diese, wenn es Dir möglich ist.
 
-## Prmopt für Decap + Verstanstaltungsseite
+## Prompt für Decap + Veranstaltungsseite
 
 Für unsere Vereinswebsite habe ich mit jekyll angefangen einige Dateien und Konfigurationen anzulegen, siehe auch: <https://github.com/MintFV/MintFV.github.io/>
 
