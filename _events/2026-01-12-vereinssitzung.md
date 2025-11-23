@@ -1,0 +1,42 @@
+---
+event_type: sonstige
+title: "Vereinssitzung Januar 2026"
+start_date: 2026-01-12 16:15
+end_date: 2026-01-12 18:15
+excerpt: "Einladung regelmäßiger Sitzungen des Fördervereins MINTarium Hamburg e.V."
+published: true
+location: "Vereinsräume"
+registration_email: "info@mintarium-fv.de"
+registration_required: true
+organizers:
+  - "Vorstand"
+---
+
+## Einladung zur Jahresvollversammlung
+
+Liebe Mitglieder des Fördervereins MINTarium Hamburg e.V.,
+
+hiermit laden wir herzlich zur **Vereinssitzung im Januar 2026** ein.
+
+### Tagesordnung
+
+1. Begrüßung und Feststellung der Beschlussfähigkeit
+2. Genehmigung der Tagesordnung
+3. Genehmigung des Protokolls der letzten Mitgliederversammlung
+4. _____ ist noch zu ergänzen _____
+
+
+### Teilnahme
+
+Alle ordentlichen Mitglieder, deren Mitgliedsbeitrag für 2026 eingegangen sind. Gäste sind herzlich willkommen.
+
+
+### Parken und Anfahrt
+
+- **ÖPNV:** U-Bahn Mümmelmannsberg, 5 Minuten Fußweg
+- **Parkplätze:** Begrenzte Parkmöglichkeiten vor Ort
+
+Wir freuen uns auf eine rege Teilnahme und einen konstruktiven Austausch!
+
+Mit freundlichen Grüßen  
+Der Vorstand

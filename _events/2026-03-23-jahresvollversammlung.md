@@ -1,0 +1,55 @@
+---
+event_type: sonstige
+title: Vereins-Jahresvollversammlung 2026
+start_date: 2026-03-22 16:15
+end_date: 2026-03-22 18:15
+excerpt: Einladung zur ordentlichen Jahresvollversammlung des Fördervereins
+  MINTarium Hamburg e.V.
+published: true
+location: Vereinsräume
+registration_required: true
+registration_email: info@mintarium-fv.de
+organizers:
+  - Vorstand
+---
+
+## Einladung zur Jahresvollversammlung
+
+Liebe Mitglieder des Fördervereins MINTarium Hamburg e.V.,
+
+hiermit laden wir herzlich zur **ordentlichen Jahresvollversammlung 2026** ein.
+
+### Tagesordnung
+
+1. Begrüßung und Feststellung der Beschlussfähigkeit
+2. Genehmigung der Tagesordnung
+3. Genehmigung des Protokolls der letzten Mitgliederversammlung
+4. Bericht des Vorstands über das Geschäftsjahr 2025
+5. Bericht des Schatzmeisters und Kassenprüfung
+6. Entlastung des Vorstands
+7. Wahl des Vorstands (soweit erforderlich)
+8. Wahl der Kassenprüfer
+9. Planung und Projekte für 2026
+10. Verschiedenes
+
+### Anträge
+
+Anträge zur Tagesordnung können bis zum **03. März 2026** schriftlich beim Vorstand eingereicht werden:
+
+**E-Mail:** info@mintarium-fv.de
+**Post:** Förderverein MINTarium Hamburg e.V., Mümmelmannsberg 75, 22115 Hamburg
+
+### Teilnahme
+
+Stimmberechtigt sind alle ordentlichen Mitglieder, deren Mitgliedsbeitrag für 2026 eingegangen sind. Gäste sind herzlich willkommen.
+
+
+### Parken und Anfahrt
+
+- **ÖPNV:** U-Bahn Mümmelmannsberg, 5 Minuten Fußweg
+- **Parkplätze:** Begrenzte Parkmöglichkeiten vor Ort
+
+Wir freuen uns auf eine rege Teilnahme und einen konstruktiven Austausch!
+
+Mit freundlichen Grüßen  
+Der Vorstand
