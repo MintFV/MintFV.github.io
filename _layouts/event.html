@@ -1,0 +1,202 @@
+---
+layout: default
+---
+
+{% assign event_types = site.data.event_types %}
+{% assign event_type_data = event_types[page.event_type] %}
+
+<article class="event-detail" itemscope itemtype="https://schema.org/Event">
+
+  {% comment %} Abgesagt-Banner {% endcomment %}
+  {% if page.cancelled %}
+    <div class="event-detail__cancelled-banner">
+      <strong>⚠️ Diese Veranstaltung wurde abgesagt</strong>
+    </div>
+  {% endif %}
+
+  {% comment %} Header {% endcomment %}
+  <header class="event-detail__header">
+    <div class="event-detail__type-badge" style="background-color: {{ event_type_data.color }};">
+      <span class="event-detail__emoji">{{ event_type_data.emoji }}</span>
+      <span>{{ event_type_data.name }}</span>
+    </div>
+
+    <h1 class="event-detail__title" itemprop="name">{{ page.title }}</h1>
+
+    <div class="event-detail__meta">
+      {% comment %} Datum und Uhrzeit {% endcomment %}
+      <div class="event-detail__datetime">
+        <strong>📅 Wann:</strong>
+        <time datetime="{{ page.start_date | date_to_xmlschema }}" itemprop="startDate">
+          {{ page.start_date | date: '%A, %d. %B %Y, %H:%M' }} Uhr
+        </time>
+        {% if page.end_date %}
+          <br>bis
+          <time datetime="{{ page.end_date | date_to_xmlschema }}" itemprop="endDate">
+            {% assign start_day = page.start_date | date: '%d.%m.%Y' %}
+            {% assign end_day = page.end_date | date: '%d.%m.%Y' %}
+            {% if start_day == end_day %}
+              {{ page.end_date | date: '%H:%M' }} Uhr
+            {% else %}
+              {{ page.end_date | date: '%A, %d. %B %Y, %H:%M' }} Uhr
+            {% endif %}
+          </time>
+        {% endif %}
+      </div>
+
+      {% comment %} Ort {% endcomment %}
+      {% if page.location %}
+        <div class="event-detail__location" itemprop="location" itemscope itemtype="https://schema.org/Place">
+          <strong>📍 Wo:</strong>
+          <span itemprop="name">{{ page.location }}</span>
+        </div>
+      {% endif %}
+
+      {% comment %} Altersgruppe {% endcomment %}
+      {% if page.age_group %}
+        <div class="event-detail__age">
+          <strong>👥 Alter:</strong>
+          {{ page.age_group }}
+        </div>
+      {% endif %}
+
+      {% comment %} Kosten {% endcomment %}
+      {% if page.cost %}
+        <div class="event-detail__cost">
+          <strong>💶 Kosten:</strong>
+          {{ page.cost }}
+        </div>
+      {% endif %}
+    </div>
+  </header>
+
+  {% comment %} Teaser-Bild {% endcomment %}
+  {% if page.teaser_image %}
+    <figure class="event-detail__teaser-image">
+      <img src="{{ page.teaser_image }}"
+           alt="{{ page.teaser_alt | default: page.title }}"
+           itemprop="image">
+      {% if page.teaser_alt %}
+        <figcaption>{{ page.teaser_alt }}</figcaption>
+      {% endif %}
+    </figure>
+  {% endif %}
+
+  {% comment %} Hauptinhalt {% endcomment %}
+  <div class="event-detail__content" itemprop="description">
+    {{ content }}
+  </div>
+
+  {% comment %} Anmeldebereich {% endcomment %}
+  {% if page.registration_required and page.registration_email %}
+    <aside class="event-detail__registration">
+      <h2>✉️ Anmeldung</h2>
+
+      <p>
+        Für diese Veranstaltung ist eine Anmeldung erforderlich.
+      </p>
+
+      {% if page.registration_deadline %}
+        <p>
+          <strong>Anmeldefrist:</strong> {{ page.registration_deadline | date: '%d.%m.%Y' }}
+        </p>
+      {% endif %}
+
+      {% if page.max_participants %}
+        <p>
+          <strong>Maximale Teilnehmerzahl:</strong> {{ page.max_participants }}
+        </p>
+      {% endif %}
+
+      <a href="mailto:{{ page.registration_email }}?subject=Anmeldung: {{ page.title | uri_escape }}"
+         class="event-detail__registration-btn">
+        Jetzt per E-Mail anmelden
+      </a>
+
+      <p class="event-detail__registration-hint">
+        Die Anmeldung erfolgt per E-Mail an:
+        <a href="mailto:{{ page.registration_email }}">{{ page.registration_email }}</a>
+      </p>
+    </aside>
+  {% endif %}
+
+  {% comment %} Bildergalerie (für Nachberichte) {% endcomment %}
+  {% if page.gallery and page.gallery.size > 0 %}
+    <section class="event-detail__gallery">
+      <h2>📷 Impressionen</h2>
+
+      <div class="event-gallery">
+        {% for item in page.gallery %}
+          <figure class="event-gallery__item">
+            <img src="{{ item.image }}"
+                 alt="{{ item.caption | default: page.title }}"
+                 loading="lazy">
+            {% if item.caption %}
+              <figcaption>{{ item.caption }}</figcaption>
+            {% endif %}
+          </figure>
+        {% endfor %}
+      </div>
+    </section>
+  {% endif %}
+
+  {% comment %} Verantwortliche Personen {% endcomment %}
+  {% if page.organizers and page.organizers.size > 0 %}
+    <div class="event-detail__organizers">
+      <strong>Organisation:</strong>
+      {{ page.organizers | join: ', ' }}
+    </div>
+  {% endif %}
+
+  {% comment %} Besondere Hinweise {% endcomment %}
+  {% if page.notes %}
+    <aside class="event-detail__notes">
+      <h2>ℹ️ Wichtige Hinweise</h2>
+      <p>{{ page.notes }}</p>
+    </aside>
+  {% endif %}
+
+  {% comment %} Aktionsbereich {% endcomment %}
+  <footer class="event-detail__actions">
+    <a href="/veranstaltungen/" class="event-detail__action-btn event-detail__action-btn--secondary">
+      ← Zurück zur Übersicht
+    </a>
+
+    <a href="/feeds/events.ical" class="event-detail__action-btn">
+      📅 Kalender abonnieren
+    </a>
+  </footer>
+
+</article>
+
+{% comment %} Schema.org Structured Data {% endcomment %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "{{ page.title | escape }}",
+  "startDate": "{{ page.start_date | date_to_xmlschema }}",
+  {% if page.end_date %}"endDate": "{{ page.end_date | date_to_xmlschema }}",{% endif %}
+  {% if page.location %}
+  "location": {
+    "@type": "Place",
+    "name": "{{ page.location | escape }}"
+  },
+  {% endif %}
+  "description": "{{ page.excerpt | default: content | strip_html | truncate: 200 | escape }}",
+  {% if page.teaser_image %}"image": "{{ page.teaser_image | absolute_url }}",{% endif %}
+  "organizer": {
+    "@type": "Organization",
+    "name": "Förderverein MINTarium Hamburg e.V.",
+    "url": "{{ site.url }}"
+  }
+  {% if page.registration_required and page.registration_email %}
+  ,"offers": {
+    "@type": "Offer",
+    "url": "{{ page.url | absolute_url }}",
+    {% if page.cost %}"price": "{{ page.cost }}",{% endif %}
+    "availability": "https://schema.org/InStock"
+  }
+  {% endif %}
+}
+</script>

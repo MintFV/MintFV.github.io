@@ -124,7 +124,11 @@ plugins:
   - jekyll-include-cache
   # - jemoji
 
-
+# Collections
+collections:
+  events:
+    output: true
+    permalink: /veranstaltungen/:categories/:title/
 
 # Archives
 category_archive:
@@ -160,6 +164,13 @@ defaults:
       layout: single
       author_profile: false
 
+  # _events
+  - scope:
+      path: ""
+      type: events
+    values:
+      layout: event
+      author_profile: false
 category_archive:
   type: liquid
   path: /categories/

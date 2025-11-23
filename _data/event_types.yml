@@ -1,0 +1,48 @@
+# Zentrale Definition der Veranstaltungstypen
+# Diese Datei ist die Single Source of Truth für:
+# - Type-Namen und Emojis
+# - Farbkodierung
+# - Standard-Einstellungen (Ort, Anmeldung, E-Mail)
+
+mach-mit-mathe:
+  name: "Mach mit Mathe - Ausstellung"
+  emoji: "🎨"
+  color: "#E8F4F8"
+  defaults:
+    location: "MINTarium Eingang A / Austellungsraum - Mümmelmannsberg 75 - 20255 Hamburg"
+    registration_required: false
+    registration_email: ""
+  description: "Monatliche interaktive Mathematik-Ausstellung"
+
+offene-werkstatt:
+  name: "Offene Werkstatt"
+  emoji: "🔧"
+  color: "#F0F8E8"
+  defaults:
+    location: "MINTarium Eingang B - Mümmelmannsberg 75 - 20255 Hamburg"
+    registration_required: false
+    registration_email: ""
+    organizers:
+      - "Jan Evers"
+      - "Christoph Büchler"
+  description: "Zweiwöchentliche offene Werkstatt für praktische Projekte"
+
+ferienpass:
+  name: "Ferienpass Aktion"
+  emoji: "🎪"
+  color: "#FFF4E6"
+  defaults:
+    location: "MINTarium Eingang B - Mümmelmannsberg 75 - 20255 Hamburg"
+    registration_required: true
+    registration_email: "info@mintarium-fv.de"
+  description: "Ferienpass-Aktionen für Kinder und Jugendliche"
+
+sonstige:
+  name: "Sonstige Veranstaltung"
+  emoji: "📅"
+  color: "#F5F0F8"
+  defaults:
+    location: "MINTarium Eingang A - Mümmelmannsberg 75 - 20255 Hamburg"
+    registration_required: false
+    registration_email: "info@mintarium-fv.de"
+  description: "Weitere Veranstaltungen des Vereins"
