@@ -5,10 +5,28 @@
 
 backend:
   name: github
-  repo: MintFV/MintFV.github.io # IHR REPOSITORY: PASST BEREITS!
-  branch: main # Der Branch, auf dem gearbeitet wird. "main" ist korrekt.
-  auth_type: pkce   # Wichtig für GitHub OAuth
-  app_id: Ov23liiHLrjZZ52DlUh2 ##
+  repo: MintFV/MintFV.github.io
+  branch: main
+  auth_type: pkce
+  app_id: Ov23liiHLrjZZ52DlUh2
+
+
+# backend:
+#   name: github
+#   repo: MintFV/MintFV.github.io # IHR REPOSITORY: PASST BEREITS!
+#   branch: main # Der Branch, auf dem gearbeitet wird. "main" ist korrekt.
+#   # base_url: https://api.netlify.com
+#   site_domain: mintfv-cms.netlify.app  # <-- Dein Netlify Site-Name!
+#   auth_endpoint: auth
+#   ## auth_type: pkce   # Wichtig für GitHub OAuth
+#   ## app_id: Ov23liiHLrjZZ52DlUh2 ##
+
+# backend:
+#   name: github
+#   repo: MintFV/MintFV.github.io
+#   branch: main  # oder master, je nach Ihrem Hauptbranch
+#   base_url: https://api.netlify.com
+#   auth_endpoint: aut
 
 # Media-Verwaltung
 media_folder: "assets/images/events"
