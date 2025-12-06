@@ -7,9 +7,8 @@ backend:
   name: github
   repo: MintFV/MintFV.github.io # IHR REPOSITORY: PASST BEREITS!
   branch: main # Der Branch, auf dem gearbeitet wird. "main" ist korrekt.
-  # Wenn Sie GitHub Pages ohne Netlify nutzen, benötigen Sie zusätzlich eine
-  # serverseitige OAuth-Lösung. Siehe Doku zu "Authentication".
-  # Für den Start mit Netlify ist dies die einfachste Konfiguration.
+  auth_type: pkce   # Wichtig für GitHub OAuth
+  app_id: Ov23liiHLrjZZ52DlUh2 ##
 
 # Media-Verwaltung
 media_folder: "assets/images/events"
