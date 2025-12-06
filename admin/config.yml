@@ -1,7 +1,7 @@
 # /admin/config.yml
 # Decap CMS Konfiguration für MINT.FV Veranstaltungsverwaltung
 
-local_backend: true # diese Zeile aktivieren, bevor Sie lokal testen
+## local_backend: true # diese Zeile aktivieren, bevor Sie lokal testen
 
 backend:
   name: github
