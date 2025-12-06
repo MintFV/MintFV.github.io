@@ -4,11 +4,18 @@
 ## local_backend: true # diese Zeile aktivieren, bevor Sie lokal testen
 
 backend:
-  name: github
-  repo: MintFV/MintFV.github.io
+  name: git-gateway
   branch: main
-  auth_type: pkce
-  app_id: Ov23liiHLrjZZ52DlUh2
+site_url: https://mintfv.github.io
+netlify_site_domain: mintfv-cms.netlify.app
+
+
+# backend:
+#   name: github
+#   repo: MintFV/MintFV.github.io
+#   branch: main
+#   auth_type: pkce
+#   app_id: Ov23liiHLrjZZ52DlUh2
 
 
 # backend:
