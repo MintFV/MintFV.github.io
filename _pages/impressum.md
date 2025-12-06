@@ -18,4 +18,4 @@ Eingetragen beim Amtsgericht Hamburg.
 **Vereins-Register-Nr.:** VR 16397
 
 **Vertretungsberechtigte Personen im Vorstand:**
-Heike Elvers, Antje Radke, Jan Evers
+Heike Elvers, Antje Radke
