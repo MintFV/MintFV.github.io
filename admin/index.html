@@ -1,115 +1,180 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="robots" content="noindex" />
-        <title>MINT.FV Veranstaltungsverwaltung</title>
-        <link rel="icon" type="image/png" href="/assets/favicon/favicon.png" />
-    </head>
-    <body>
-        <!-- Decap CMS -->
-        <script src="https://unpkg.com/decap-cms@^3.9.0/dist/decap-cms.js"></script>
-<!-- Custom Script: Type-spezifische Defaults -->
-<script>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>MINT.FV Content Manager</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+</head>
+<body>
+  <!-- Decap CMS 3.9.0 - Aktuelle stabile Version -->
+  <script src="https://unpkg.com/decap-cms@3.9.0/dist/decap-cms.js"></script>
+
+  <!-- Custom Configuration & Event Handlers -->
+  <script>
     // Event Type Defaults - Zentrale Konfiguration
     const EVENT_TYPE_DEFAULTS = {
-        'mach-mit-mathe': {
-            location: 'Ausstellungsraum',
-            registration_required: false,
-            registration_email: ''
-        },
-        'offene-werkstatt': {
-            location: 'Werkstatt',
-            registration_required: false,
-            registration_email: ''
-        },
-        'ferienpass': {
-            location: 'Vereinsräume',
-            registration_required: true,
-            registration_email: 'info@mintarium-fv.de'
-        },
-        'sonstige': {
-            location: '',
-            registration_required: false,
-            registration_email: 'info@mintarium-fv.de'
-        }
+      'mach-mit-mathe': {
+        location: 'Ausstellungsraum',
+        registration_required: false,
+        registration_email: ''
+      },
+      'offene-werkstatt': {
+        location: 'Werkstatt',
+        registration_required: false,
+        registration_email: ''
+      },
+      'ferienpass': {
+        location: 'Vereinsräume',
+        registration_required: true,
+        registration_email: 'info@mintarium-fv.de'
+      },
+      'sonstige': {
+        location: '',
+        registration_required: false,
+        registration_email: 'info@mintarium-fv.de'
+      }
     };
 
-    // Warte auf CMS-Initialisierung
-    CMS.registerEventListener({
+    // Warte auf vollständige CMS-Initialisierung
+    function initDecapCMS() {
+      if (typeof CMS === 'undefined') {
+        console.warn('Decap CMS nicht geladen, warte...');
+        setTimeout(initDecapCMS, 100);
+        return;
+      }
+
+      console.log('Decap CMS 3.9.0 initialisiert');
+
+      // PreSave Hook - Validierung vor dem Speichern
+      CMS.registerEventListener({
         name: 'preSave',
         handler: ({ entry }) => {
-            // Wird vor dem Speichern ausgeführt
-            return entry;
+          console.log('PreSave Hook ausgeführt für:', entry.get('title'));
+
+          // Hier können Sie Validierungen hinzufügen
+          const eventType = entry.getIn(['data', 'event_type']);
+          const registrationRequired = entry.getIn(['data', 'registration_required']);
+          const registrationEmail = entry.getIn(['data', 'registration_email']);
+
+          // Validierung: Wenn Anmeldung erforderlich, muss Email vorhanden sein
+          if (registrationRequired && !registrationEmail) {
+            console.warn('Warnung: Anmeldung erforderlich, aber keine Email angegeben');
+          }
+
+          return entry;
         }
-    });
+      });
 
-    // Custom Widget Event Listener für Event Type Änderungen
-    // Diese Funktion wird beim Laden und bei Änderungen des event_type aufgerufen
-    CMS.registerEditorComponent({
-        id: 'event-type-defaults',
-        label: 'Event Type Handler',
-        fields: [],
-        pattern: /^$/,
-        fromBlock: () => ({}),
-        toBlock: () => '',
-        toPreview: () => ''
-    });
+      // PostSave Hook - Aktionen nach dem Speichern
+      CMS.registerEventListener({
+        name: 'postSave',
+        handler: ({ entry }) => {
+          console.log('Event gespeichert:', entry.get('title'));
+        }
+      });
 
-    // Globaler Event Listener für Feldänderungen
-    document.addEventListener('DOMContentLoaded', function () {
-        // Polling-Mechanismus, da Decap CMS asynchron lädt
-        let retryCount = 0;
-        const maxRetries = 50;
+      // Login Hook
+      CMS.registerEventListener({
+        name: 'login',
+        handler: ({ author }) => {
+          console.log('Benutzer angemeldet:', author);
+        }
+      });
 
-        const initializeEventTypeHandler = () => {
-            // Suche nach dem Event Type Select-Element
-            const eventTypeSelect = document.querySelector('select[name="event_type"]');
+      // Logout Hook
+      CMS.registerEventListener({
+        name: 'logout',
+        handler: () => {
+          console.log('Benutzer abgemeldet');
+        }
+      });
 
-            if (eventTypeSelect) {
-                console.log('Event Type Handler initialisiert');
+      // Custom Preview Styles (optional)
+      CMS.registerPreviewStyle('/admin/preview.css');
 
-                eventTypeSelect.addEventListener('change', function (e) {
-                    const selectedType = e.target.value;
-                    const defaults = EVENT_TYPE_DEFAULTS[selectedType];
+      console.log('Alle Event Listener registriert');
+    }
 
-                    if (defaults) {
-                        console.log('Setze Defaults für Typ:', selectedType);
+    // Event Type Handler mit MutationObserver (robuster als DOMContentLoaded)
+    function setupEventTypeHandler() {
+      let isHandlerAttached = false;
 
-                        // Finde und setze die entsprechenden Felder
-                        setTimeout(() => {
-                            // Location
-                            const locationInput = document.querySelector('input[name="location"]');
-                            if (locationInput && !locationInput.value) {
-                                locationInput.value = defaults.location;
-                                locationInput.dispatchEvent(new Event('input', { bubbles: true }));
-                            }
+      const attachHandler = () => {
+        const eventTypeSelect = document.querySelector('select[name="event_type"]');
 
-                            // Registration Required
-                            const regRequiredSelect = document.querySelector('select[name="registration_required"]');
-                            if (regRequiredSelect) {
-                                regRequiredSelect.value = defaults.registration_required;
-                                regRequiredSelect.dispatchEvent(new Event('change', { bubbles: true }));
-                            }
+        if (eventTypeSelect && !isHandlerAttached) {
+          console.log('Event Type Handler wird eingerichtet');
+          isHandlerAttached = true;
 
-                            // Registration Email
-                            const regEmailInput = document.querySelector('input[name="registration_email"]');
-                            if (regEmailInput && !regEmailInput.value) {
-                                regEmailInput.value = defaults.registration_email;
-                                regEmailInput.dispatchEvent(new Event('input', { bubbles: true }));
-                            }
-                        }, 100);
-                    }
-                });
-            } else if (retryCount < maxRetries) {
-                retryCount++;
-                setTimeout(initializeEventTypeHandler, 200);
+          eventTypeSelect.addEventListener('change', function(e) {
+            const selectedType = e.target.value;
+            const defaults = EVENT_TYPE_DEFAULTS[selectedType];
+
+            if (!defaults) {
+              console.log('Keine Defaults für Event Type:', selectedType);
+              return;
             }
-        };
 
-        initializeEventTypeHandler();
-    });
-</script>
-    </body>
+            console.log('Setze Defaults für Event Type:', selectedType);
+
+            // Verzögerung für DOM-Updates
+            setTimeout(() => {
+              // Location setzen
+              const locationInput = document.querySelector('input[name="location"]');
+              if (locationInput && !locationInput.value) {
+                locationInput.value = defaults.location;
+                locationInput.dispatchEvent(new Event('input', { bubbles: true }));
+                locationInput.dispatchEvent(new Event('change', { bubbles: true }));
+              }
+
+              // Registration Required setzen
+              const regRequiredSelect = document.querySelector('select[name="registration_required"]');
+              if (regRequiredSelect) {
+                regRequiredSelect.value = defaults.registration_required.toString();
+                regRequiredSelect.dispatchEvent(new Event('change', { bubbles: true }));
+              }
+
+              // Registration Email setzen
+              const regEmailInput = document.querySelector('input[name="registration_email"]');
+              if (regEmailInput && !regEmailInput.value) {
+                regEmailInput.value = defaults.registration_email;
+                regEmailInput.dispatchEvent(new Event('input', { bubbles: true }));
+                regEmailInput.dispatchEvent(new Event('change', { bubbles: true }));
+              }
+
+              console.log('Defaults erfolgreich gesetzt');
+            }, 150);
+          });
+        }
+      };
+
+      // MutationObserver für dynamische DOM-Änderungen
+      const observer = new MutationObserver((mutations) => {
+        attachHandler();
+      });
+
+      // Observer starten
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true
+      });
+
+      // Initiale Prüfung
+      attachHandler();
+    }
+
+    // Initialisierung beim Laden
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        initDecapCMS();
+        setupEventTypeHandler();
+      });
+    } else {
+      initDecapCMS();
+      setupEventTypeHandler();
+    }
+  </script>
+</body>
 </html>
