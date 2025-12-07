@@ -29,19 +29,34 @@
       transform: translateY(-1px);
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     }
-    .quick-btn.mach-mit-mathe { background: #9C27B0; color: white; }
+    .quick-btn.mach-mit-mathe { background: #009688; color: white; }
     .quick-btn.offene-werkstatt { background: #FF9800; color: white; }
     .quick-btn.ferienpass { background: #4CAF50; color: white; }
     .quick-btn.sonstige { background: #607D8B; color: white; }
+
+    /* Color indicator bar - eigenes Element, bricht nichts */
+    #event-type-indicator {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      z-index: 9999;
+      pointer-events: none;
+      transition: background-color 0.3s;
+    }
   </style>
 </head>
 <body>
+  <!-- Farbindikator - sicheres eigenes Element -->
+  <div id="event-type-indicator"></div>
+
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 
   <script>
       // ============================================
       // MINT.FV Decap CMS Customization
-      // Version: 3.6.0 - Fixed datetime-local inputs
+      // Version: 3.8.1 - Teal color for Mach mit Mathe
       // ============================================
 
     const EVENT_TYPE_DEFAULTS = {
@@ -49,15 +64,15 @@
         location: 'Ausstellungsraum',
         start_time: '14:00',
         end_time: '16:00',
-        color: '#9C27B0',
-        label: '🎨 Mach mit Mathe',
+        color: '#009688',  // Teal - passt zum 🧮 Abacus
+        label: '🧮 Mach mit Mathe',
         optionMatch: 'Mach mit Mathe'
       },
       'offene-werkstatt': {
         location: 'Werkstatt',
         start_time: '16:00',
         end_time: '19:00',
-        color: '#FF9800',
+        color: '#FF9800',  // Orange
         label: '🔧 Offene Werkstatt',
         optionMatch: 'Offene Werkstatt'
       },
@@ -65,7 +80,7 @@
         location: 'Vereinsräume',
         start_time: '11:00',
         end_time: '12:00',
-        color: '#4CAF50',
+        color: '#4CAF50',  // Grün
         label: '🎪 Ferienpass',
         optionMatch: 'Ferienpass'
       },
@@ -73,7 +88,7 @@
         location: '',
         start_time: '',
         end_time: '',
-        color: '#607D8B',
+        color: '#607D8B',  // Grau
         label: '📅 Sonstige',
         optionMatch: 'Sonstige'
       }
@@ -85,181 +100,210 @@
       function setInputValue(input, value) {
         if (!input || !value) return false;
 
-        input.focus();
+      input.focus();
 
-        // Native setter für React
-        const nativeSetter = Object.getOwnPropertyDescriptor(
-          window.HTMLInputElement.prototype, 'value'
-        )?.set;
+      const nativeSetter = Object.getOwnPropertyDescriptor(
+        window.HTMLInputElement.prototype, 'value'
+      )?.set;
 
-        if (nativeSetter) {
-          nativeSetter.call(input, value);
-        } else {
-          input.value = value;
-        }
+      if (nativeSetter) {
+        nativeSetter.call(input, value);
+      } else {
+        input.value = value;
+      }
 
-      // Events für React
       input.dispatchEvent(new Event('input', { bubbles: true }));
       input.dispatchEvent(new Event('change', { bubbles: true }));
       input.dispatchEvent(new Event('blur', { bubbles: true }));
 
-      console.log(`📝 Input gesetzt: "${value}"`);
       return true;
     }
 
-  // ============================================
-  // Helper: Erstelle datetime-local Wert
-  // Format: YYYY-MM-DDTHH:mm
-  // ============================================
-  function createDateTimeLocalValue(timeString) {
-    if (!timeString) return '';
+      // ============================================
+      // Helper: Erstelle datetime-local Wert
+      // ============================================
+      function createDateTimeLocalValue(timeString) {
+        if (!timeString) return '';
 
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, '0');
-    const day = String(now.getDate()).padStart(2, '0');
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const day = String(now.getDate()).padStart(2, '0');
 
-    // Format: 2025-12-07T14:00
-    return `${year}-${month}-${day}T${timeString}`;
-  }
+      return `${year}-${month}-${day}T${timeString}`;
+    }
 
       // ============================================
-      // CORE: Select Option in react-select
+      // SICHERE Editor Einfärbung - nur eigenes Element!
       // ============================================
-      async function selectEventType(optionMatch) {
-        console.log(`🎯 Versuche "${optionMatch}" auszuwählen...`);
+      function colorizeEditor() {
+        const hash = window.location.hash;
+        const indicator = document.getElementById('event-type-indicator');
 
-        try {
-          // 1. Finde das Veranstaltungstyp-Feld
-          const labels = document.querySelectorAll('label');
-          let fieldContainer = null;
+        if (!indicator) return;
 
-          for (const label of labels) {
-            if (label.textContent.includes('Veranstaltungstyp')) {
-              fieldContainer = label.closest('[class*="ControlContainer"]');
+        // Nur auf Editor-Seiten (new oder entries)
+        if (!hash.includes('/collections/events/new') &&
+          !hash.includes('/collections/events/entries/')) {
+          indicator.style.backgroundColor = 'transparent';
+          return;
+        }
+
+        const applyColor = () => {
+          let eventType = null;
+
+          // Versuche aus URL zu lesen (bei bestehenden Einträgen)
+          for (const type of Object.keys(EVENT_TYPE_DEFAULTS)) {
+            if (hash.includes(type)) {
+              eventType = type;
               break;
             }
           }
 
-          if (!fieldContainer) {
-            console.log('❌ ControlContainer nicht gefunden');
-            return false;
-          }
-
-          console.log('✅ ControlContainer gefunden');
-
-          // 2. Finde den Dropdown-Indicator
-          const indicator = fieldContainer.querySelector('[class*="indicatorContainer"]');
-
-          if (indicator) {
-            console.log('✅ Indicator gefunden, klicke...');
-            indicator.dispatchEvent(new MouseEvent('mousedown', {
-              view: window,
-              bubbles: true,
-              cancelable: true
-            }));
-          } else {
-            // Fallback: control
-            const control = fieldContainer.querySelector('[class*="control"]');
-            if (control) {
-              control.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, cancelable: true }));
+          // Oder aus dem Select-Widget lesen
+          if (!eventType) {
+            const selectValue = document.querySelector('[class*="singleValue"]');
+            if (selectValue) {
+              const text = selectValue.textContent || '';
+              for (const [type, config] of Object.entries(EVENT_TYPE_DEFAULTS)) {
+                if (text.includes(config.optionMatch)) {
+                  eventType = type;
+                  break;
+                }
+              }
             }
           }
 
-          // 3. Warte auf das Dropdown-Menü
-          await new Promise(resolve => setTimeout(resolve, 300));
-
-          // 4. Suche nach den Optionen
-          let options = document.querySelectorAll('[class*="option"]');
-
-          if (options.length === 0) {
-            const menu = document.querySelector('[class*="menu"]');
-            if (menu) {
-              options = menu.querySelectorAll('[class*="option"]');
-            }
+          if (!eventType) {
+            indicator.style.backgroundColor = 'transparent';
+            return;
           }
 
-          console.log(`📋 Gefundene Optionen: ${options.length}`);
+          const config = EVENT_TYPE_DEFAULTS[eventType];
+          if (!config) return;
 
-          // 5. Finde und klicke auf die richtige Option
-          for (const option of options) {
-            const text = option.textContent || '';
+          // Setze die Farbe nur auf unser eigenes Element
+          indicator.style.backgroundColor = config.color;
 
-            if (text.includes(optionMatch)) {
-              console.log(`✅ Klicke auf: "${text}"`);
-              option.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }));
-              option.click();
-              return true;
-            }
-          }
+          console.log(`🎨 Editor-Farbe: ${eventType} (${config.color})`);
+        };
 
-          console.log(`⚠️ Option "${optionMatch}" nicht gefunden`);
-          return false;
+        // Initial und bei Änderungen
+        setTimeout(applyColor, 500);
 
-        } catch (error) {
-          console.error('❌ Fehler:', error);
-          return false;
-        }
+        // Beobachte Änderungen (z.B. wenn Dropdown geändert wird)
+        const checkForChanges = () => {
+          applyColor();
+        };
+
+        // Periodisch prüfen (sicherer als MutationObserver auf CMS-Elemente)
+        const intervalId = setInterval(checkForChanges, 2000);
+
+        // Aufräumen bei Navigation
+        window.addEventListener('hashchange', () => {
+          clearInterval(intervalId);
+        }, { once: true });
       }
 
       // ============================================
-      // Defaults anwenden - FIXED für datetime-local
+      // Select Event Type
+      // ============================================
+      async function selectEventType(optionMatch) {
+      try {
+        const labels = document.querySelectorAll('label');
+        let fieldContainer = null;
+
+        for (const label of labels) {
+          if (label.textContent.includes('Veranstaltungstyp')) {
+            fieldContainer = label.closest('[class*="ControlContainer"]');
+            break;
+          }
+        }
+
+        if (!fieldContainer) return false;
+
+        const indicator = fieldContainer.querySelector('[class*="indicatorContainer"]');
+
+        if (indicator) {
+          indicator.dispatchEvent(new MouseEvent('mousedown', {
+            view: window,
+            bubbles: true,
+            cancelable: true
+          }));
+        } else {
+          const control = fieldContainer.querySelector('[class*="control"]');
+          if (control) {
+            control.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, cancelable: true }));
+          }
+        }
+
+        await new Promise(resolve => setTimeout(resolve, 300));
+
+        let options = document.querySelectorAll('[class*="option"]');
+
+        if (options.length === 0) {
+          const menu = document.querySelector('[class*="menu"]');
+          if (menu) {
+            options = menu.querySelectorAll('[class*="option"]');
+          }
+        }
+
+        for (const option of options) {
+          const text = option.textContent || '';
+
+          if (text.includes(optionMatch)) {
+            option.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }));
+            option.click();
+            return true;
+          }
+        }
+
+        return false;
+
+      } catch (error) {
+        console.error('❌ Fehler:', error);
+        return false;
+      }
+    }
+
+      // ============================================
+      // Defaults anwenden
       // ============================================
       async function applyDefaults(eventType) {
         const defaults = EVENT_TYPE_DEFAULTS[eventType];
         if (!defaults) return;
 
-        console.log(`🔧 Wende Defaults an für: ${eventType}`);
+      await new Promise(resolve => setTimeout(resolve, 500));
 
-        // Warte etwas
-        await new Promise(resolve => setTimeout(resolve, 500));
+      const inputs = document.querySelectorAll('input:not([type="hidden"])');
 
-        // Finde alle Inputs
-        const inputs = document.querySelectorAll('input:not([type="hidden"])');
-        console.log(`📋 Gefundene Inputs: ${inputs.length}`);
+      let startSet = false;
+      let endSet = false;
 
-        let startSet = false;
-        let endSet = false;
+      inputs.forEach((input) => {
+        const container = input.closest('[class*="Field"], [class*="Widget"]') || input.parentElement?.parentElement;
+        const label = container?.querySelector('label');
+        const labelText = label?.textContent?.toUpperCase() || '';
 
-        inputs.forEach((input, i) => {
-          // Finde das zugehörige Label
-          const container = input.closest('[class*="Field"], [class*="Widget"]') || input.parentElement?.parentElement;
-          const label = container?.querySelector('label');
-          const labelText = label?.textContent?.toUpperCase() || '';
-
-          // DEBUG: Zeige alle datetime-local Inputs
-          if (input.type === 'datetime-local') {
-            console.log(`  ⏰ datetime-local Input: Label="${labelText.substring(0, 30)}", value="${input.value}"`);
+        if (input.type === 'datetime-local' && labelText.includes('STARTDATUM') && !startSet) {
+          if (defaults.start_time && !input.value) {
+            const dateTimeValue = createDateTimeLocalValue(defaults.start_time);
+            setInputValue(input, dateTimeValue);
+            startSet = true;
           }
+        }
 
-          // STARTDATUM UND UHRZEIT
-          if (input.type === 'datetime-local' && labelText.includes('STARTDATUM') && !startSet) {
-            if (defaults.start_time && !input.value) {
-              const dateTimeValue = createDateTimeLocalValue(defaults.start_time);
-              console.log(`⏰ Setze Startzeit: ${dateTimeValue}`);
-              setInputValue(input, dateTimeValue);
-              startSet = true;
-            }
+        if (input.type === 'datetime-local' && labelText.includes('ENDDATUM') && !endSet) {
+          if (defaults.end_time && !input.value) {
+            const dateTimeValue = createDateTimeLocalValue(defaults.end_time);
+            setInputValue(input, dateTimeValue);
+            endSet = true;
           }
-
-          // ENDDATUM UND UHRZEIT
-          if (input.type === 'datetime-local' && labelText.includes('ENDDATUM') && !endSet) {
-            if (defaults.end_time && !input.value) {
-              const dateTimeValue = createDateTimeLocalValue(defaults.end_time);
-              console.log(`⏰ Setze Endzeit: ${dateTimeValue}`);
-              setInputValue(input, dateTimeValue);
-              endSet = true;
-            }
         }
       });
 
-      if (startSet || endSet) {
-        console.log('✅ Zeiten gesetzt!');
-      } else {
-        console.log('⚠️ Keine Zeiten gesetzt - evtl. schon Werte vorhanden oder Inputs nicht gefunden');
-      }
-
-      console.log('✅ Defaults angewendet');
+      // Färbe den Editor ein (sicher!)
+      colorizeEditor();
     }
 
       // ============================================
@@ -320,18 +364,19 @@
 
       window.addEventListener('hashchange', () => {
         document.getElementById('quick-create-container')?.remove();
+        setTimeout(colorizeEditor, 500);
       });
     }
 
       // ============================================
-      // 3. Farbcodierung
+      // 3. Farbcodierung Listen-Ansicht
       // ============================================
       function colorizeEventCards() {
       const style = document.createElement('style');
       style.id = 'event-colors';
       style.textContent = `
         a[href*="ferienpass"]::before { content:''; position:absolute; left:0; top:0; bottom:0; width:4px; background:#4CAF50; }
-        a[href*="mach-mit-mathe"]::before { content:''; position:absolute; left:0; top:0; bottom:0; width:4px; background:#9C27B0; }
+        a[href*="mach-mit-mathe"]::before { content:''; position:absolute; left:0; top:0; bottom:0; width:4px; background:#009688; }
         a[href*="offene-werkstatt"]::before { content:''; position:absolute; left:0; top:0; bottom:0; width:4px; background:#FF9800; }
         a[href*="-sonstige"]::before { content:''; position:absolute; left:0; top:0; bottom:0; width:4px; background:#607D8B; }
         li:has(a[href*="/events/entries/"]), div:has(> a[href*="/events/entries/"]):not([class*="App"]) { position:relative !important; }
@@ -342,7 +387,7 @@
     }
 
       // ============================================
-      // 4. Event Type Handler - Hauptlogik
+      // 4. Event Type Handler
       // ============================================
       function setupEventTypeHandler() {
 
@@ -350,33 +395,26 @@
         const preselected = sessionStorage.getItem('preselectedEventType');
 
         if (!preselected) {
-          console.log('ℹ️ Keine Vorauswahl');
+          setTimeout(colorizeEditor, 1000);
           return;
         }
 
         console.log('🎯 Vorauswahl:', preselected);
         const defaults = EVENT_TYPE_DEFAULTS[preselected];
 
-        if (!defaults) {
-          console.log('❌ Keine Defaults gefunden');
-          return;
-        }
+        if (!defaults) return;
 
-        // Warte bis die Seite geladen ist
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise(resolve => setTimeout(resolve, 1500));
 
-        // Wähle den Event-Type
         const success = await selectEventType(defaults.optionMatch);
 
         if (success) {
           console.log('✅ Event-Type gesetzt!');
         }
 
-        // Warte und wende Defaults an (auch wenn Select nicht geklappt hat)
         await new Promise(resolve => setTimeout(resolve, 500));
         await applyDefaults(preselected);
 
-        // Lösche die Vorauswahl
         sessionStorage.removeItem('preselectedEventType');
       };
 
@@ -384,11 +422,15 @@
         if (window.location.hash.includes('/collections/events/new')) {
           console.log('📄 Neue Veranstaltung Seite');
           handleNewPage();
+        } else if (window.location.hash.includes('/collections/events/entries/')) {
+          setTimeout(colorizeEditor, 500);
         }
       });
 
       if (window.location.hash.includes('/collections/events/new')) {
         handleNewPage();
+      } else if (window.location.hash.includes('/collections/events/entries/')) {
+        setTimeout(colorizeEditor, 500);
       }
     }
 
@@ -408,7 +450,7 @@
       init();
     }
 
-      console.log('🚀 MINT.FV CMS v3.6.0 geladen');
+      console.log('🚀 MINT.FV CMS v3.8.1 geladen');
     </script>
   </body>
 </html>
