@@ -6,11 +6,6 @@
   <meta name="robots" content="noindex" />
   <title>MINT.FV Content Manager</title>
   <style>
-    /*
-       * Quick-Create Buttons - mit sicherer Positionierung
-       * Wichtig: pointer-events: none auf Container, auto auf Buttons
-       * um Klicks auf darunterliegende Elemente nicht zu blockieren
-       */
     #quick-create-container {
       display: flex;
       gap: 8px;
@@ -18,7 +13,6 @@
       flex-wrap: wrap;
       position: relative;
       z-index: 1;
-      /* Niedrig halten! */
     }
 
     .quick-btn {
@@ -40,371 +34,381 @@
     .quick-btn.ferienpass { background: #4CAF50; color: white; }
     .quick-btn.sonstige { background: #607D8B; color: white; }
   </style>
-  </head>
+</head>
 <body>
-  <!-- Decap CMS -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-  
+
   <script>
       // ============================================
       // MINT.FV Decap CMS Customization
-      // Version: 3.0.0 - Clean implementation without layout issues
+      // Version: 3.6.0 - Fixed datetime-local inputs
       // ============================================
 
     const EVENT_TYPE_DEFAULTS = {
       'mach-mit-mathe': {
         location: 'Ausstellungsraum',
-        registration_required: false,
-        registration_email: '',
         start_time: '14:00',
         end_time: '16:00',
         color: '#9C27B0',
-        label: '🎨 Mach mit Mathe'
+        label: '🎨 Mach mit Mathe',
+        optionMatch: 'Mach mit Mathe'
       },
       'offene-werkstatt': {
         location: 'Werkstatt',
-        registration_required: false,
-        registration_email: '',
         start_time: '16:00',
         end_time: '19:00',
         color: '#FF9800',
-        label: '🔧 Offene Werkstatt'
+        label: '🔧 Offene Werkstatt',
+        optionMatch: 'Offene Werkstatt'
       },
       'ferienpass': {
         location: 'Vereinsräume',
-        registration_required: true,
-        registration_email: 'info@mintarium-fv.de',
         start_time: '11:00',
         end_time: '12:00',
         color: '#4CAF50',
-        label: '🎪 Ferienpass'
+        label: '🎪 Ferienpass',
+        optionMatch: 'Ferienpass'
       },
       'sonstige': {
         location: '',
-        registration_required: false,
-        registration_email: 'info@mintarium-fv.de',
         start_time: '',
         end_time: '',
         color: '#607D8B',
-        label: '📅 Sonstige'
+        label: '📅 Sonstige',
+        optionMatch: 'Sonstige'
       }
     };
 
       // ============================================
-      // 1. CMS Initialisierung & Event Listener
+      // Helper: Setze React Input Wert
+      // ============================================
+      function setInputValue(input, value) {
+        if (!input || !value) return false;
+
+        input.focus();
+
+        // Native setter für React
+        const nativeSetter = Object.getOwnPropertyDescriptor(
+          window.HTMLInputElement.prototype, 'value'
+        )?.set;
+
+        if (nativeSetter) {
+          nativeSetter.call(input, value);
+        } else {
+          input.value = value;
+        }
+
+      // Events für React
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      input.dispatchEvent(new Event('change', { bubbles: true }));
+      input.dispatchEvent(new Event('blur', { bubbles: true }));
+
+      console.log(`📝 Input gesetzt: "${value}"`);
+      return true;
+    }
+
+  // ============================================
+  // Helper: Erstelle datetime-local Wert
+  // Format: YYYY-MM-DDTHH:mm
+  // ============================================
+  function createDateTimeLocalValue(timeString) {
+    if (!timeString) return '';
+
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+
+    // Format: 2025-12-07T14:00
+    return `${year}-${month}-${day}T${timeString}`;
+  }
+
+      // ============================================
+      // CORE: Select Option in react-select
+      // ============================================
+      async function selectEventType(optionMatch) {
+        console.log(`🎯 Versuche "${optionMatch}" auszuwählen...`);
+
+        try {
+          // 1. Finde das Veranstaltungstyp-Feld
+          const labels = document.querySelectorAll('label');
+          let fieldContainer = null;
+
+          for (const label of labels) {
+            if (label.textContent.includes('Veranstaltungstyp')) {
+              fieldContainer = label.closest('[class*="ControlContainer"]');
+              break;
+            }
+          }
+
+          if (!fieldContainer) {
+            console.log('❌ ControlContainer nicht gefunden');
+            return false;
+          }
+
+          console.log('✅ ControlContainer gefunden');
+
+          // 2. Finde den Dropdown-Indicator
+          const indicator = fieldContainer.querySelector('[class*="indicatorContainer"]');
+
+          if (indicator) {
+            console.log('✅ Indicator gefunden, klicke...');
+            indicator.dispatchEvent(new MouseEvent('mousedown', {
+              view: window,
+              bubbles: true,
+              cancelable: true
+            }));
+          } else {
+            // Fallback: control
+            const control = fieldContainer.querySelector('[class*="control"]');
+            if (control) {
+              control.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, cancelable: true }));
+            }
+          }
+
+          // 3. Warte auf das Dropdown-Menü
+          await new Promise(resolve => setTimeout(resolve, 300));
+
+          // 4. Suche nach den Optionen
+          let options = document.querySelectorAll('[class*="option"]');
+
+          if (options.length === 0) {
+            const menu = document.querySelector('[class*="menu"]');
+            if (menu) {
+              options = menu.querySelectorAll('[class*="option"]');
+            }
+          }
+
+          console.log(`📋 Gefundene Optionen: ${options.length}`);
+
+          // 5. Finde und klicke auf die richtige Option
+          for (const option of options) {
+            const text = option.textContent || '';
+
+            if (text.includes(optionMatch)) {
+              console.log(`✅ Klicke auf: "${text}"`);
+              option.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }));
+              option.click();
+              return true;
+            }
+          }
+
+          console.log(`⚠️ Option "${optionMatch}" nicht gefunden`);
+          return false;
+
+        } catch (error) {
+          console.error('❌ Fehler:', error);
+          return false;
+        }
+      }
+
+      // ============================================
+      // Defaults anwenden - FIXED für datetime-local
+      // ============================================
+      async function applyDefaults(eventType) {
+        const defaults = EVENT_TYPE_DEFAULTS[eventType];
+        if (!defaults) return;
+
+        console.log(`🔧 Wende Defaults an für: ${eventType}`);
+
+        // Warte etwas
+        await new Promise(resolve => setTimeout(resolve, 500));
+
+        // Finde alle Inputs
+        const inputs = document.querySelectorAll('input:not([type="hidden"])');
+        console.log(`📋 Gefundene Inputs: ${inputs.length}`);
+
+        let startSet = false;
+        let endSet = false;
+
+        inputs.forEach((input, i) => {
+          // Finde das zugehörige Label
+          const container = input.closest('[class*="Field"], [class*="Widget"]') || input.parentElement?.parentElement;
+          const label = container?.querySelector('label');
+          const labelText = label?.textContent?.toUpperCase() || '';
+
+          // DEBUG: Zeige alle datetime-local Inputs
+          if (input.type === 'datetime-local') {
+            console.log(`  ⏰ datetime-local Input: Label="${labelText.substring(0, 30)}", value="${input.value}"`);
+          }
+
+          // STARTDATUM UND UHRZEIT
+          if (input.type === 'datetime-local' && labelText.includes('STARTDATUM') && !startSet) {
+            if (defaults.start_time && !input.value) {
+              const dateTimeValue = createDateTimeLocalValue(defaults.start_time);
+              console.log(`⏰ Setze Startzeit: ${dateTimeValue}`);
+              setInputValue(input, dateTimeValue);
+              startSet = true;
+            }
+          }
+
+          // ENDDATUM UND UHRZEIT
+          if (input.type === 'datetime-local' && labelText.includes('ENDDATUM') && !endSet) {
+            if (defaults.end_time && !input.value) {
+              const dateTimeValue = createDateTimeLocalValue(defaults.end_time);
+              console.log(`⏰ Setze Endzeit: ${dateTimeValue}`);
+              setInputValue(input, dateTimeValue);
+              endSet = true;
+            }
+        }
+      });
+
+      if (startSet || endSet) {
+        console.log('✅ Zeiten gesetzt!');
+      } else {
+        console.log('⚠️ Keine Zeiten gesetzt - evtl. schon Werte vorhanden oder Inputs nicht gefunden');
+      }
+
+      console.log('✅ Defaults angewendet');
+    }
+
+      // ============================================
+      // 1. CMS Initialisierung
       // ============================================
       function initDecapCMS() {
         if (typeof CMS === 'undefined') {
-          console.warn('Decap CMS nicht geladen, warte...');
           setTimeout(initDecapCMS, 100);
           return;
         }
+        console.log('✅ Decap CMS initialisiert');
+        CMS.registerPreviewStyle('preview.css');
+      }
 
-      console.log('✅ Decap CMS 3.9.0 initialisiert');
+      // ============================================
+      // 2. Quick-Create Buttons
+      // ============================================
+      function addQuickCreateButtons() {
+      const tryAddButtons = () => {
+        const hash = window.location.hash;
+        if (!hash.includes('/collections/events')) return;
+        if (hash.includes('/new')) return;
+        if (hash.includes('/entries/')) return;
+        if (document.getElementById('quick-create-container')) return;
 
-      CMS.registerEventListener({
-        name: 'preSave',
-        handler: ({ entry }) => {
-          console.log('💾 PreSave Hook für:', entry.getIn(['data', 'title']));
-          const registrationRequired = entry.getIn(['data', 'registration_required']);
-          const registrationEmail = entry.getIn(['data', 'registration_email']);
-          if (registrationRequired && !registrationEmail) {
-            console.warn('⚠️ Anmeldung erforderlich, aber keine Email angegeben');
-          }
-          return entry;
-        }
-      });
+        const newButton = document.querySelector('a[href*="/new"]');
+        if (!newButton) return;
 
-      CMS.registerEventListener({
-        name: 'postSave',
-        handler: ({ entry }) => {
-          console.log('✅ Event gespeichert:', entry.getIn(['data', 'title']));
-        }
-      });
+        const headerArea = newButton.closest('div');
+        if (!headerArea) return;
 
-      // Preview Styles - NUR für das Preview-Pane, nicht für Admin UI
-      CMS.registerPreviewStyle('preview.css');
+        const container = document.createElement('div');
+        container.id = 'quick-create-container';
 
-          console.log('✅ Alle Event Listener registriert');
-        }
+        Object.entries(EVENT_TYPE_DEFAULTS).forEach(([type, config]) => {
+          const btn = document.createElement('button');
+          btn.className = `quick-btn ${type}`;
+          btn.textContent = `➕ ${config.label}`;
+          btn.style.backgroundColor = config.color;
 
-        // ============================================
-        // 2. Quick-Create Buttons - SICHER positioniert
-        // ============================================
-        function addQuickCreateButtons() {
-          let containerAdded = false;
-
-          const tryAddButtons = () => {
-            // Nur auf der Events-Collection-Übersicht
-            const hash = window.location.hash;
-            if (!hash.includes('/collections/events')) return;
-            if (hash.includes('/new')) return;
-            if (hash.includes('/entries/')) return;
-
-            // Prüfe ob Container bereits existiert
-            if (document.getElementById('quick-create-container')) return;
-
-            // Finde den "Neue Veranstaltung" Button als Referenzpunkt
-            const newButton = document.querySelector('a[href*="/new"], button[class*="TopNewButton"]');
-            if (!newButton) return;
-
-            // Finde den übergeordneten Container
-            const headerArea = newButton.closest('div');
-            if (!headerArea) return;
-
-            // Container erstellen
-            const container = document.createElement('div');
-            container.id = 'quick-create-container';
-
-            Object.entries(EVENT_TYPE_DEFAULTS).forEach(([type, config]) => {
-              const btn = document.createElement('button');
-              btn.className = `quick-btn ${type}`;
-              btn.textContent = `➕ ${config.label}`;
-              btn.style.backgroundColor = config.color;
-
-              btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                sessionStorage.setItem('preselectedEventType', type);
-                window.location.hash = '#/collections/events/new';
-              });
-
-              container.appendChild(btn);
-            });
-
-            // Füge Container VOR dem Header-Bereich ein (nicht darüber!)
-            headerArea.parentNode.insertBefore(container, headerArea);
-            containerAdded = true;
-            console.log('✅ Quick-Create Buttons hinzugefügt');
-          };
-
-          // MutationObserver mit Debouncing
-          let debounceTimer;
-          const observer = new MutationObserver(() => {
-            if (containerAdded && document.getElementById('quick-create-container')) return;
-            clearTimeout(debounceTimer);
-            debounceTimer = setTimeout(tryAddButtons, 200);
+          btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            sessionStorage.setItem('preselectedEventType', type);
+            console.log('🎯 Quick-Create:', type);
+            window.location.hash = '#/collections/events/new';
           });
 
-          observer.observe(document.body, { childList: true, subtree: true });
+          container.appendChild(btn);
+        });
 
-          // Bei Hash-Änderung zurücksetzen
-          window.addEventListener('hashchange', () => {
-            containerAdded = false;
-            const existing = document.getElementById('quick-create-container');
-            if (existing) existing.remove();
-          });
-        }
+        headerArea.parentNode.insertBefore(container, headerArea);
+        console.log('✅ Quick-Create Buttons hinzugefügt');
+      };
 
-        // ============================================
-        // 3. Farbcodierung - NUR über CSS-Klassen, KEINE DOM-Manipulation
-        // ============================================
-        function colorizeEventCards() {
-          // Dynamisches Stylesheet erstellen
-          const styleSheet = document.createElement('style');
-          styleSheet.id = 'event-colorization-styles';
-          styleSheet.textContent = `
-        /* Farbcodierung für Event-Karten via CSS - keine DOM-Manipulation nötig */
-        /* Diese Selektoren nutzen :has() für moderne Browser */
+      const observer = new MutationObserver(tryAddButtons);
+      observer.observe(document.body, { childList: true, subtree: true });
 
-        /* Listenansicht */
-        a[href*="/collections/events/entries/"]:has(> *) {
-          display: block;
-          position: relative;
-        }
+      window.addEventListener('hashchange', () => {
+        document.getElementById('quick-create-container')?.remove();
+      });
+    }
 
-        /* Ferienpass - Grün */
-        a[href*="ferienpass"]::before,
-        li:has(a[href*="ferienpass"])::before,
-        div:has(> a[href*="ferienpass"]):not([class*="App"])::before {
-          content: '';
-          position: absolute;
-          left: 0;
-          top: 0;
-          bottom: 0;
-          width: 4px;
-          background-color: #4CAF50;
-          border-radius: 2px 0 0 2px;
-        }
-
-        /* Mach mit Mathe - Lila */
-        a[href*="mach-mit-mathe"]::before,
-        li:has(a[href*="mach-mit-mathe"])::before,
-        div:has(> a[href*="mach-mit-mathe"]):not([class*="App"])::before {
-          content: '';
-          position: absolute;
-          left: 0;
-          top: 0;
-          bottom: 0;
-          width: 4px;
-          background-color: #9C27B0;
-          border-radius: 2px 0 0 2px;
-        }
-
-        /* Offene Werkstatt - Orange */
-        a[href*="offene-werkstatt"]::before,
-        li:has(a[href*="offene-werkstatt"])::before,
-        div:has(> a[href*="offene-werkstatt"]):not([class*="App"])::before {
-          content: '';
-          position: absolute;
-          left: 0;
-          top: 0;
-          bottom: 0;
-          width: 4px;
-          background-color: #FF9800;
-          border-radius: 2px 0 0 2px;
-        }
-
-        /* Sonstige - Grau */
-        a[href*="-sonstige"]::before,
-        li:has(a[href*="-sonstige"])::before,
-        div:has(> a[href*="-sonstige"]):not([class*="App"])::before {
-          content: '';
-          position: absolute;
-          left: 0;
-          top: 0;
-          bottom: 0;
-          width: 4px;
-          background-color: #607D8B;
-          border-radius: 2px 0 0 2px;
-        }
-
-        /* Positionierung für Parent-Elemente */
-        li:has(a[href*="/collections/events/entries/"]),
-        div:has(> a[href*="/collections/events/entries/"]):not([class*="App"]):not([class*="Container"]) {
-          position: relative !important;
-        }
+      // ============================================
+      // 3. Farbcodierung
+      // ============================================
+      function colorizeEventCards() {
+      const style = document.createElement('style');
+      style.id = 'event-colors';
+      style.textContent = `
+        a[href*="ferienpass"]::before { content:''; position:absolute; left:0; top:0; bottom:0; width:4px; background:#4CAF50; }
+        a[href*="mach-mit-mathe"]::before { content:''; position:absolute; left:0; top:0; bottom:0; width:4px; background:#9C27B0; }
+        a[href*="offene-werkstatt"]::before { content:''; position:absolute; left:0; top:0; bottom:0; width:4px; background:#FF9800; }
+        a[href*="-sonstige"]::before { content:''; position:absolute; left:0; top:0; bottom:0; width:4px; background:#607D8B; }
+        li:has(a[href*="/events/entries/"]), div:has(> a[href*="/events/entries/"]):not([class*="App"]) { position:relative !important; }
       `;
-
-      // Nur einmal hinzufügen
-      if (!document.getElementById('event-colorization-styles')) {
-        document.head.appendChild(styleSheet);
-        console.log('✅ Event-Farbcodierung CSS hinzugefügt');
+      if (!document.getElementById('event-colors')) {
+        document.head.appendChild(style);
       }
     }
 
       // ============================================
-      // 4. Event Type Handler (Defaults setzen)
+      // 4. Event Type Handler - Hauptlogik
       // ============================================
       function setupEventTypeHandler() {
-        let isHandlerAttached = false;
 
-        const applyDefaults = (selectedType, force = false) => {
-          const defaults = EVENT_TYPE_DEFAULTS[selectedType];
-        if (!defaults) {
-          console.log('❌ Keine Defaults für:', selectedType);
+      const handleNewPage = async () => {
+        const preselected = sessionStorage.getItem('preselectedEventType');
+
+        if (!preselected) {
+          console.log('ℹ️ Keine Vorauswahl');
           return;
         }
 
-        console.log('🔧 Setze Defaults für:', selectedType);
+        console.log('🎯 Vorauswahl:', preselected);
+        const defaults = EVENT_TYPE_DEFAULTS[preselected];
 
-        setTimeout(() => {
-          // Location
-          const locationInput = document.querySelector('input[name="location"]');
-          if (locationInput && (force || !locationInput.value)) {
-            locationInput.value = defaults.location;
-            locationInput.dispatchEvent(new Event('input', { bubbles: true }));
-            locationInput.dispatchEvent(new Event('change', { bubbles: true }));
-          }
-
-          // Registration Required
-          const regCheckbox = document.querySelector('input[type="checkbox"][id*="registration"], input[name="registration_required"]');
-          if (regCheckbox) {
-            regCheckbox.checked = defaults.registration_required;
-            regCheckbox.dispatchEvent(new Event('change', { bubbles: true }));
-          }
-
-          // Registration Email
-          const regEmailInput = document.querySelector('input[name="registration_email"]');
-          if (regEmailInput && (force || !regEmailInput.value)) {
-            regEmailInput.value = defaults.registration_email;
-            regEmailInput.dispatchEvent(new Event('input', { bubbles: true }));
-          }
-
-          // Start Time
-          const startTimeInput = document.querySelector('input[name="start_date.time"]');
-          if (startTimeInput && defaults.start_time && (force || !startTimeInput.value)) {
-            startTimeInput.value = defaults.start_time;
-            startTimeInput.dispatchEvent(new Event('input', { bubbles: true }));
-            startTimeInput.dispatchEvent(new Event('change', { bubbles: true }));
-            console.log('⏰ Start-Zeit gesetzt:', defaults.start_time);
-          }
-
-          // End Time
-          const endTimeInput = document.querySelector('input[name="end_date.time"]');
-          if (endTimeInput && defaults.end_time && (force || !endTimeInput.value)) {
-            endTimeInput.value = defaults.end_time;
-            endTimeInput.dispatchEvent(new Event('input', { bubbles: true }));
-            endTimeInput.dispatchEvent(new Event('change', { bubbles: true }));
-            console.log('⏰ End-Zeit gesetzt:', defaults.end_time);
-          }
-
-          console.log('✅ Defaults erfolgreich gesetzt');
-        }, 300);
-      };
-
-      const attachHandler = () => {
-        const eventTypeSelect = document.querySelector('select[name="event_type"]');
-
-        if (eventTypeSelect && !isHandlerAttached) {
-          console.log('🔗 Event Type Handler eingerichtet');
-          isHandlerAttached = true;
-
-          // Check für vorgewählten Typ aus Quick-Create
-          const preselected = sessionStorage.getItem('preselectedEventType');
-          if (preselected) {
-            console.log('🎯 Vorgewählter Typ:', preselected);
-            setTimeout(() => {
-              eventTypeSelect.value = preselected;
-              eventTypeSelect.dispatchEvent(new Event('change', { bubbles: true }));
-              applyDefaults(preselected, true);
-              sessionStorage.removeItem('preselectedEventType');
-            }, 500);
-          }
-
-          eventTypeSelect.addEventListener('change', (e) => {
-            applyDefaults(e.target.value, false);
-          });
+        if (!defaults) {
+          console.log('❌ Keine Defaults gefunden');
+          return;
         }
+
+        // Warte bis die Seite geladen ist
+        await new Promise(resolve => setTimeout(resolve, 2000));
+
+        // Wähle den Event-Type
+        const success = await selectEventType(defaults.optionMatch);
+
+        if (success) {
+          console.log('✅ Event-Type gesetzt!');
+        }
+
+        // Warte und wende Defaults an (auch wenn Select nicht geklappt hat)
+        await new Promise(resolve => setTimeout(resolve, 500));
+        await applyDefaults(preselected);
+
+        // Lösche die Vorauswahl
+        sessionStorage.removeItem('preselectedEventType');
       };
 
-      const observer = new MutationObserver(attachHandler);
-      observer.observe(document.body, { childList: true, subtree: true });
-      attachHandler();
-      }
-
-      // ============================================
-      // 5. Cleanup bei Navigation
-      // ============================================
-      function setupNavigationHandler() {
-        window.addEventListener('hashchange', () => {
-          const hash = window.location.hash;
-
-        // Reset Event Type Handler wenn wir die /new Seite verlassen
-        if (!hash.includes('/new')) {
-          // Handler wird beim nächsten Mal neu attached
+      window.addEventListener('hashchange', () => {
+        if (window.location.hash.includes('/collections/events/new')) {
+          console.log('📄 Neue Veranstaltung Seite');
+          handleNewPage();
         }
       });
+
+      if (window.location.hash.includes('/collections/events/new')) {
+        handleNewPage();
+      }
     }
 
       // ============================================
-      // Initialisierung
+      // Init
       // ============================================
       const init = () => {
         initDecapCMS();
-        setupEventTypeHandler();
-          addQuickCreateButtons();
-          colorizeEventCards();
-          setupNavigationHandler();
-        };
+      addQuickCreateButtons();
+      colorizeEventCards();
+      setupEventTypeHandler();
+    };
 
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', init);
-        } else {
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
       init();
     }
 
-  console.log('🚀 MINT.FV CMS Customization v3.0.0 geladen');
-</script>
+      console.log('🚀 MINT.FV CMS v3.6.0 geladen');
+    </script>
   </body>
 </html>
