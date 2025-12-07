@@ -1,115 +1,410 @@
 <!DOCTYPE html>
-<html lang="de">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="robots" content="noindex" />
-        <title>MINT.FV Veranstaltungsverwaltung</title>
-        <link rel="icon" type="image/png" href="/favicon.png">
-    </head>
-    <body>
-        <!-- Decap CMS -->
-        <script src="https://unpkg.com/decap-cms@^3.9.0/dist/decap-cms.js"></script>
-<!-- Custom Script: Type-spezifische Defaults -->
-<script>
-    // Event Type Defaults - Zentrale Konfiguration
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>MINT.FV Content Manager</title>
+  <style>
+    /*
+       * Quick-Create Buttons - mit sicherer Positionierung
+       * Wichtig: pointer-events: none auf Container, auto auf Buttons
+       * um Klicks auf darunterliegende Elemente nicht zu blockieren
+       */
+    #quick-create-container {
+      display: flex;
+      gap: 8px;
+      margin: 16px 0;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+      /* Niedrig halten! */
+    }
+
+    .quick-btn {
+      padding: 10px 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      transition: transform 0.1s, box-shadow 0.1s;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .quick-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+    .quick-btn.mach-mit-mathe { background: #9C27B0; color: white; }
+    .quick-btn.offene-werkstatt { background: #FF9800; color: white; }
+    .quick-btn.ferienpass { background: #4CAF50; color: white; }
+    .quick-btn.sonstige { background: #607D8B; color: white; }
+  </style>
+  </head>
+<body>
+  <!-- Decap CMS -->
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  
+  <script>
+      // ============================================
+      // MINT.FV Decap CMS Customization
+      // Version: 3.0.0 - Clean implementation without layout issues
+      // ============================================
+
     const EVENT_TYPE_DEFAULTS = {
-        'mach-mit-mathe': {
-            location: 'Ausstellungsraum',
-            registration_required: false,
-            registration_email: ''
-        },
-        'offene-werkstatt': {
-            location: 'Werkstatt',
-            registration_required: false,
-            registration_email: ''
-        },
-        'ferienpass': {
-            location: 'Vereinsräume',
-            registration_required: true,
-            registration_email: 'info@mintarium-fv.de'
-        },
-        'sonstige': {
-            location: '',
-            registration_required: false,
-            registration_email: 'info@mintarium-fv.de'
-        }
+      'mach-mit-mathe': {
+        location: 'Ausstellungsraum',
+        registration_required: false,
+        registration_email: '',
+        start_time: '14:00',
+        end_time: '16:00',
+        color: '#9C27B0',
+        label: '🎨 Mach mit Mathe'
+      },
+      'offene-werkstatt': {
+        location: 'Werkstatt',
+        registration_required: false,
+        registration_email: '',
+        start_time: '16:00',
+        end_time: '19:00',
+        color: '#FF9800',
+        label: '🔧 Offene Werkstatt'
+      },
+      'ferienpass': {
+        location: 'Vereinsräume',
+        registration_required: true,
+        registration_email: 'info@mintarium-fv.de',
+        start_time: '11:00',
+        end_time: '12:00',
+        color: '#4CAF50',
+        label: '🎪 Ferienpass'
+      },
+      'sonstige': {
+        location: '',
+        registration_required: false,
+        registration_email: 'info@mintarium-fv.de',
+        start_time: '',
+        end_time: '',
+        color: '#607D8B',
+        label: '📅 Sonstige'
+      }
     };
 
-    // Warte auf CMS-Initialisierung
-    CMS.registerEventListener({
+      // ============================================
+      // 1. CMS Initialisierung & Event Listener
+      // ============================================
+      function initDecapCMS() {
+        if (typeof CMS === 'undefined') {
+          console.warn('Decap CMS nicht geladen, warte...');
+          setTimeout(initDecapCMS, 100);
+          return;
+        }
+
+      console.log('✅ Decap CMS 3.9.0 initialisiert');
+
+      CMS.registerEventListener({
         name: 'preSave',
         handler: ({ entry }) => {
-            // Wird vor dem Speichern ausgeführt
-            return entry;
+          console.log('💾 PreSave Hook für:', entry.getIn(['data', 'title']));
+          const registrationRequired = entry.getIn(['data', 'registration_required']);
+          const registrationEmail = entry.getIn(['data', 'registration_email']);
+          if (registrationRequired && !registrationEmail) {
+            console.warn('⚠️ Anmeldung erforderlich, aber keine Email angegeben');
+          }
+          return entry;
         }
-    });
+      });
 
-    // Custom Widget Event Listener für Event Type Änderungen
-    // Diese Funktion wird beim Laden und bei Änderungen des event_type aufgerufen
-    CMS.registerEditorComponent({
-        id: 'event-type-defaults',
-        label: 'Event Type Handler',
-        fields: [],
-        pattern: /^$/,
-        fromBlock: () => ({}),
-        toBlock: () => '',
-        toPreview: () => ''
-    });
+      CMS.registerEventListener({
+        name: 'postSave',
+        handler: ({ entry }) => {
+          console.log('✅ Event gespeichert:', entry.getIn(['data', 'title']));
+        }
+      });
 
-    // Globaler Event Listener für Feldänderungen
-    document.addEventListener('DOMContentLoaded', function () {
-        // Polling-Mechanismus, da Decap CMS asynchron lädt
-        let retryCount = 0;
-        const maxRetries = 50;
+      // Preview Styles - NUR für das Preview-Pane, nicht für Admin UI
+      CMS.registerPreviewStyle('preview.css');
 
-        const initializeEventTypeHandler = () => {
-            // Suche nach dem Event Type Select-Element
-            const eventTypeSelect = document.querySelector('select[name="event_type"]');
+          console.log('✅ Alle Event Listener registriert');
+        }
 
-            if (eventTypeSelect) {
-                console.log('Event Type Handler initialisiert');
+        // ============================================
+        // 2. Quick-Create Buttons - SICHER positioniert
+        // ============================================
+        function addQuickCreateButtons() {
+          let containerAdded = false;
 
-                eventTypeSelect.addEventListener('change', function (e) {
-                    const selectedType = e.target.value;
-                    const defaults = EVENT_TYPE_DEFAULTS[selectedType];
+          const tryAddButtons = () => {
+            // Nur auf der Events-Collection-Übersicht
+            const hash = window.location.hash;
+            if (!hash.includes('/collections/events')) return;
+            if (hash.includes('/new')) return;
+            if (hash.includes('/entries/')) return;
 
-                    if (defaults) {
-                        console.log('Setze Defaults für Typ:', selectedType);
+            // Prüfe ob Container bereits existiert
+            if (document.getElementById('quick-create-container')) return;
 
-                        // Finde und setze die entsprechenden Felder
-                        setTimeout(() => {
-                            // Location
-                            const locationInput = document.querySelector('input[name="location"]');
-                            if (locationInput && !locationInput.value) {
-                                locationInput.value = defaults.location;
-                                locationInput.dispatchEvent(new Event('input', { bubbles: true }));
-                            }
+            // Finde den "Neue Veranstaltung" Button als Referenzpunkt
+            const newButton = document.querySelector('a[href*="/new"], button[class*="TopNewButton"]');
+            if (!newButton) return;
 
-                            // Registration Required
-                            const regRequiredSelect = document.querySelector('select[name="registration_required"]');
-                            if (regRequiredSelect) {
-                                regRequiredSelect.value = defaults.registration_required;
-                                regRequiredSelect.dispatchEvent(new Event('change', { bubbles: true }));
-                            }
+            // Finde den übergeordneten Container
+            const headerArea = newButton.closest('div');
+            if (!headerArea) return;
 
-                            // Registration Email
-                            const regEmailInput = document.querySelector('input[name="registration_email"]');
-                            if (regEmailInput && !regEmailInput.value) {
-                                regEmailInput.value = defaults.registration_email;
-                                regEmailInput.dispatchEvent(new Event('input', { bubbles: true }));
-                            }
-                        }, 100);
-                    }
-                });
-            } else if (retryCount < maxRetries) {
-                retryCount++;
-                setTimeout(initializeEventTypeHandler, 200);
-            }
+            // Container erstellen
+            const container = document.createElement('div');
+            container.id = 'quick-create-container';
+
+            Object.entries(EVENT_TYPE_DEFAULTS).forEach(([type, config]) => {
+              const btn = document.createElement('button');
+              btn.className = `quick-btn ${type}`;
+              btn.textContent = `➕ ${config.label}`;
+              btn.style.backgroundColor = config.color;
+
+              btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                sessionStorage.setItem('preselectedEventType', type);
+                window.location.hash = '#/collections/events/new';
+              });
+
+              container.appendChild(btn);
+            });
+
+            // Füge Container VOR dem Header-Bereich ein (nicht darüber!)
+            headerArea.parentNode.insertBefore(container, headerArea);
+            containerAdded = true;
+            console.log('✅ Quick-Create Buttons hinzugefügt');
+          };
+
+          // MutationObserver mit Debouncing
+          let debounceTimer;
+          const observer = new MutationObserver(() => {
+            if (containerAdded && document.getElementById('quick-create-container')) return;
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(tryAddButtons, 200);
+          });
+
+          observer.observe(document.body, { childList: true, subtree: true });
+
+          // Bei Hash-Änderung zurücksetzen
+          window.addEventListener('hashchange', () => {
+            containerAdded = false;
+            const existing = document.getElementById('quick-create-container');
+            if (existing) existing.remove();
+          });
+        }
+
+        // ============================================
+        // 3. Farbcodierung - NUR über CSS-Klassen, KEINE DOM-Manipulation
+        // ============================================
+        function colorizeEventCards() {
+          // Dynamisches Stylesheet erstellen
+          const styleSheet = document.createElement('style');
+          styleSheet.id = 'event-colorization-styles';
+          styleSheet.textContent = `
+        /* Farbcodierung für Event-Karten via CSS - keine DOM-Manipulation nötig */
+        /* Diese Selektoren nutzen :has() für moderne Browser */
+
+        /* Listenansicht */
+        a[href*="/collections/events/entries/"]:has(> *) {
+          display: block;
+          position: relative;
+        }
+
+        /* Ferienpass - Grün */
+        a[href*="ferienpass"]::before,
+        li:has(a[href*="ferienpass"])::before,
+        div:has(> a[href*="ferienpass"]):not([class*="App"])::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          width: 4px;
+          background-color: #4CAF50;
+          border-radius: 2px 0 0 2px;
+        }
+
+        /* Mach mit Mathe - Lila */
+        a[href*="mach-mit-mathe"]::before,
+        li:has(a[href*="mach-mit-mathe"])::before,
+        div:has(> a[href*="mach-mit-mathe"]):not([class*="App"])::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          width: 4px;
+          background-color: #9C27B0;
+          border-radius: 2px 0 0 2px;
+        }
+
+        /* Offene Werkstatt - Orange */
+        a[href*="offene-werkstatt"]::before,
+        li:has(a[href*="offene-werkstatt"])::before,
+        div:has(> a[href*="offene-werkstatt"]):not([class*="App"])::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          width: 4px;
+          background-color: #FF9800;
+          border-radius: 2px 0 0 2px;
+        }
+
+        /* Sonstige - Grau */
+        a[href*="-sonstige"]::before,
+        li:has(a[href*="-sonstige"])::before,
+        div:has(> a[href*="-sonstige"]):not([class*="App"])::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          width: 4px;
+          background-color: #607D8B;
+          border-radius: 2px 0 0 2px;
+        }
+
+        /* Positionierung für Parent-Elemente */
+        li:has(a[href*="/collections/events/entries/"]),
+        div:has(> a[href*="/collections/events/entries/"]):not([class*="App"]):not([class*="Container"]) {
+          position: relative !important;
+        }
+      `;
+
+      // Nur einmal hinzufügen
+      if (!document.getElementById('event-colorization-styles')) {
+        document.head.appendChild(styleSheet);
+        console.log('✅ Event-Farbcodierung CSS hinzugefügt');
+      }
+    }
+
+      // ============================================
+      // 4. Event Type Handler (Defaults setzen)
+      // ============================================
+      function setupEventTypeHandler() {
+        let isHandlerAttached = false;
+
+        const applyDefaults = (selectedType, force = false) => {
+          const defaults = EVENT_TYPE_DEFAULTS[selectedType];
+        if (!defaults) {
+          console.log('❌ Keine Defaults für:', selectedType);
+          return;
+        }
+
+        console.log('🔧 Setze Defaults für:', selectedType);
+
+        setTimeout(() => {
+          // Location
+          const locationInput = document.querySelector('input[name="location"]');
+          if (locationInput && (force || !locationInput.value)) {
+            locationInput.value = defaults.location;
+            locationInput.dispatchEvent(new Event('input', { bubbles: true }));
+            locationInput.dispatchEvent(new Event('change', { bubbles: true }));
+          }
+
+          // Registration Required
+          const regCheckbox = document.querySelector('input[type="checkbox"][id*="registration"], input[name="registration_required"]');
+          if (regCheckbox) {
+            regCheckbox.checked = defaults.registration_required;
+            regCheckbox.dispatchEvent(new Event('change', { bubbles: true }));
+          }
+
+          // Registration Email
+          const regEmailInput = document.querySelector('input[name="registration_email"]');
+          if (regEmailInput && (force || !regEmailInput.value)) {
+            regEmailInput.value = defaults.registration_email;
+            regEmailInput.dispatchEvent(new Event('input', { bubbles: true }));
+          }
+
+          // Start Time
+          const startTimeInput = document.querySelector('input[name="start_date.time"]');
+          if (startTimeInput && defaults.start_time && (force || !startTimeInput.value)) {
+            startTimeInput.value = defaults.start_time;
+            startTimeInput.dispatchEvent(new Event('input', { bubbles: true }));
+            startTimeInput.dispatchEvent(new Event('change', { bubbles: true }));
+            console.log('⏰ Start-Zeit gesetzt:', defaults.start_time);
+          }
+
+          // End Time
+          const endTimeInput = document.querySelector('input[name="end_date.time"]');
+          if (endTimeInput && defaults.end_time && (force || !endTimeInput.value)) {
+            endTimeInput.value = defaults.end_time;
+            endTimeInput.dispatchEvent(new Event('input', { bubbles: true }));
+            endTimeInput.dispatchEvent(new Event('change', { bubbles: true }));
+            console.log('⏰ End-Zeit gesetzt:', defaults.end_time);
+          }
+
+          console.log('✅ Defaults erfolgreich gesetzt');
+        }, 300);
+      };
+
+      const attachHandler = () => {
+        const eventTypeSelect = document.querySelector('select[name="event_type"]');
+
+        if (eventTypeSelect && !isHandlerAttached) {
+          console.log('🔗 Event Type Handler eingerichtet');
+          isHandlerAttached = true;
+
+          // Check für vorgewählten Typ aus Quick-Create
+          const preselected = sessionStorage.getItem('preselectedEventType');
+          if (preselected) {
+            console.log('🎯 Vorgewählter Typ:', preselected);
+            setTimeout(() => {
+              eventTypeSelect.value = preselected;
+              eventTypeSelect.dispatchEvent(new Event('change', { bubbles: true }));
+              applyDefaults(preselected, true);
+              sessionStorage.removeItem('preselectedEventType');
+            }, 500);
+          }
+
+          eventTypeSelect.addEventListener('change', (e) => {
+            applyDefaults(e.target.value, false);
+          });
+        }
+      };
+
+      const observer = new MutationObserver(attachHandler);
+      observer.observe(document.body, { childList: true, subtree: true });
+      attachHandler();
+      }
+
+      // ============================================
+      // 5. Cleanup bei Navigation
+      // ============================================
+      function setupNavigationHandler() {
+        window.addEventListener('hashchange', () => {
+          const hash = window.location.hash;
+
+        // Reset Event Type Handler wenn wir die /new Seite verlassen
+        if (!hash.includes('/new')) {
+          // Handler wird beim nächsten Mal neu attached
+        }
+      });
+    }
+
+      // ============================================
+      // Initialisierung
+      // ============================================
+      const init = () => {
+        initDecapCMS();
+        setupEventTypeHandler();
+          addQuickCreateButtons();
+          colorizeEventCards();
+          setupNavigationHandler();
         };
 
-        initializeEventTypeHandler();
-    });
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', init);
+        } else {
+      init();
+    }
+
+  console.log('🚀 MINT.FV CMS Customization v3.0.0 geladen');
 </script>
-    </body>
+  </body>
 </html>

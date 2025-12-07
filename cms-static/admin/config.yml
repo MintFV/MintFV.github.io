@@ -29,16 +29,11 @@ collections:
     folder: "_events" # Der Ordner im Repo, in dem die Veranstaltungs-Dateien liegen
     create: true # Erlaubt das Erstellen neuer Veranstaltungen
     slug: "{{start_date}}-{{event_type}}" # Dateiname-Format, z.B. "2025-12-05-roboter-workshop.md"
-    summary: "{{start_date | date('DD.MM.YYYY')}} - {{title}}"
+    summary: "{{start_date | date('DD.MM.YYYY HH:mm')}} - [{{event_type}}] {{title}}"
     editor:
       preview: true
     # Sortierung: Neueste zuerst
     sortable_fields: ['start_date', 'title', 'event_type']
-    view_groups:
-      - label: "Status"
-        field: published
-      - label: "Typ"
-        field: event_type
     view_filters:
       - label: "Mach mit Mathe 🎨"
         field: event_type
@@ -92,7 +87,6 @@ collections:
         date_format: "DD.MM.YYYY"
         time_format: "HH:mm"
         picker_utc: false
-        default: "{{start_date}}"
         required: true
         hint: "Endzeitpunkt der Veranstaltung. Das Datum wird automatisch vom Startdatum übernommen - passen Sie nur die Uhrzeit an."
 
