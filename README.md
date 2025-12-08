@@ -27,6 +27,8 @@ Den Namen des neu erstellten Accounts bitte Andreas nennen, dieser lädt dann de
 ### Pflege von Veranstaltungen
 
 TODO
+<https://mintfv-cms.netlify.app/admin/#/collections/events>
+<https://github.com/MintFV/MintFV.github.io/actions>
 
 ## Strukturelle Weiterentwicklung der Webseite
 
