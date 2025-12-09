@@ -33,6 +33,7 @@ TODO
 ## Strukturelle Weiterentwicklung der Webseite
 
 TODO
+DROP cms-static to <https://app.netlify.com/projects/mintfv-cms/overview>
 
 ### Installation
 
