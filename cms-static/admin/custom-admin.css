@@ -15,46 +15,46 @@
 
 /* Quick-Create Buttons */
 .quick-btn {
-  padding: 10px 16px;
-  border: none;
+padding: 10px 16px;
   border-radius: 6px;
   cursor: pointer;
   font-size: 13px;
   font-weight: 600;
-  transition: transform 0.1s, box-shadow 0.1s;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  color: white;
+transition: transform 0.1s, box-shadow 0.1s, border-color 0.2s;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    color: #333;
+    border: 2px solid;
 }
 
 .quick-btn:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .quick-btn:active {
   transform: translateY(0);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 /* Event-Type spezifische Farben für Quick-Buttons */
 .quick-btn.mach-mit-mathe {
 background: #E8F4F8;
-    color: #333;
+border-color: #8EC5D4;
 }
 
 .quick-btn.offene-werkstatt {
 background: #F0F8E8;
-    color: #333;
+border-color: #A8D18A;
 }
 
 .quick-btn.ferienpass {
 background: #FFF4E6;
-    color: #333;
+border-color: #FFD699;
 }
 
 .quick-btn.sonstige {
 background: #F5F0F8;
-    color: #333;
+border-color: #C5B8D4;
 }
 
 /* Color Indicator Bar - Visuelles Feedback im Editor */
@@ -63,56 +63,164 @@ background: #F5F0F8;
   top: 0;
   left: 0;
   right: 0;
-  height: 4px;
+height: 8px;
   z-index: 9999;
   pointer-events: none;
   transition: background-color 0.3s ease;
+border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Top-Indicator-Bar im Editor - nur Emoji, kein Text */
+body[data-event-type]::before {
+    content: attr(data-event-type-emoji);
+    display: block;
+    height: 8px;
+    text-align: center;
+    font-size: 1rem;
+    line-height: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+body[data-event-type="mach-mit-mathe"]::before {
+    content: "📐";
+    background: linear-gradient(to bottom, #E8F4F8, #8EC5D4);
+    border-bottom: 2px solid #8EC5D4;
+}
+
+body[data-event-type="offene-werkstatt"]::before {
+    content: "🔧";
+    background: linear-gradient(to bottom, #F0F8E8, #A8D18A);
+    border-bottom: 2px solid #A8D18A;
+}
+
+body[data-event-type="ferienpass"]::before {
+    content: "🎪";
+    background: linear-gradient(to bottom, #FFF4E6, #FFD699);
+    border-bottom: 2px solid #FFD699;
+}
+
+body[data-event-type="sonstige"]::before {
+    content: "📅";
+    background: linear-gradient(to bottom, #F5F0F8, #C5B8D4);
+    border-bottom: 2px solid #C5B8D4;
 }
 
 /* Farbcodierung für Event-Karten in der Listen-Ansicht */
-/* Farbige Balken links an den Einträgen */
-a[href*="ferienpass"]::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-background: #FFF4E6;
-}
-
-a[href*="mach-mit-mathe"]::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-background: #E8F4F8;
-}
-
-a[href*="offene-werkstatt"]::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-background: #F0F8E8;
-}
-
-a[href*="-sonstige"]::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-background: #F5F0F8;
-}
-
+/* Vollflächiger Hintergrund + Border + Emoji-Badge für bessere Sichtbarkeit */
 /* Positionierung für Event-Einträge */
 li:has(a[href*="/events/entries/"]),
 div:has(> a[href*="/events/entries/"]):not([class*="App"]) {
-  position: relative !important;
+    position: relative !important;
+}
+
+/* Basis-Styling für alle Event-Links */
+a[href*="/events/entries/"] {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+}
+
+/* Ferienpass */
+a[href*="/events/entries/"][data-event-type="ferienpass"],
+a[href*="ferienpass"] {
+    background: #FFF4E6 !important;
+    border: 2px solid #FFD699 !important;
+    border-radius: 4px !important;
+    padding: 8px 12px !important;
+    transition: all 0.2s ease !important;
+}
+
+a[href*="/events/entries/"][data-event-type="ferienpass"]:hover,
+a[href*="ferienpass"]:hover {
+    box-shadow: 0 2px 8px rgba(255, 214, 153, 0.4) !important;
+    transform: translateX(2px) !important;
+}
+
+/* Mach mit Mathe */
+a[href*="/events/entries/"][data-event-type="mach-mit-mathe"],
+a[href*="mach-mit-mathe"] {
+    background: #E8F4F8 !important;
+    border: 2px solid #8EC5D4 !important;
+    border-radius: 4px !important;
+    padding: 8px 12px !important;
+    transition: all 0.2s ease !important;
+}
+
+a[href*="/events/entries/"][data-event-type="mach-mit-mathe"]:hover,
+a[href*="mach-mit-mathe"]:hover {
+    box-shadow: 0 2px 8px rgba(142, 197, 212, 0.4) !important;
+    transform: translateX(2px) !important;
+}
+
+/* Offene Werkstatt */
+a[href*="/events/entries/"][data-event-type="offene-werkstatt"],
+a[href*="offene-werkstatt"] {
+    background: #F0F8E8 !important;
+    border: 2px solid #A8D18A !important;
+    border-radius: 4px !important;
+    padding: 8px 12px !important;
+    transition: all 0.2s ease !important;
+}
+
+a[href*="/events/entries/"][data-event-type="offene-werkstatt"]:hover,
+a[href*="offene-werkstatt"]:hover {
+    box-shadow: 0 2px 8px rgba(168, 209, 138, 0.4) !important;
+    transform: translateX(2px) !important;
+}
+
+/* Sonstige */
+a[href*="/events/entries/"][data-event-type="sonstige"],
+a[href*="sonstige"] {
+    background: #F5F0F8 !important;
+    border: 2px solid #C5B8D4 !important;
+    border-radius: 4px !important;
+    padding: 8px 12px !important;
+    transition: all 0.2s ease !important;
+}
+
+a[href*="/events/entries/"][data-event-type="sonstige"]:hover,
+a[href*="sonstige"]:hover {
+    box-shadow: 0 2px 8px rgba(197, 184, 212, 0.4) !important;
+    transform: translateX(2px) !important;
+}
+
+/* Editor-Hintergrund: Subtiler Pastellfarb-Hintergrund für Formularbereich */
+/* Färbt den kompletten Editor-Bereich basierend auf Event-Typ */
+
+/* Wrapper für Formular-Bereich (wenn Event-Typ erkennbar ist) */
+div[class*="ControlPane"],
+div[class*="EditorContainer"],
+div[class*="EditorInterface"],
+main[class*="main"] {
+    transition: background-color 0.5s ease;
+}
+
+/* Wird via JavaScript dynamisch gesetzt basierend auf Event-Typ in URL */
+body[data-event-type="mach-mit-mathe"] div[class*="ControlPane"],
+body[data-event-type="mach-mit-mathe"] div[class*="EditorContainer"],
+body[data-event-type="mach-mit-mathe"] div[class*="EditorInterface"],
+body[data-event-type="mach-mit-mathe"] main[class*="main"] {
+    background-color: rgba(232, 244, 248, 0.3) !important;
+}
+
+body[data-event-type="offene-werkstatt"] div[class*="ControlPane"],
+body[data-event-type="offene-werkstatt"] div[class*="EditorContainer"],
+body[data-event-type="offene-werkstatt"] div[class*="EditorInterface"],
+body[data-event-type="offene-werkstatt"] main[class*="main"] {
+    background-color: rgba(240, 248, 232, 0.3) !important;
+}
+
+body[data-event-type="ferienpass"] div[class*="ControlPane"],
+body[data-event-type="ferienpass"] div[class*="EditorContainer"],
+body[data-event-type="ferienpass"] div[class*="EditorInterface"],
+body[data-event-type="ferienpass"] main[class*="main"] {
+    background-color: rgba(255, 244, 230, 0.3) !important;
+}
+
+body[data-event-type="sonstige"] div[class*="ControlPane"],
+body[data-event-type="sonstige"] div[class*="EditorContainer"],
+body[data-event-type="sonstige"] div[class*="EditorInterface"],
+body[data-event-type="sonstige"] main[class*="main"] {
+    background-color: rgba(245, 240, 248, 0.3) !important;
 }

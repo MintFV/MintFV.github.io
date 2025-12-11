@@ -29,7 +29,7 @@ collections:
     folder: "_events" # Der Ordner im Repo, in dem die Veranstaltungs-Dateien liegen
     create: true # Erlaubt das Erstellen neuer Veranstaltungen
     slug: "{{start_date}}-{{event_type}}" # Dateiname-Format, z.B. "2025-12-05-roboter-workshop.md"
-    summary: "{{start_date | date('DD.MM.YYYY HH:mm')}} - [{{event_type}}] {{title}}"
+    summary: "{{start_date | date('DD.MM.YYYY HH:mm')}} - {{title}}"
     editor:
       preview: true
     # Sortierung: Neueste zuerst

@@ -6,12 +6,22 @@
   <meta name="robots" content="noindex" />
   <title>MINT.FV Content Manager</title>
   <link rel="stylesheet" href="custom-admin.css">
+<!-- Unterdrücke Source-Map-Fehler von Decap CMS CDN -->
+<script>
+  window.addEventListener('error', function (e) {
+    if (e.filename && e.filename.includes('decap-cms.js.map')) {
+      e.preventDefault();
+      e.stopPropagation();
+      return false;
+    }
+  }, true);
+</script>
 </head>
 <body>
   <!-- Farbindikator - sicheres eigenes Element -->
   <div id="event-type-indicator"></div>
 
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <script src="https://unpkg.com/decap-cms@^3.9.0/dist/decap-cms.js"></script>
 
   <script>
       // ============================================
@@ -22,17 +32,29 @@
           // Lade Event-Type-Konfiguration
           let EVENT_TYPE_DEFAULTS = {};
 
+            // Helper: Extrahiere Emoji aus Label (erstes Zeichen/Emoji vor Leerzeichen)
+            function getEmoji(label) {
+              if (!label) return '';
+              // Emoji ist das erste "Wort" vor dem Leerzeichen
+              const parts = label.split(' ');
+              return parts[0] || '';
+            }
+
           fetch('./event-types.json')
             .then(response => response.json())
             .then(data => {
               EVENT_TYPE_DEFAULTS = data;
               console.log('✅ Event-Types geladen:', Object.keys(EVENT_TYPE_DEFAULTS));
+              // Teste Emoji-Extraktion
+              Object.entries(data).forEach(([type, config]) => {
+                console.log(`📝 ${type}: emoji="${getEmoji(config.label)}"`);
+              });
             })
             .catch(error => {
               console.error('❌ Fehler beim Laden der event-types.json:', error);
               // Fallback auf minimale Defaults
               EVENT_TYPE_DEFAULTS = {
-                'mach-mit-mathe': { label: '🧮 Mach mit Mathe', color: '#009688', optionMatch: 'Mach mit Mathe' },
+                'mach-mit-mathe': { label: '📐 Mach mit Mathe', color: '#009688', optionMatch: 'Mach mit Mathe' },
                 'offene-werkstatt': { label: '🔧 Offene Werkstatt', color: '#FF9800', optionMatch: 'Offene Werkstatt' },
                 'ferienpass': { label: '🎪 Ferienpass', color: '#4CAF50', optionMatch: 'Ferienpass' },
                 'sonstige': { label: '📅 Sonstige', color: '#607D8B', optionMatch: 'Sonstige' }
@@ -93,6 +115,7 @@
         if (!hash.includes('/collections/events/new') &&
           !hash.includes('/collections/events/entries/')) {
           indicator.style.backgroundColor = 'transparent';
+          document.body.removeAttribute('data-event-type');
           return;
         }
 
@@ -123,6 +146,7 @@
 
           if (!eventType) {
             indicator.style.backgroundColor = 'transparent';
+            document.body.removeAttribute('data-event-type');
             return;
           }
 
@@ -130,18 +154,15 @@
           if (!config) return;
 
           indicator.style.backgroundColor = config.color;
-          console.log(`🎨 Editor-Farbe: ${eventType} (${config.color})`);
+
+          // Setze data-attribute für Editor-Hintergrund
+          document.body.setAttribute('data-event-type', eventType);
         };
 
-        setTimeout(applyColor, 500);
+        applyColor();
 
-        // Beobachte Änderungen
-        const intervalId = setInterval(applyColor, 2000);
-
-        // Aufräumen bei Navigation
-        window.addEventListener('hashchange', () => {
-          clearInterval(intervalId);
-        }, { once: true });
+        const observer = new MutationObserver(applyColor);
+        observer.observe(document.body, { childList: true, subtree: true });
       }
 
       // ============================================
@@ -311,7 +332,8 @@
         Object.entries(EVENT_TYPE_DEFAULTS).forEach(([type, config]) => {
           const btn = document.createElement('button');
           btn.className = `quick-btn ${type}`;
-          btn.textContent = `➕ ${config.label}`;
+          btn.textContent = getEmoji(config.label);
+          btn.title = config.label; // Tooltip zeigt Label
           btn.style.backgroundColor = config.color;
 
           btn.addEventListener('click', (e) => {
@@ -335,16 +357,67 @@
 
         headerArea.parentNode.insertBefore(container, headerArea);
         console.log('✅ Quick-Create Buttons hinzugefügt');
+
+        // Färbe Liste-Einträge ein
+        colorizeListItems();
       };
 
-      const observer = new MutationObserver(tryAddButtons);
+        const observer = new MutationObserver(() => {
+          tryAddButtons();
+          colorizeListItems();
+        });
       observer.observe(document.body, { childList: true, subtree: true });
 
       window.addEventListener('hashchange', () => {
         document.getElementById('quick-create-container')?.remove();
         setTimeout(colorizeEditor, 500);
+        setTimeout(colorizeListItems, 500);
       });
-    }
+          }
+
+          // ============================================
+          // Liste-Einträge einfärben basierend auf Event-Typ
+          // LEGITIM: Decap zeigt keine Event-Type-Badges in Listen
+          // ============================================
+          function colorizeListItems() {
+            const links = document.querySelectorAll('a[href*="/events/entries/"]');
+
+            links.forEach(async (link) => {
+              const href = link.getAttribute('href');
+              const entryId = href.split('/entries/')[1];
+
+              // Versuche Event-Typ aus dem Dateinamen zu erkennen
+              let eventType = null;
+
+              if (href.includes('mach-mit-mathe')) {
+                eventType = 'mach-mit-mathe';
+              } else if (href.includes('offene-werkstatt')) {
+                eventType = 'offene-werkstatt';
+              } else if (href.includes('ferienpass')) {
+                eventType = 'ferienpass';
+              } else {
+                // Fallback: sonstige
+                eventType = 'sonstige';
+              }
+
+              if (eventType && EVENT_TYPE_DEFAULTS[eventType]) {
+                const config = EVENT_TYPE_DEFAULTS[eventType];
+
+                // Setze data-event-type Attribut
+                link.setAttribute('data-event-type', eventType);
+
+                // Füge Emoji hinzu, wenn noch nicht vorhanden
+                if (!link.querySelector('.event-emoji')) {
+                  const emoji = document.createElement('span');
+                  emoji.className = 'event-emoji';
+                  emoji.textContent = getEmoji(config.label);
+                  emoji.style.marginRight = '8px';
+                  emoji.style.fontSize = '1.2rem';
+                  link.insertBefore(emoji, link.firstChild);
+                }
+              }
+            });
+          }
 
       // ============================================
           // 3. Event Type Handler
