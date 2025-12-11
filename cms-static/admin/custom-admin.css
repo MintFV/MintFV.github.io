@@ -71,40 +71,9 @@ border-bottom: 2px solid rgba(0, 0, 0, 0.1);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Top-Indicator-Bar im Editor - nur Emoji, kein Text */
-body[data-event-type]::before {
-    content: attr(data-event-type-emoji);
-    display: block;
-    height: 8px;
-    text-align: center;
-    font-size: 1rem;
-    line-height: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-body[data-event-type="mach-mit-mathe"]::before {
-    content: "📐";
-    background: linear-gradient(to bottom, #E8F4F8, #8EC5D4);
-    border-bottom: 2px solid #8EC5D4;
-}
-
-body[data-event-type="offene-werkstatt"]::before {
-    content: "🔧";
-    background: linear-gradient(to bottom, #F0F8E8, #A8D18A);
-    border-bottom: 2px solid #A8D18A;
-}
-
-body[data-event-type="ferienpass"]::before {
-    content: "🎪";
-    background: linear-gradient(to bottom, #FFF4E6, #FFD699);
-    border-bottom: 2px solid #FFD699;
-}
-
-body[data-event-type="sonstige"]::before {
-    content: "📅";
-    background: linear-gradient(to bottom, #F5F0F8, #C5B8D4);
-    border-bottom: 2px solid #C5B8D4;
-}
+/* Top-Indicator-Bar im Editor */
+/* Farbe und Emoji werden via JavaScript dynamisch gesetzt (aus event-types.json) */
+/* Keine Duplikation von Emojis oder Farben hier - Single Source of Truth: event-types.json */
 
 /* Farbcodierung für Event-Karten in der Listen-Ansicht */
 /* Vollflächiger Hintergrund + Border + Emoji-Badge für bessere Sichtbarkeit */
