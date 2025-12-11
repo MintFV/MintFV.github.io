@@ -88,11 +88,11 @@ kramdown:
 
 # Outputting
 permalink: /:categories/:title/
-paginate: 3
-paginate_path: /page:num/
+# paginate: 3  # Aktuell nicht verwendet (nur für Posts, nicht Events)
+# paginate_path: /page:num/
 timezone: Europe/Berlin
 
-# Pagination with jekyll-paginate-v2
+# Pagination with jekyll-paginate-v2 (für spätere Event-Pagination reserviert)
 # See https://github.com/sverrirs/jekyll-paginate-v2/blob/master/README-GENERATOR.md#site-configuration
 #   for configuration details
 pagination:
@@ -130,13 +130,13 @@ collections:
     output: true
     permalink: /veranstaltungen/:categories/:title/
 
-# Archives
-category_archive:
-  type: liquid
-  path: /categories/
-tag_archive:
-  type: liquid
-  path: /tags/
+# Archives (nicht verwendet - keine Blog-Posts vorhanden)
+# category_archive:
+#   type: liquid
+#   path: /categories/
+# tag_archive:
+#   type: liquid
+#   path: /tags/
 
 # HTML Compression
 compress_html:
@@ -146,16 +146,17 @@ compress_html:
 
 # Defaults
 defaults:
-  - scope:
-      path: ""
-      type: posts
-    values:
-      layout: single
-      author_profile: false
-      read_time: false
-      comments: false
-      share: true
-      related: true
+  # Posts (nicht verwendet, aber für Kompatibilität behalten)
+  # - scope:
+  #     path: ""
+  #     type: posts
+  #   values:
+  #     layout: single
+  #     author_profile: false
+  #     read_time: false
+  #     comments: false
+  #     share: true
+  #     related: true
   # _pages
   - scope:
       path: "_pages"
