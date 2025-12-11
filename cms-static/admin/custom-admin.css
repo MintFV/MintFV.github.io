@@ -38,19 +38,23 @@
 
 /* Event-Type spezifische Farben für Quick-Buttons */
 .quick-btn.mach-mit-mathe {
-  background: #009688;
+background: #E8F4F8;
+    color: #333;
 }
 
 .quick-btn.offene-werkstatt {
-  background: #FF9800;
+background: #F0F8E8;
+    color: #333;
 }
 
 .quick-btn.ferienpass {
-  background: #4CAF50;
+background: #FFF4E6;
+    color: #333;
 }
 
 .quick-btn.sonstige {
-  background: #607D8B;
+background: #F5F0F8;
+    color: #333;
 }
 
 /* Color Indicator Bar - Visuelles Feedback im Editor */
@@ -74,7 +78,7 @@ a[href*="ferienpass"]::before {
   top: 0;
   bottom: 0;
   width: 4px;
-  background: #4CAF50;
+background: #FFF4E6;
 }
 
 a[href*="mach-mit-mathe"]::before {
@@ -84,7 +88,7 @@ a[href*="mach-mit-mathe"]::before {
   top: 0;
   bottom: 0;
   width: 4px;
-  background: #009688;
+background: #E8F4F8;
 }
 
 a[href*="offene-werkstatt"]::before {
@@ -94,7 +98,7 @@ a[href*="offene-werkstatt"]::before {
   top: 0;
   bottom: 0;
   width: 4px;
-  background: #FF9800;
+background: #F0F8E8;
 }
 
 a[href*="-sonstige"]::before {
@@ -104,7 +108,7 @@ a[href*="-sonstige"]::before {
   top: 0;
   bottom: 0;
   width: 4px;
-  background: #607D8B;
+background: #F5F0F8;
 }
 
 /* Positionierung für Event-Einträge */

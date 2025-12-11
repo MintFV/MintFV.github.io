@@ -6,10 +6,10 @@
 
 mach-mit-mathe:
   name: "Mach mit Mathe - Ausstellung"
-  emoji: "🎨"
+  emoji: "📐"
   color: "#E8F4F8"
   defaults:
-    location: "MINTarium Eingang A / Austellungsraum - Mümmelmannsberg 75 - 20255 Hamburg"
+    location: "MINTarium Eingang A / Ausstellungsraum - Mümmelmannsberg 75 - 20255 Hamburg"
     registration_required: false
     registration_email: ""
   description: "Monatliche interaktive Mathematik-Ausstellung"
