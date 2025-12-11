@@ -40,6 +40,13 @@
               return parts[0] || '';
             }
 
+            // Helper: Extrahiere Text aus Label (ohne Emoji)
+            function getTextFromLabel(label) {
+              if (!label) return '';
+              // Entferne Emoji und trim
+              return label.replace(/^[\u{1F300}-\u{1F9FF}]\s*/u, '').trim();
+            }
+
           fetch('./event-types.json')
             .then(response => response.json())
             .then(data => {
@@ -57,10 +64,10 @@
               console.error('❌ Fehler beim Laden der event-types.json:', error);
               // Fallback auf minimale Defaults
               EVENT_TYPE_DEFAULTS = {
-                'mach-mit-mathe': { label: '📐 Mach mit Mathe', color: '#009688', optionMatch: 'Mach mit Mathe' },
-                'offene-werkstatt': { label: '🔧 Offene Werkstatt', color: '#FF9800', optionMatch: 'Offene Werkstatt' },
-                'ferienpass': { label: '🎪 Ferienpass', color: '#4CAF50', optionMatch: 'Ferienpass' },
-                'sonstige': { label: '📅 Sonstige', color: '#607D8B', optionMatch: 'Sonstige' }
+                'mach-mit-mathe': { label: '📐 Mach mit Mathe', color: '#009688' },
+                'offene-werkstatt': { label: '🔧 Offene Werkstatt', color: '#FF9800' },
+                'ferienpass': { label: '🎪 Ferienpass', color: '#4CAF50' },
+                'sonstige': { label: '📅 Sonstige', color: '#607D8B' }
               };
           });
 
@@ -139,7 +146,8 @@
             if (selectValue) {
               const text = selectValue.textContent || '';
               for (const [type, config] of Object.entries(EVENT_TYPE_DEFAULTS)) {
-                if (text.includes(config.optionMatch)) {
+                const matchText = getTextFromLabel(config.label);
+                if (text.includes(matchText)) {
                   eventType = type;
                   break;
                 }
@@ -443,7 +451,7 @@
 
         await new Promise(resolve => setTimeout(resolve, 1500));
 
-        const success = await selectEventType(defaults.optionMatch);
+        const success = await selectEventType(getTextFromLabel(defaults.label));
 
         if (success) {
           console.log('✅ Event-Type gesetzt!');
