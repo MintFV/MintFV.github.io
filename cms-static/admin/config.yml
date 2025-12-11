@@ -59,7 +59,12 @@ collections:
       - label: "Veranstaltungstyp"
         name: "event_type"
         widget: "select"
-        hint: "Wählen Sie den passenden Veranstaltungstyp aus. Die restlichen Felder werden automatisch vorausgefüllt."
+        hint: |
+          Wählen Sie den passenden Veranstaltungstyp. Bei Verwendung der Quick-Create-Buttons werden automatisch passende Standardwerte gesetzt:
+          • Mach mit Mathe: Ausstellungsraum, 14:00-16:00 Uhr
+          • Offene Werkstatt: Werkstatt, 16:00-19:00 Uhr
+          • Ferienpass: Vereinsräume, 11:00-12:00 Uhr, Anmeldung erforderlich
+          • Sonstige: Flexible Einstellungen
         options:
           - { label: "🎨 Mach mit Mathe - Ausstellung", value: "mach-mit-mathe" }
           - { label: "🔧 Offene Werkstatt", value: "offene-werkstatt" }
@@ -78,7 +83,7 @@ collections:
         date_format: "DD.MM.YYYY"
         time_format: "HH:mm"
         picker_utc: false
-        hint: "Wann beginnt die Veranstaltung? (Datum und Uhrzeit sind Pflichtangaben)"
+        hint: "Wann beginnt die Veranstaltung? Bei Quick-Create wird die Uhrzeit automatisch je nach Typ gesetzt (kann angepasst werden)."
 
       - label: "Enddatum und Uhrzeit"
         name: "end_date"
@@ -88,7 +93,7 @@ collections:
         time_format: "HH:mm"
         picker_utc: false
         required: true
-        hint: "Endzeitpunkt der Veranstaltung. Das Datum wird automatisch vom Startdatum übernommen - passen Sie nur die Uhrzeit an."
+        hint: "Endzeitpunkt der Veranstaltung. Bei Quick-Create wird die End-Uhrzeit automatisch je nach Typ gesetzt (anpassbar)."
 
       - label: "Kurzbeschreibung"
         name: "excerpt"
@@ -122,7 +127,12 @@ collections:
         name: "location"
         widget: "string"
         required: false
-        hint: "Wo findet die Veranstaltung statt? (z.B. 'Ausstellungsraum', 'Werkstatt', 'Vereinsräume')"
+        hint: |
+          Wo findet die Veranstaltung statt? Bei Quick-Create wird automatisch der Standard-Ort für den gewählten Typ eingetragen:
+          • Mach mit Mathe: MINTarium Eingang A / Ausstellungsraum
+          • Offene Werkstatt: MINTarium Eingang B
+          • Ferienpass: MINTarium Eingang B
+          Der Ort kann natürlich angepasst werden.
 
       # --- BILDER ---
 
@@ -166,7 +176,7 @@ collections:
         name: "registration_required"
         widget: "boolean"
         default: false
-        hint: "Müssen sich Teilnehmer vorher anmelden?"
+        hint: "Müssen sich Teilnehmer vorher anmelden? Bei Ferienpass-Aktionen ist dies standardmäßig aktiviert."
 
       - label: "Anmelde-E-Mail"
         name: "registration_email"

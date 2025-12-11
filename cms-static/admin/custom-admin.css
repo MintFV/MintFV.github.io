@@ -1,0 +1,114 @@
+/* ============================================================
+   MINT.FV Decap CMS Custom Admin Styles
+   Zusätzliche Styles für verbesserte UX im CMS
+   ============================================================ */
+
+/* Quick-Create Button Container */
+#quick-create-container {
+  display: flex;
+  gap: 8px;
+  margin: 16px 0;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+
+/* Quick-Create Buttons */
+.quick-btn {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  transition: transform 0.1s, box-shadow 0.1s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: white;
+}
+
+.quick-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.quick-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Event-Type spezifische Farben für Quick-Buttons */
+.quick-btn.mach-mit-mathe {
+  background: #009688;
+}
+
+.quick-btn.offene-werkstatt {
+  background: #FF9800;
+}
+
+.quick-btn.ferienpass {
+  background: #4CAF50;
+}
+
+.quick-btn.sonstige {
+  background: #607D8B;
+}
+
+/* Color Indicator Bar - Visuelles Feedback im Editor */
+#event-type-indicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  z-index: 9999;
+  pointer-events: none;
+  transition: background-color 0.3s ease;
+}
+
+/* Farbcodierung für Event-Karten in der Listen-Ansicht */
+/* Farbige Balken links an den Einträgen */
+a[href*="ferienpass"]::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: #4CAF50;
+}
+
+a[href*="mach-mit-mathe"]::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: #009688;
+}
+
+a[href*="offene-werkstatt"]::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: #FF9800;
+}
+
+a[href*="-sonstige"]::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: #607D8B;
+}
+
+/* Positionierung für Event-Einträge */
+li:has(a[href*="/events/entries/"]),
+div:has(> a[href*="/events/entries/"]):not([class*="App"]) {
+  position: relative !important;
+}

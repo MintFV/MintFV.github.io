@@ -1,0 +1,47 @@
+{
+  "mach-mit-mathe": {
+    "location": "MINTarium Eingang A / Ausstellungsraum - Mümmelmannsberg 75 - 20255 Hamburg",
+    "start_time": "14:00",
+    "end_time": "16:00",
+    "color": "#009688",
+    "label": "🧮 Mach mit Mathe",
+    "optionMatch": "Mach mit Mathe",
+    "description": "Monatliche interaktive Mathematik-Ausstellung",
+    "registration_required": false,
+    "registration_email": ""
+  },
+  "offene-werkstatt": {
+    "location": "MINTarium Eingang B - Mümmelmannsberg 75 - 20255 Hamburg",
+    "start_time": "16:00",
+    "end_time": "19:00",
+    "color": "#FF9800",
+    "label": "🔧 Offene Werkstatt",
+    "optionMatch": "Offene Werkstatt",
+    "description": "Zweiwöchentliche offene Werkstatt für praktische Projekte",
+    "registration_required": false,
+    "registration_email": "",
+    "organizers": ["Jan Evers", "Christoph Büchler"]
+  },
+  "ferienpass": {
+    "location": "MINTarium Eingang B - Mümmelmannsberg 75 - 20255 Hamburg",
+    "start_time": "11:00",
+    "end_time": "12:00",
+    "color": "#4CAF50",
+    "label": "🎪 Ferienpass",
+    "optionMatch": "Ferienpass",
+    "description": "Ferienpass-Aktionen für Kinder und Jugendliche",
+    "registration_required": true,
+    "registration_email": "info@mintarium-fv.de"
+  },
+  "sonstige": {
+    "location": "MINTarium Eingang A - Mümmelmannsberg 75 - 20255 Hamburg",
+    "start_time": "",
+    "end_time": "",
+    "color": "#607D8B",
+    "label": "📅 Sonstige",
+    "optionMatch": "Sonstige",
+    "description": "Weitere Veranstaltungen des Vereins",
+    "registration_required": false,
+    "registration_email": "info@mintarium-fv.de"
+  }
+}

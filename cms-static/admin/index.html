@@ -1,51 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex" />
   <title>MINT.FV Content Manager</title>
-  <style>
-    #quick-create-container {
-      display: flex;
-      gap: 8px;
-      margin: 16px 0;
-      flex-wrap: wrap;
-      position: relative;
-      z-index: 1;
-    }
-
-    .quick-btn {
-      padding: 10px 16px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 13px;
-      font-weight: 600;
-      transition: transform 0.1s, box-shadow 0.1s;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-    .quick-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-    }
-    .quick-btn.mach-mit-mathe { background: #009688; color: white; }
-    .quick-btn.offene-werkstatt { background: #FF9800; color: white; }
-    .quick-btn.ferienpass { background: #4CAF50; color: white; }
-    .quick-btn.sonstige { background: #607D8B; color: white; }
-
-    /* Color indicator bar - eigenes Element, bricht nichts */
-    #event-type-indicator {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      z-index: 9999;
-      pointer-events: none;
-      transition: background-color 0.3s;
-    }
-  </style>
+  <link rel="stylesheet" href="custom-admin.css">
 </head>
 <body>
   <!-- Farbindikator - sicheres eigenes Element -->
@@ -56,46 +16,32 @@
   <script>
       // ============================================
       // MINT.FV Decap CMS Customization
-      // Version: 3.8.1 - Teal color for Mach mit Mathe
+          // Version: 4.0.0 - Refactored & Optimized
       // ============================================
 
-    const EVENT_TYPE_DEFAULTS = {
-      'mach-mit-mathe': {
-        location: 'Ausstellungsraum',
-        start_time: '14:00',
-        end_time: '16:00',
-        color: '#009688',  // Teal - passt zum 🧮 Abacus
-        label: '🧮 Mach mit Mathe',
-        optionMatch: 'Mach mit Mathe'
-      },
-      'offene-werkstatt': {
-        location: 'Werkstatt',
-        start_time: '16:00',
-        end_time: '19:00',
-        color: '#FF9800',  // Orange
-        label: '🔧 Offene Werkstatt',
-        optionMatch: 'Offene Werkstatt'
-      },
-      'ferienpass': {
-        location: 'Vereinsräume',
-        start_time: '11:00',
-        end_time: '12:00',
-        color: '#4CAF50',  // Grün
-        label: '🎪 Ferienpass',
-        optionMatch: 'Ferienpass'
-      },
-      'sonstige': {
-        location: '',
-        start_time: '',
-        end_time: '',
-        color: '#607D8B',  // Grau
-        label: '📅 Sonstige',
-        optionMatch: 'Sonstige'
-      }
-    };
+          // Lade Event-Type-Konfiguration
+          let EVENT_TYPE_DEFAULTS = {};
+
+          fetch('./event-types.json')
+            .then(response => response.json())
+            .then(data => {
+              EVENT_TYPE_DEFAULTS = data;
+              console.log('✅ Event-Types geladen:', Object.keys(EVENT_TYPE_DEFAULTS));
+            })
+            .catch(error => {
+              console.error('❌ Fehler beim Laden der event-types.json:', error);
+              // Fallback auf minimale Defaults
+              EVENT_TYPE_DEFAULTS = {
+                'mach-mit-mathe': { label: '🧮 Mach mit Mathe', color: '#009688', optionMatch: 'Mach mit Mathe' },
+                'offene-werkstatt': { label: '🔧 Offene Werkstatt', color: '#FF9800', optionMatch: 'Offene Werkstatt' },
+                'ferienpass': { label: '🎪 Ferienpass', color: '#4CAF50', optionMatch: 'Ferienpass' },
+                'sonstige': { label: '📅 Sonstige', color: '#607D8B', optionMatch: 'Sonstige' }
+              };
+          });
 
       // ============================================
       // Helper: Setze React Input Wert
+          // LEGITIM: Decap bietet keine API für programmatische Feld-Updates
       // ============================================
       function setInputValue(input, value) {
         if (!input || !value) return false;
@@ -134,7 +80,8 @@
     }
 
       // ============================================
-      // SICHERE Editor Einfärbung - nur eigenes Element!
+          // SICHERE Editor Einfärbung
+          // LEGITIM: Decap bietet keine Dynamic-Styling-API für Editor
       // ============================================
       function colorizeEditor() {
         const hash = window.location.hash;
@@ -182,22 +129,14 @@
           const config = EVENT_TYPE_DEFAULTS[eventType];
           if (!config) return;
 
-          // Setze die Farbe nur auf unser eigenes Element
           indicator.style.backgroundColor = config.color;
-
           console.log(`🎨 Editor-Farbe: ${eventType} (${config.color})`);
         };
 
-        // Initial und bei Änderungen
         setTimeout(applyColor, 500);
 
-        // Beobachte Änderungen (z.B. wenn Dropdown geändert wird)
-        const checkForChanges = () => {
-          applyColor();
-        };
-
-        // Periodisch prüfen (sicherer als MutationObserver auf CMS-Elemente)
-        const intervalId = setInterval(checkForChanges, 2000);
+        // Beobachte Änderungen
+        const intervalId = setInterval(applyColor, 2000);
 
         // Aufräumen bei Navigation
         window.addEventListener('hashchange', () => {
@@ -207,6 +146,7 @@
 
       // ============================================
       // Select Event Type
+          // LEGITIM: Decap bietet keine API für programmatische Widget-Interaktion
       // ============================================
       async function selectEventType(optionMatch) {
       try {
@@ -261,13 +201,13 @@
         return false;
 
       } catch (error) {
-        console.error('❌ Fehler:', error);
+        console.error('❌ Fehler beim Event-Type-Select:', error);
         return false;
       }
     }
 
       // ============================================
-      // Defaults anwenden
+          // Defaults anwenden (mit URL-Parameter-Support)
       // ============================================
       async function applyDefaults(eventType) {
         const defaults = EVENT_TYPE_DEFAULTS[eventType];
@@ -279,12 +219,22 @@
 
       let startSet = false;
       let endSet = false;
+        let locationSet = false;
 
       inputs.forEach((input) => {
         const container = input.closest('[class*="Field"], [class*="Widget"]') || input.parentElement?.parentElement;
         const label = container?.querySelector('label');
         const labelText = label?.textContent?.toUpperCase() || '';
 
+        // Location setzen
+        if (input.type === 'text' && labelText.includes('ORT') && !locationSet && !input.value) {
+          if (defaults.location) {
+            setInputValue(input, defaults.location);
+            locationSet = true;
+          }
+        }
+
+        // Start-Datum/Zeit setzen
         if (input.type === 'datetime-local' && labelText.includes('STARTDATUM') && !startSet) {
           if (defaults.start_time && !input.value) {
             const dateTimeValue = createDateTimeLocalValue(defaults.start_time);
@@ -293,6 +243,7 @@
           }
         }
 
+        // End-Datum/Zeit setzen
         if (input.type === 'datetime-local' && labelText.includes('ENDDATUM') && !endSet) {
           if (defaults.end_time && !input.value) {
             const dateTimeValue = createDateTimeLocalValue(defaults.end_time);
@@ -302,24 +253,43 @@
         }
       });
 
-      // Färbe den Editor ein (sicher!)
       colorizeEditor();
     }
 
       // ============================================
-      // 1. CMS Initialisierung
+          // 1. CMS Initialisierung (vereinfacht)
       // ============================================
       function initDecapCMS() {
-        if (typeof CMS === 'undefined') {
-          setTimeout(initDecapCMS, 100);
-          return;
+        // Registriere Preview-CSS
+        if (typeof CMS !== 'undefined') {
+          CMS.registerPreviewStyle('preview.css');
+          console.log('✅ Decap CMS initialisiert');
+
+          // preSave Hook als Fallback für fehlende Defaults
+          CMS.registerEventListener({
+            name: 'preSave',
+            handler: ({ entry }) => {
+              const eventType = entry.getIn(['data', 'event_type']);
+              const location = entry.getIn(['data', 'location']);
+
+              // Nur wenn Location leer ist und Event-Type gesetzt
+              if (!location && eventType && EVENT_TYPE_DEFAULTS[eventType]) {
+                const defaults = EVENT_TYPE_DEFAULTS[eventType];
+                if (defaults.location) {
+                  console.log(`💾 preSave: Setze Location für ${eventType}`);
+                  return entry.setIn(['data', 'location'], defaults.location);
+                }
+              }
+
+              return entry;
+            }
+          });
         }
-        console.log('✅ Decap CMS initialisiert');
-        CMS.registerPreviewStyle('preview.css');
       }
 
       // ============================================
       // 2. Quick-Create Buttons
+          // LEGITIM: Decap bietet keine API für Custom UI in Collection-Listen
       // ============================================
       function addQuickCreateButtons() {
       const tryAddButtons = () => {
@@ -349,7 +319,15 @@
             e.stopPropagation();
             sessionStorage.setItem('preselectedEventType', type);
             console.log('🎯 Quick-Create:', type);
-            window.location.hash = '#/collections/events/new';
+
+            // Verwende URL-Parameter für einfachere Defaults wo möglich
+            const params = new URLSearchParams();
+            if (config.location) params.append('location', config.location);
+
+            const paramString = params.toString();
+            window.location.hash = paramString
+              ? `#/collections/events/new?${paramString}`
+              : '#/collections/events/new';
           });
 
           container.appendChild(btn);
@@ -369,25 +347,8 @@
     }
 
       // ============================================
-      // 3. Farbcodierung Listen-Ansicht
-      // ============================================
-      function colorizeEventCards() {
-      const style = document.createElement('style');
-      style.id = 'event-colors';
-      style.textContent = `
-        a[href*="ferienpass"]::before { content:''; position:absolute; left:0; top:0; bottom:0; width:4px; background:#4CAF50; }
-        a[href*="mach-mit-mathe"]::before { content:''; position:absolute; left:0; top:0; bottom:0; width:4px; background:#009688; }
-        a[href*="offene-werkstatt"]::before { content:''; position:absolute; left:0; top:0; bottom:0; width:4px; background:#FF9800; }
-        a[href*="-sonstige"]::before { content:''; position:absolute; left:0; top:0; bottom:0; width:4px; background:#607D8B; }
-        li:has(a[href*="/events/entries/"]), div:has(> a[href*="/events/entries/"]):not([class*="App"]) { position:relative !important; }
-      `;
-      if (!document.getElementById('event-colors')) {
-        document.head.appendChild(style);
-      }
-    }
-
-      // ============================================
-      // 4. Event Type Handler
+          // 3. Event Type Handler
+          // LEGITIM: Decap bietet keine onCreate/Navigation-Hooks
       // ============================================
       function setupEventTypeHandler() {
 
@@ -439,8 +400,7 @@
       // ============================================
       const init = () => {
         initDecapCMS();
-      addQuickCreateButtons();
-      colorizeEventCards();
+        addQuickCreateButtons();
       setupEventTypeHandler();
     };
 
@@ -450,7 +410,7 @@
       init();
     }
 
-      console.log('🚀 MINT.FV CMS v3.8.1 geladen');
+          console.log('🚀 MINT.FV CMS v4.0.0 geladen (Optimiert)');
     </script>
   </body>
 </html>
