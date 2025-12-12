@@ -1,12 +1,17 @@
+---
+permalink: /admin/
+layout: none
+---
+
 <!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv="refresh" content="0; url=/admin/">
+  <meta charset="utf-8">
   <link rel="icon" type="image/png" href="/favicon.png">
   <title>Redirecting to CMS...</title>
   <script>
     // Environment-specific redirect for CMS access
-    (function () {
+    (function() {
       var isProduction = window.location.hostname.indexOf('github.io') !== -1;
       var redirectUrl;
 
