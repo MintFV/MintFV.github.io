@@ -2,9 +2,6 @@
 layout: single
 title: "Veranstaltungen"
 permalink: /veranstaltungen/
-header:
-  overlay_color: "#5e616c"
-  overlay_filter: "0.5"
 ---
 
 <div class="events-overview">
