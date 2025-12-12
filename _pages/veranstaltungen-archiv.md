@@ -2,18 +2,10 @@
 layout: single
 title: "Vergangene Veranstaltungen"
 permalink: /veranstaltungen/archiv/
-header:
-  overlay_color: "#5e616c"
-  overlay_filter: "0.5"
 ---
 
 <div class="events-archive">
   
-  <div class="events-intro">
-    <p>Hier finden Sie alle vergangenen Veranstaltungen des Förderverein MINTarium Hamburg e.V. chronologisch sortiert.</p>
-    <p><a href="/veranstaltungen/">← Zurück zur aktuellen Übersicht</a></p>
-  </div>
-
   {% comment %} Filter-Buttons {% endcomment %}
   {% include event-filters.html %}
 
