@@ -63,6 +63,8 @@ Die Website ist dann unter `http://localhost:4000` erreichbar.
 - `assets/downloads/` - PDF-Dateien und Download-Materialien
 - `assets/images/` - Bilder und Header-Grafiken
 - `Gemfile` - Ruby-Dependencies
+- `/opt/homebrew/lib/ruby/gems/3.4.0/gems/minimal-mistakes-jekyll-4.27.3/_layouts` - Theme Layouts
+  - ```cd  $(bundle show minimal-mistakes-jekyll)/_layouts```
 
 Die Website kann auf verschiedenen Plattformen bereitgestellt werden:
 
