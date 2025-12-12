@@ -6,6 +6,25 @@
   <meta name="robots" content="noindex" />
   <title>MINT.FV Content Manager</title>
   <link rel="stylesheet" href="custom-admin.css">
+<!-- WICHTIG: VOR allen anderen Scripts! -->
+<script>
+  (function () {
+    const SORT_KEY = 'decap-cms.entries.sort';
+    if (!localStorage.getItem(SORT_KEY)) {
+      localStorage.setItem(SORT_KEY, JSON.stringify({
+        "events": {
+          "start_date": {
+            "key": "start_date",
+            "direction": "Descending",
+            "index": 0
+          }
+        }
+      }));
+      console.log('✅ Default-Sortierung initialisiert');
+    }
+  })();
+</script>
+
 <!-- Unterdrücke Source-Map-Fehler von Decap CMS CDN -->
 <script>
   window.addEventListener('error', function (e) {
