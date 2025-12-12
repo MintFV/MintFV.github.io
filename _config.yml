@@ -124,11 +124,14 @@ plugins:
   - jekyll-include-cache
   # - jemoji
 
+
+future: true ## Enable posts and events with future dates to be published
+
 # Collections
 collections:
   events:
     output: true
-    permalink: /veranstaltungen/:categories/:title/
+    permalink: /veranstaltungen/:year/:month/:day/:name/
 
 # Archives (nicht verwendet - keine Blog-Posts vorhanden)
 # category_archive:
