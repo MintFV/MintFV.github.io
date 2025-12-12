@@ -31,7 +31,7 @@ layout: default
           {{ page.start_date | date: '%A, %d. %B %Y, %H:%M' }} Uhr
         </time>
         {% if page.end_date %}
-          <br>bis
+          bis
           <time datetime="{{ page.end_date | date_to_xmlschema }}" itemprop="endDate">
             {% assign start_day = page.start_date | date: '%d.%m.%Y' %}
             {% assign end_day = page.end_date | date: '%d.%m.%Y' %}
@@ -42,6 +42,16 @@ layout: default
             {% endif %}
           </time>
         {% endif %}
+    {% comment %} ========================================
+    COUNTDOWN (für Events in den nächsten 14 Tagen)
+    ======================================== {% endcomment %}
+    {% assign today = site.time | date: '%s' %}
+    {% assign event_date = page.start_date | date: '%s' %}
+    {% assign days_until = event_date | minus: today | divided_by: 86400 %}
+    {% if days_until > 0 and days_until <= 8 and page.cancelled !=true %} <div class="notice notice--success">
+      <b>⏰ Noch {{ days_until }} Tag{% if days_until != 1 %}e{% endif %} bis zum Event!</b>
+      </div>
+      {% endif %}
       </div>
 
       {% comment %} Ort {% endcomment %}
