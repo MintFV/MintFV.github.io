@@ -76,8 +76,6 @@
                 console.log(`📝 ${type}: emoji="${getEmoji(config.label)}"`);
               });
 
-              // Initialisiere CMS nachdem Daten geladen sind
-              initDecapCMS();
             })
             .catch(error => {
               console.error('❌ Fehler beim Laden der event-types.json:', error);
