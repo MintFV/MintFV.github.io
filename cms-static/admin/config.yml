@@ -2,6 +2,7 @@
 # Decap CMS Konfiguration für MINT.FV Veranstaltungsverwaltung
 
 local_backend: true # diese Zeile aktivieren, bevor Sie lokal testen
+publish_mode: simple  # Direktes Speichern, kein Editorial Workflow
 
 backend:
   name: github
@@ -28,7 +29,8 @@ collections:
     label_singular: "Veranstaltung"
     folder: "_events" # Der Ordner im Repo, in dem die Veranstaltungs-Dateien liegen
     create: true # Erlaubt das Erstellen neuer Veranstaltungen
-    slug: "{{start_date}}-{{event_type}}" # Dateiname-Format, z.B. "2025-12-05-roboter-workshop.md"
+    identifier_field: title  # ← KRITISCH! Ohne das geht Speichern nicht!
+    slug: "{{start_date}}-{{title}}-{{event_type}}" # Dateiname-Format, z.B. "2025-12-05-roboter-workshop.md"
     summary: "{{start_date | date('DD.MM.YYYY HH:mm')}} - {{title}}"
     editor:
       preview: true
