@@ -5,27 +5,23 @@
 
 {% assign event_types = site.data.event_types %}
 
-<div class="event-filters">
-  <h2 class="event-filters__title">Nach Typ filtern:</h2>
 
+<div class="event-filters event-filters--compact">
   <div class="event-filters__buttons" role="group" aria-label="Veranstaltungstypen filtern">
-    <button class="event-filter-btn event-filter-btn--active" data-filter="all">
-      Alle Veranstaltungen
+    <button class="event-filter-btn event-filter-btn--active event-filter-btn--all" data-filter="all"
+      style="background-color: #e0e7ef; color: #003d82;">
+      <span class="event-filter-btn__emoji">🔎</span>
+      <span class="event-filter-btn__name">Alle</span>
     </button>
-
     {% for type_key in event_types %}
       {% assign type_data = type_key[1] %}
       {% assign type_id = type_key[0] %}
-      <button class="event-filter-btn"
-              data-filter="{{ type_id }}"
-              data-color="{{ type_data.color }}">
+      <button class="event-filter-btn event-filter-btn--type" data-filter="{{ type_id }}"
+        style="background-color: {{ type_data.color }}; color: #222;">
         <span class="event-filter-btn__emoji">{{ type_data.emoji }}</span>
         <span class="event-filter-btn__name">{{ type_data.name }}</span>
       </button>
     {% endfor %}
   </div>
-
-  <div class="event-filters__count" id="event-count" aria-live="polite">
-    <!-- Wird von JavaScript aktualisiert -->
-  </div>
+  <div class="event-filters__count" id="event-count" aria-live="polite"></div>
 </div>
