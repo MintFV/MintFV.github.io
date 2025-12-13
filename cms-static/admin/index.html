@@ -51,40 +51,28 @@
           // Lade Event-Type-Konfiguration
           let EVENT_TYPE_DEFAULTS = {};
 
-            // Helper: Extrahiere Emoji aus Label (erstes Zeichen/Emoji vor Leerzeichen)
-            function getEmoji(label) {
-              if (!label) return '';
-              // Emoji ist das erste "Wort" vor dem Leerzeichen
-              const parts = label.split(' ');
-              return parts[0] || '';
-            }
 
-            // Helper: Extrahiere Text aus Label (ohne Emoji)
-            function getTextFromLabel(label) {
-              if (!label) return '';
-              // Entferne Emoji und trim
-              return label.replace(/^[\u{1F300}-\u{1F9FF}]\s*/u, '').trim();
-            }
+
+
 
           fetch('./event-types.json')
             .then(response => response.json())
             .then(data => {
               EVENT_TYPE_DEFAULTS = data;
               console.log('✅ Event-Types geladen:', Object.keys(EVENT_TYPE_DEFAULTS));
-              // Teste Emoji-Extraktion
+              // Teste Emoji-Ausgabe
               Object.entries(data).forEach(([type, config]) => {
-                console.log(`📝 ${type}: emoji="${getEmoji(config.label)}"`);
+                console.log(`📝 ${type}: emoji="${config.emoji}" name="${config.name}"`);
               });
-
             })
             .catch(error => {
               console.error('❌ Fehler beim Laden der event-types.json:', error);
               // Fallback auf minimale Defaults
               EVENT_TYPE_DEFAULTS = {
-                'mach-mit-mathe': { label: '📐 Mach mit Mathe', color: '#009688' },
-                'offene-werkstatt': { label: '🔧 Offene Werkstatt', color: '#FF9800' },
-                'ferienpass': { label: '🎪 Ferienpass', color: '#4CAF50' },
-                'sonstige': { label: '📅 Sonstige', color: '#607D8B' }
+                'mach-mit-mathe': { emoji: '📐', name: 'Mach mit Mathe', color: '#009688' },
+                'offene-werkstatt': { emoji: '🔧', name: 'Offene Werkstatt', color: '#FF9800' },
+                'ferienpass': { emoji: '🎪', name: 'Ferienpass', color: '#4CAF50' },
+                'sonstige': { emoji: '📅', name: 'Sonstige', color: '#607D8B' }
               };
           });
 
@@ -163,7 +151,7 @@
             if (selectValue) {
               const text = selectValue.textContent || '';
               for (const [type, config] of Object.entries(EVENT_TYPE_DEFAULTS)) {
-                const matchText = getTextFromLabel(config.label);
+                const matchText = config.name;
                 if (text.includes(matchText)) {
                   eventType = type;
                   break;
@@ -360,8 +348,8 @@
         Object.entries(EVENT_TYPE_DEFAULTS).forEach(([type, config]) => {
           const btn = document.createElement('button');
           btn.className = `quick-btn ${type}`;
-          btn.textContent = getEmoji(config.label);
-          btn.title = config.label; // Tooltip zeigt Label
+          btn.textContent = config.emoji;
+          btn.title = `${config.emoji} ${config.name}`;
           btn.style.backgroundColor = config.color;
 
           btn.addEventListener('click', (e) => {
@@ -438,7 +426,7 @@
                 if (!link.querySelector('.event-emoji')) {
                   const emoji = document.createElement('span');
                   emoji.className = 'event-emoji';
-                  emoji.textContent = getEmoji(config.label);
+                  emoji.textContent = config.emoji;
                   emoji.style.marginRight = '8px';
                   emoji.style.fontSize = '1.2rem';
                   link.insertBefore(emoji, link.firstChild);
@@ -468,7 +456,7 @@
 
         await new Promise(resolve => setTimeout(resolve, 1500));
 
-        const success = await selectEventType(getTextFromLabel(defaults.label));
+        const success = await selectEventType(defaults.name);
 
         if (success) {
           console.log('✅ Event-Type gesetzt!');
