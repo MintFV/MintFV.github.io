@@ -3,6 +3,7 @@ layout: splash
 title: "Förderverein MINTarium Hamburg e. V."
 header:
   overlay_color: "#180b90"
+  logo_overlap: true  # true or strong
   # overlay_filter: "0.5"
   # overlay_image: /assets/images/header-bg.jpg
   actions:

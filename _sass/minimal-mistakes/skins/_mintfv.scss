@@ -1,12 +1,22 @@
-/* MINTarium Custom Skin */
+/* ==============================================
+   MINTarium Custom Skin
+   Version: 2.9.4 - FINAL (Zentrierte Box mit linksbündigem Inhalt)
+   Box: ZENTRIERT | Inhalt: LINKSBÜNDIG
+   ============================================== */
+
+/* Base Colors */
 $background-color: #ffffff;
 $text-color: #333333;
-$primary-color:rgb(172, 181, 217);
+$primary-color: rgb(172, 181, 217);
 $link-color: #0066cc;
 $masthead-link-color: #ffffff;
 $masthead-link-color-hover: #ffffff;
 
-/* Minimalistischer Hero-Bereich -- Nachbau des alten Headers */
+/* ==============================================
+   HERO BEREICH
+   ============================================== */
+
+/* Minimalistischer Hero-Bereich */
 .page__hero {
   background-color: transparent !important;
   background-image:
@@ -20,7 +30,263 @@ $masthead-link-color-hover: #ffffff;
 .page__hero--overlay {
   background-color: #180b90 !important;
 }
-/* Navigationsleiste mit gleichem Blau und Farbverlauf */
+
+/* RICHTIGE Lösung: Wrapper ZENTRIERT (margin: 0 auto) 
+   → Die Box ist zentriert, aber Inhalt ist linksbündig! */
+.page__hero .wrapper,
+.page__hero-wrap,
+.page__hero-caption .wrapper {
+  margin: 0 auto !important;      /* ZENTRIERT die Box */
+  max-width: 1280px !important;   /* Maximale Breite vom Theme */
+  width: 100%;
+  padding-left: 1em;              /* Kleiner padding für Ränder */
+  padding-right: 1em;
+  text-align: left !important;    /* Inhalt linksbündig */
+}
+
+/* Hero-Caption linksbündig */
+.page__hero-caption {
+  text-align: left !important;
+}
+
+/* ==============================================
+   LOGO & TITLE POSITIONING
+   Layer-Overlap: Logo hinten, Text vorne drüber
+   LINKSBÜNDIG innerhalb der zentrierten Box
+   ============================================== */
+
+/* Standard: Logo und Text nebeneinander */
+.logo-and-title {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start !important;
+  text-align: left !important;
+  margin-left: 0 !important;      /* Linksbündig in der Box */
+  margin-right: auto !important;
+  padding-left: 0 !important;     /* KEIN zusätzlicher Einzug */
+  gap: 30px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Overlap-Variante: Logo hinten, Text vorne */
+.logo-and-title.logo-overlap {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start !important;
+  flex-wrap: wrap;
+  text-align: left !important;
+  margin-left: 0 !important;      /* Linksbündig in der Box */
+  margin-right: auto !important;
+  padding-left: 0 !important;     /* KEIN zusätzlicher Einzug */
+  gap: 0;
+}
+
+.logo-and-title.logo-overlap .hero-logo {
+  position: relative;
+  z-index: 1;
+  max-height: clamp(160px, 15vw, 200px);
+  flex-shrink: 0;
+  margin-right: -95px; /* Overlap */
+  margin-left: 0 !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.logo-and-title.logo-overlap .page__hero-title {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  margin-left: 0 !important;
+  margin-bottom: 20px;
+  padding-left: 8px;
+  line-height: 1.2;
+  text-align: left !important;
+  max-width: calc(100% - 110px);
+  word-wrap: break-word;
+  
+  text-shadow: 
+    3px 3px 6px rgba(0, 0, 0, 0.6),
+    1px 1px 3px rgba(0, 0, 0, 0.4);
+  
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Standard-Logo/Title */
+.hero-logo {
+  margin-right: 30px;
+  margin-left: 0 !important;
+  max-height: 180px;
+  flex-shrink: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.page__hero-title {
+  margin: 0;
+  line-height: 1.2;
+  text-align: left !important;
+  text-shadow: 
+    2px 2px 4px rgba(0, 0, 0, 0.4),
+    1px 1px 2px rgba(0, 0, 0, 0.3);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Varianten */
+.logo-and-title.logo-overlap--strong .hero-logo {
+  margin-right: -110px;
+}
+
+.logo-and-title.logo-overlap--light .hero-logo {
+  margin-right: -75px;
+}
+
+/* Untertitel/Tagline/Excerpt LINKSBÜNDIG in der Box */
+.page__hero .page__lead,
+.page__hero .page__meta,
+.page__hero .page-tagline {
+  text-align: left !important;
+  margin-left: 0 !important;      /* Linksbündig in der Box */
+  margin-right: auto !important;
+  padding-left: 0 !important;     /* KEIN zusätzlicher Einzug */
+  max-width: 800px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Action-Buttons LINKSBÜNDIG in der Box */
+.page__hero .page__hero-actions {
+  text-align: left !important;
+  margin-left: 0 !important;      /* Linksbündig in der Box */
+  margin-right: auto !important;
+  padding-left: 0 !important;     /* KEIN zusätzlicher Einzug */
+}
+
+/* ==============================================
+   RESPONSIVE BREAKPOINTS
+   ============================================== */
+
+/* Desktop Vollbild (>1200px) */
+@media (min-width: 1200px) {
+  .logo-and-title.logo-overlap .hero-logo {
+    margin-right: -95px;
+    max-height: clamp(180px, 15vw, 200px);
+  }
+  
+  .logo-and-title.logo-overlap .page__hero-title {
+    max-width: calc(100% - 110px);
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
+  }
+}
+
+/* Übergang (1100px-1200px) */
+@media (max-width: 1199px) and (min-width: 1100px) {
+  .logo-and-title.logo-overlap .hero-logo {
+    margin-right: -80px;
+    max-height: clamp(170px, 14vw, 190px);
+  }
+  
+  .logo-and-title.logo-overlap .page__hero-title {
+    font-size: clamp(2.3rem, 3.8vw, 3rem);
+    padding-left: 8px;
+    margin-bottom: 19px;
+    max-width: calc(100% - 120px);
+  }
+}
+
+/* Schmaler Desktop (900px-1100px) */
+@media (max-width: 1099px) and (min-width: 900px) {
+  .logo-and-title.logo-overlap .hero-logo {
+    margin-right: -60px;
+    max-height: clamp(160px, 13vw, 180px);
+  }
+  
+  .logo-and-title.logo-overlap .page__hero-title {
+    font-size: clamp(2rem, 3.5vw, 2.5rem);
+    padding-left: 8px;
+    margin-bottom: 18px;
+    max-width: calc(100% - 140px);
+  }
+}
+
+/* Tablet (768px-900px) */
+@media (max-width: 899px) and (min-width: 768px) {
+  .logo-and-title.logo-overlap .hero-logo {
+    margin-right: 20px;
+    max-height: clamp(120px, 12vw, 140px);
+  }
+  
+  .logo-and-title.logo-overlap .page__hero-title {
+    font-size: clamp(1.8rem, 3.2vw, 2rem);
+    padding-left: 0;
+    margin-bottom: 10px;
+    max-width: 100%;
+  }
+}
+
+/* Mobile (<768px): Vertikal gestapelt, zentriert */
+@media (max-width: 767px) {
+  .page__hero .wrapper {
+    text-align: center !important;
+  }
+  
+  .logo-and-title,
+  .logo-and-title.logo-overlap {
+    flex-direction: column;
+    text-align: center !important;
+    align-items: center;
+    justify-content: center !important;
+    min-height: auto;
+    padding-left: 0;
+    gap: 1.5rem;
+    flex-wrap: nowrap;
+  }
+  
+  .hero-logo,
+  .logo-and-title.logo-overlap .hero-logo {
+    margin-right: 0;
+    margin-left: 0;
+    margin-bottom: 0;
+    max-height: clamp(100px, 20vw, 120px);
+    z-index: 1;
+  }
+  
+  .page__hero-title,
+  .logo-and-title.logo-overlap .page__hero-title {
+    margin-left: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    text-align: center !important;
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    text-shadow: 
+      2px 2px 4px rgba(0, 0, 0, 0.5),
+      1px 1px 2px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+    max-width: 100%;
+  }
+  
+  .page__hero .page__lead,
+  .page__hero .page__meta,
+  .page__hero .page-tagline {
+    text-align: center !important;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: clamp(0.9rem, 3vw, 1rem);
+  }
+  
+  .page__hero .page__hero-actions {
+    text-align: center !important;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* ==============================================
+   NAVIGATIONSLEISTE (MASTHEAD)
+   ============================================== */
+
 .masthead {
   background-color: #180b90 !important;
   background-image:
@@ -29,20 +295,20 @@ $masthead-link-color-hover: #ffffff;
   border-bottom: none !important;
 }
 
-/* Logo und Site-Title auf splash-Layout Seiten ausblenden */
 .layout--splash .masthead .site-logo,
 .layout--splash .masthead .site-title {
   display: none !important;
 }
-/* Alle Elemente in der Masthead transparent machen, damit der Hintergrund durchscheint */
+
 .masthead * {
   background: transparent !important;
 }
 
-/* Schriftfarben in der Navigationsleiste anpassen */
 .masthead .site-title,
 .masthead .site-subtitle {
   color: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .masthead .search__toggle,
@@ -52,51 +318,45 @@ $masthead-link-color-hover: #ffffff;
 
 .masthead .navicon {
   background-color: #ffffff !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .masthead .navicon:before,
 .masthead .navicon:after {
   background-color: #ffffff !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Schriftfarben im Hamburger-Menü anpassen (auf weißem Hintergrund) */
 .masthead .hidden-links a {
   color: #180b90;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Hover-Effekt im Hamburger-Menü: Text behält Farbe, Hintergrund leicht grau */
 .masthead .hidden-links a:hover {
   color: #180b90 !important;
   background-color: rgba(0, 0, 0, 0.1) !important;
 }
 
-/* Hintergrund des Hamburger-Menüs solid weiß machen */
 .masthead .greedy-nav {
   background: transparent !important;
 }
 
 .masthead .hidden-links {
   background: #ffffff !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
-/* Kreuz im geschlossenen Hamburger-Menü im Blau des Hintergrunds machen */
 .masthead .close .navicon:before,
 .masthead .close .navicon:after {
   background-color: #180b90 !important;
 }
 
-.logo-and-title {
-  display: flex;
-  align-items: center;
-}
+/* ==============================================
+   FOOTER
+   ============================================== */
 
-.hero-logo {
-  margin-right: 20px;
-  /* Abstand zwischen Logo und Text */
-  max-height: 140px;
-  /* Logo-Größe anpassen */
-}
-/* Minimalistischer Footer-Balken */
 .page__footer {
   background: rgb(172, 181, 217);
   min-height: 20px;
@@ -105,6 +365,50 @@ $masthead-link-color-hover: #ffffff;
   border: none;
   box-shadow: none;
 }
+
 .page__footer > * {
   display: none;
 }
+
+/* ==============================================
+   VERWENDUNG / USAGE
+   ============================================== */
+
+/*
+  FINAL VERSION - Zentrierte Box mit linksbündigem Inhalt
+  
+  ---
+  header:
+    overlay_color: "#180b90"
+    logo_overlap: true
+  ---
+
+  🎯 RICHTIGE Lösung in v2.9.4:
+  
+  Layout:
+  ┌──────────────────────────────────────────────┐
+  │         [Zentrierte Content-Box]             │
+  │  ┌────────────────────────────┐              │
+  │  │ [LOGO] Förderverein MIN... │ ← Links      │
+  │  │ Das MINTarium in Mümmel... │ ← Links      │
+  │  │ [Zum MINTarium][Events]    │ ← Links      │
+  │  └────────────────────────────┘              │
+  └──────────────────────────────────────────────┘
+  
+  Umsetzung:
+  1. .wrapper:
+     • margin: 0 auto → ZENTRIERT die Box
+     • max-width: 1280px → Begrenzt Breite
+  
+  2. Inhalt (Logo, Text, Buttons):
+     • margin-left: 0 → Linksbündig in Box
+     • padding-left: 0 → Kein Einzug
+     • text-align: left → Text linksbündig
+  
+  Ergebnis:
+  • Content-Box ist horizontal zentriert
+  • Alles INNERHALB der Box ist linksbündig
+  • Logo, Text und Buttons bündig zueinander
+  
+  ✅ PRODUCTION READY!
+*/

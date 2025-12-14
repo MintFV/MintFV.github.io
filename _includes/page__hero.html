@@ -25,7 +25,7 @@
     <div class="wrapper">
       {% if site.logo %}
         <div class="hero-logo-text">
-          <div class="logo-and-title">
+          <div class="logo-and-title {% if page.header.logo_overlap %}logo-overlap{% endif %}">
             <img src="{{ site.logo | relative_url }}" alt="{{ site.title }}" class="hero-logo">
             <h1 id="page-title" class="page__title" itemprop="headline">
               {% if paginator and site.paginate_show_page_num %}
