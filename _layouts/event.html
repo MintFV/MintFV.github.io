@@ -43,15 +43,16 @@ layout: default
           </time>
         {% endif %}
     {% comment %} ========================================
-    COUNTDOWN (für Events in den nächsten 14 Tagen)
+    COUNTDOWN (dynamisch via JavaScript)
     ======================================== {% endcomment %}
-    {% assign today = site.time | date: '%s' %}
-    {% assign event_date = page.start_date | date: '%s' %}
-    {% assign days_until = event_date | minus: today | divided_by: 86400 %}
-    {% if days_until > 0 and days_until <= 8 and page.cancelled !=true %} <div class="notice notice--success">
-      <b>⏰ Noch {{ days_until }} Tag{% if days_until != 1 %}e{% endif %} bis zum Event!</b>
+    {% if page.cancelled != true %}
+      <div id="event-countdown" 
+           data-event-date="{{ page.start_date | date: '%Y-%m-%dT%H:%M:%S' }}" 
+           class="notice notice--success" 
+           style="display: none;">
+        <b id="countdown-text"></b>
       </div>
-      {% endif %}
+    {% endif %}
       </div>
 
       {% comment %} Ort {% endcomment %}
@@ -178,6 +179,9 @@ layout: default
   </footer>
 
 </article>
+
+{% comment %} JavaScript für dynamischen Countdown {% endcomment %}
+<script src="/assets/js/event-countdown.js"></script>
 
 {% comment %} Schema.org Structured Data {% endcomment %}
 <script type="application/ld+json">
