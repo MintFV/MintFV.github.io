@@ -34,6 +34,7 @@ In unserer gut ausgestatteten Werkstatt findest Du:
 - Fortgeschrittene mit eigenen Projektideen
 - Schüler und Studenten
 - Hobbybastler jeden Alters
+- Heike Bladibla
 
 ### Wichtige Hinweise
 
