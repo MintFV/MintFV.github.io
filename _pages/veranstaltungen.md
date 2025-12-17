@@ -34,17 +34,23 @@ permalink: /veranstaltungen/
   {% assign past_events_reversed = past_events | reverse %}
   {% assign past_display = past_events_reversed | slice: 0, 2 %}
 
-  <div class="events-grid">
-    {% comment %} Zeige zukünftige Events {% endcomment %}
-    {% for event in upcoming_display %}
-      {% include event-card.html event=event is_past=false %}
-    {% endfor %}
+  {% if upcoming_display.size > 0 %}
+    <h2 class="events-section-title">📅 Nächste Veranstaltungen</h2>
+    <div class="events-grid">
+      {% for event in upcoming_display %}
+        {% include event-card.html event=event is_past=false %}
+      {% endfor %}
+    </div>
+  {% endif %}
 
-    {% comment %} Zeige vergangene Events {% endcomment %}
-    {% for event in past_display %}
-      {% include event-card.html event=event is_past=true %}
-    {% endfor %}
-  </div>
+  {% if past_display.size > 0 %}
+    <h2 class="events-section-title events-section-title--past">🕒 Letzte vergangene Veranstaltungen</h2>
+    <div class="events-grid">
+      {% for event in past_display %}
+        {% include event-card.html event=event is_past=true %}
+      {% endfor %}
+    </div>
+  {% endif %}
 
   {% comment %} Hinweis wenn keine Events vorhanden {% endcomment %}
   {% if upcoming_display.size == 0 and past_display.size == 0 %}

@@ -24,6 +24,28 @@
   color: #555;
 }
 
+/* Section Titles für zukünftige und vergangene Events */
+.events-section-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #003d82;
+  margin: 3rem 0 1.5rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 3px solid #003d82;
+}
+
+.events-section-title--past {
+  color: #666;
+  border-bottom-color: #999;
+}
+
+@media (max-width: 768px) {
+  .events-section-title {
+    font-size: 1.5rem;
+    margin: 2rem 0 1rem 0;
+  }
+}
+
 .events-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -525,7 +547,7 @@
     z-index: 1;
     position: relative;
   }
-  
+
   .event-filter-btn:focus {
     outline: 3px solid #ffd700;
     outline-offset: 1px;
@@ -543,13 +565,13 @@
   font-style: italic;
   min-height: 1.1em;
   }
-  
+
   @media (max-width: 600px) {
     .event-filters--compact .event-filters__buttons {
       flex-direction: column;
       gap: 0.3rem;
     }
-  
+
     .event-filter-btn {
       width: 100%;
       justify-content: flex-start;
