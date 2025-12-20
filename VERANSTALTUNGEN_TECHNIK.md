@@ -118,6 +118,12 @@ collections:
 
 **Migration:** Script `_scripts/add_created_field.rb` für bestehende Events.
 
+**LAST-MODIFIED:** Wird bei jeder Bearbeitung automatisch aktualisiert.
+
+- **Initial:** LAST-MODIFIED = CREATED
+- **Bei Änderung:** LAST-MODIFIED = Aktuelles Datum/Zeit
+- **preSave Hook:** Automatische Aktualisierung bei jedem Speichern
+
 ### 5. Zeitfilterung ohne Plugin
 
 **Entscheidung:** Liquid-Templates für Zeitfilterung statt Jekyll-Pagination-Plugin.
@@ -165,6 +171,7 @@ start_date: DateTime (YYYY-MM-DD HH:mm)
 excerpt: String (10-200 Zeichen)
 published: Boolean
 created: DateTime (YYYY-MM-DD HH:mm) # Automatisch gesetzt
+last_modified: DateTime (YYYY-MM-DD HH:mm) # Automatisch aktualisiert
 
 # Optionale Felder
 end_date: DateTime

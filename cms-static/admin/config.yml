@@ -136,6 +136,16 @@ collections:
         required: false
         hint: "Wird automatisch beim Erstellen gesetzt. Bei zukünftigen Events = Erstellungsdatum, bei vergangenen Events = Termin-Datum"
 
+      - label: "Zuletzt geändert (automatisch)"
+        name: "last_modified"
+        widget: "datetime"
+        format: "YYYY-MM-DD HH:mm"
+        date_format: "DD.MM.YYYY"
+        time_format: "HH:mm"
+        picker_utc: false
+        required: false
+        hint: "Wird automatisch bei jeder Bearbeitung aktualisiert. Initial = CREATED, bei Änderungen = aktuelles Datum/Zeit"
+
       # ===== OPTIONALE FELDER =====
 
       - label: "Veranstaltungsort"

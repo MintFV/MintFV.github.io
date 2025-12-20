@@ -71,10 +71,22 @@ END:VTIMEZONE
 {%- assign created = event.start_date | date: '%Y%m%dT%H%M%SZ' %}
 {% endif %}
 {% endif %}
+{%- comment %} LAST-MODIFIED Feld - NEU {% endcomment %}
+{% if event.last_modified %}
+{%- assign last_modified = event.last_modified | date: '%Y%m%dT%H%M%SZ' %}
+{% else %}
+{%- comment %} Fallback: Wenn kein LAST-MODIFIED, nutze CREATED oder DTSTAMP {% endcomment %}
+{% if event.created %}
+{%- assign last_modified = event.created | date: '%Y%m%dT%H%M%SZ' %}
+{% else %}
+{%- assign last_modified = dtstamp %}
+{% endif %}
+{% endif %}
 BEGIN:VEVENT
 UID:{{ uid }}
 DTSTAMP:{{ dtstamp }}
 CREATED:{{ created }}
+LAST-MODIFIED:{{ last_modified }}
 DTSTART;TZID=Europe/Berlin:{{ dtstart }}
 DTEND;TZID=Europe/Berlin:{{ dtend }}
 SUMMARY:{{ event.title | strip_html }}

@@ -285,6 +285,7 @@
         let endSet = false;
         let locationSet = false;
         let createdSet = false;
+        let lastModifiedSet = false;
 
         inputs.forEach((input) => {
           const container = input.closest('[class*="Field"], [class*="Widget"]') || input.parentElement?.parentElement;
@@ -324,6 +325,15 @@
             setInputValue(input, createdValue);
             createdSet = true;
             console.log('✅ CREATED gesetzt:', createdValue);
+          }
+
+          // LAST-MODIFIED setzen - automatisch beim Erstellen (= CREATED)
+          if (input.type === 'datetime-local' && labelText.includes('ZULETZT') && !lastModifiedSet && !input.value) {
+            const now = new Date();
+            const lastModifiedValue = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}T${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+            setInputValue(input, lastModifiedValue);
+            lastModifiedSet = true;
+            console.log('✅ LAST-MODIFIED gesetzt:', lastModifiedValue);
           }
         });
 
@@ -372,6 +382,12 @@
 
                 console.log(`💾 preSave: Setze CREATED auf ${createdString}`);
               }
+
+              // LAST-MODIFIED immer aktualisieren
+              const now = new Date();
+              const lastModifiedString = now.toISOString().slice(0, 16).replace('T', ' ');
+              modified = modified.setIn(['data', 'last_modified'], lastModifiedString);
+              console.log(`💾 preSave: LAST-MODIFIED aktualisiert auf ${lastModifiedString}`);
 
               return modified;
             }

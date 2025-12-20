@@ -75,6 +75,14 @@ Kurzer, aussagekräftiger Name (z.B. "Roboter-Programmierung mit NAO")
 - **Hinweis:** Sollte normalerweise nicht manuell geändert werden
 - Wird für iCal-Kalender-Synchronisation verwendet
 
+#### Zuletzt geändert (automatisch)
+
+- Wird **automatisch bei jeder Bearbeitung** aktualisiert
+- **Beim Erstellen:** Gleich wie "Erstellt am"
+- **Bei Änderungen:** Aktuelles Datum/Uhrzeit
+- **Hinweis:** Sollte nicht manuell geändert werden
+- Kalender-Apps nutzen dieses Feld zur Synchronisation
+
 ### 5. Optionale Felder
 
 #### Enddatum
