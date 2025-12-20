@@ -1,6 +1,6 @@
 ---
 layout: null
-permalink: /feeds/events.xml
+permalink: /feeds/mintfv-events.xml
 ---
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0"
@@ -14,7 +14,7 @@ permalink: /feeds/events.xml
     <language>de-DE</language>
     <pubDate>{{ site.time | date_to_rfc822 }}</pubDate>
     <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
-    <atom:link href="{{ '/feeds/events.xml' | absolute_url }}" rel="self" type="application/rss+xml"/>
+    <atom:link href="{{ '/feeds/mintfv-events.xml' | absolute_url }}" rel="self" type="application/rss+xml"/>
     <managingEditor>info@mintarium-fv.de ({{ site.name }})</managingEditor>
     <webMaster>info@mintarium-fv.de ({{ site.name }})</webMaster>
     <image>

@@ -80,10 +80,11 @@ permalink: /veranstaltungen/
     <h2>📅 Veranstaltungen abonnieren</h2>
     <p>Bleiben Sie auf dem Laufenden:</p>
     <div class="events-feeds__links">
-      <a href="/feeds/events.ical" class="events-feeds__link">
+
+    <a href="javascript:window.location.href='webcal://' + window.location.host + '/feeds/mintfv-events.ical'" class="events-feeds__link">
         📅 iCal-Kalender abonnieren
       </a>
-      <a href="/feeds/events.xml" class="events-feeds__link">
+      <a href="/feeds/mintfv-events.xml" class="events-feeds__link">
         📰 RSS-Feed abonnieren
       </a>
     </div>

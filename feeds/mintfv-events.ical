@@ -1,0 +1,87 @@
+---
+layout: null
+permalink: /feeds/mintfv-events.ical
+---
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//{{ site.name }}//Events//DE
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:MintFV - Veranstaltungen
+X-WR-TIMEZONE:Europe/Berlin
+X-WR-CALDESC:Alle Veranstaltungen des Förderverein MINTarium Hamburg e.V.
+{%- comment %} filtere zukünftige und aktuelle Events {% endcomment %}
+REFRESH-INTERVAL;VALUE=DURATION:PT12H
+X-PUBLISHED-TTL:PT12H
+COLOR:#4AC88B
+{%- comment %}VTIMEZONE -- KRITISCH für korrekte Zeitzonenverarbeitung {% endcomment %}
+BEGIN:VTIMEZONE
+TZID:Europe/Berlin
+TZURL:http://tzurl.org/zoneinfo-outlook/Europe/Berlin
+X-LIC-LOCATION:Europe/Berlin
+BEGIN:DAYLIGHT
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0200
+TZNAME:CEST
+DTSTART:19700329T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+TZNAME:CET
+DTSTART:19701025T030000
+RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU
+END:STANDARD
+END:VTIMEZONE
+{%- assign now = site.time | date: '%s' %}
+{%- assign upcoming_events = '' | split: '' %}
+{%- assign all_events = site.events | where: "published", true | sort: "start_date" %}
+{%- for event in all_events %}
+  {%- assign event_start = event.start_date | date: '%s' %}
+  {% if event_start >= now %}
+    {% assign upcoming_events = upcoming_events | push: event %}
+  {%- endif %}
+{%- endfor %}
+{%- comment %} Generiere VEVENT für jedes Event {% endcomment %}
+{%- for event in upcoming_events %}
+{%- assign event_types = site.data.event_types %}
+{%- assign event_type_data = event_types[event.event_type] %}
+{%- comment %} Berechne UID und Timestamps {% endcomment %}
+{%- assign uid = event.id | remove: '/' | remove: '_events' | append: '@' | append: site.url %}
+{%- assign dtstamp = site.time | date: '%Y%m%dT%H%M%SZ' %}
+{%- assign dtstart = event.start_date | date: '%Y%m%dT%H%M%S' %}
+{% if event.end_date %}
+{%- assign dtend = event.end_date | date: '%Y%m%dT%H%M%S' %}
+{% else %}
+{%- comment %} Wenn kein End-Datum, nehme +2 Stunden als Default {% endcomment %}
+{%- assign end_seconds = event.start_date | date: '%s' | plus: 7200 %}
+{%- assign dtend = end_seconds | date: '%Y%m%dT%H%M%S' %}
+{% endif %}
+BEGIN:VEVENT
+UID:{{ uid }}
+DTSTAMP:{{ dtstamp }}
+DTSTART;TZID=Europe/Berlin:{{ dtstart }}
+DTEND;TZID=Europe/Berlin:{{ dtend }}
+SUMMARY:{{ event.title | strip_html | uri_escape }}
+{% if event.location %}LOCATION:{{ event.location | strip_html | uri_escape }}{% endif %}
+DESCRIPTION:{{ event.excerpt | default: event.content | strip_html | truncate: 500 | uri_escape }}\n\nMehr Infos: {{ event.url | absolute_url }}
+URL:{{ event.url | absolute_url }}
+CATEGORIES:{{ event_type_data.name | uri_escape }}
+{% if event.cancelled %}STATUS:CANCELLED{% else %}STATUS:CONFIRMED{% endif %}
+{%- if event.organizers and event.organizers.size >0 %}
+ORGANIZER;CN="{{ event.organizers | first }}":mailto:info@mintarium-fv.de
+{%- endif %}
+BEGIN:VALARM
+TRIGGER:-PT24H
+ACTION:DISPLAY
+DESCRIPTION:Morgen: {{ event.title | strip_html | uri_escape }}
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-PT1H
+ACTION:DISPLAY
+DESCRIPTION:In 1 Stunde: {{ event.title | strip_html | uri_escape }}
+END:VALARM
+END:VEVENT
+{%- endfor %}
+END:VCALENDAR

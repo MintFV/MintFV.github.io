@@ -246,7 +246,7 @@ Bei Fragen oder Problemen wenden Sie sich an:
 
 Die Veranstaltungen werden automatisch in folgenden Formaten bereitgestellt:
 
-- **iCal-Feed:** `/feeds/events.ical` (für Kalender-Apps)
-- **RSS-Feed:** `/feeds/events.xml` (für Feed-Reader)
+- **iCal-Feed:** `/feeds/mintfv-events.ical` (für Kalender-Apps)
+- **RSS-Feed:** `/feeds/mintfv-events.xml` (für Feed-Reader)
 
 Diese werden automatisch aktualisiert, wenn neue Veranstaltungen hinzugefügt werden.

@@ -31,8 +31,8 @@ assets/
   js/
     event-filters.js              # Client-seitige Filter-Logik
 feeds/
-  events.ical                     # iCal Feed (RFC 5545)
-  events.xml                      # RSS 2.0 Feed
+  mintfv-events.ical              # iCal Feed (RFC 5545)
+  mintfv-events.xml               # RSS 2.0 Feed
 ```
 
 ## Wichtige Architektur-Entscheidungen

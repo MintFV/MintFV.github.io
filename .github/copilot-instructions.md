@@ -101,8 +101,8 @@ teaser_image: /assets/images/...  # Optional preview image
 - Client-side filtering via [assets/js/event-filters.js](../assets/js/event-filters.js)
 
 ### Feed Generation
-- [feeds/events.ical](../feeds/events.ical) - RFC 5545 compliant iCal (only future events)
-- [feeds/events.xml](../feeds/events.xml) - RSS 2.0 feed
+- [feeds/mintfv-events.ical](../feeds/mintfv-events.ical) - RFC 5545 compliant iCal (only future events)
+- [feeds/mintfv-events.xml](../feeds/mintfv-events.xml) - RSS 2.0 feed
 - Both auto-generated from `_events` collection via Liquid templates
 
 ## Theme & Styling
