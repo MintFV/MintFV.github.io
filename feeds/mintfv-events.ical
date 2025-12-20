@@ -63,11 +63,11 @@ UID:{{ uid }}
 DTSTAMP:{{ dtstamp }}
 DTSTART;TZID=Europe/Berlin:{{ dtstart }}
 DTEND;TZID=Europe/Berlin:{{ dtend }}
-SUMMARY:{{ event.title | strip_html | uri_escape }}
-{% if event.location %}LOCATION:{{ event.location | strip_html | uri_escape }}{% endif %}
-DESCRIPTION:{{ event.excerpt | default: event.content | strip_html | truncate: 500 | uri_escape }}\n\nMehr Infos: {{ event.url | absolute_url }}
+SUMMARY:{{ event.title | strip_html }}
+{% if event.location %}LOCATION:{{ event.location | strip_html }}{% endif %}
+DESCRIPTION:{{ event.excerpt | default: event.content | strip_html | truncate: 500 }}\n\nMehr Infos: {{ event.url | absolute_url }}
 URL:{{ event.url | absolute_url }}
-CATEGORIES:{{ event_type_data.name | uri_escape }}
+CATEGORIES:{{ event_type_data.name }}
 {% if event.cancelled %}STATUS:CANCELLED{% else %}STATUS:CONFIRMED{% endif %}
 {%- if event.organizers and event.organizers.size >0 %}
 ORGANIZER;CN="{{ event.organizers | first }}":mailto:info@mintarium-fv.de
@@ -75,12 +75,12 @@ ORGANIZER;CN="{{ event.organizers | first }}":mailto:info@mintarium-fv.de
 BEGIN:VALARM
 TRIGGER:-PT24H
 ACTION:DISPLAY
-DESCRIPTION:Morgen: {{ event.title | strip_html | uri_escape }}
+DESCRIPTION:Morgen: {{ event.title | strip_html }}
 END:VALARM
 BEGIN:VALARM
 TRIGGER:-PT1H
 ACTION:DISPLAY
-DESCRIPTION:In 1 Stunde: {{ event.title | strip_html | uri_escape }}
+DESCRIPTION:In 1 Stunde: {{ event.title | strip_html }}
 END:VALARM
 END:VEVENT
 {%- endfor %}
