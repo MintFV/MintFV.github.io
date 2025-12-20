@@ -43,14 +43,15 @@ permalink: /veranstaltungen/
     </div>
   {% endif %}
 
-  {% if past_display.size > 0 %}
-    <h2 class="events-section-title events-section-title--past">🕒 Letzte vergangene Veranstaltungen</h2>
-    <div class="events-grid">
-      {% for event in past_display %}
-        {% include event-card.html event=event is_past=true %}
-      {% endfor %}
-    </div>
-  {% endif %}
+{% if past_display.size > 0 %}
+  <div style="background: linear-gradient(to bottom, #f5f5f5 0%, #e8e8e8 100%); padding: 2rem 1.5rem; margin: 3rem 0 2rem 0; border-radius: 12px; border: 2px solid #d0d0d0; box-shadow: inset 0 2px 4px rgba(0,0,0,0.06); opacity: 0.9; filter: grayscale(8%)  saturate(0.9) brightness(1.04);" markdown="1">
+  <span style="opacity: 0.7;">⏳ 🕒</span> **Letzte vergangene Veranstaltungen**
+  ---------------------------------------------------------------------------------
+  {% for event in past_display %}
+    {% include event-card.html event=event is_past=true %}
+  {% endfor %}
+  </div>
+{% endif %}
 
   {% comment %} Hinweis wenn keine Events vorhanden {% endcomment %}
   {% if upcoming_display.size == 0 and past_display.size == 0 %}
