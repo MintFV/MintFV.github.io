@@ -83,6 +83,14 @@ Kurzer, aussagekräftiger Name (z.B. "Roboter-Programmierung mit NAO")
 - **Hinweis:** Sollte nicht manuell geändert werden
 - Kalender-Apps nutzen dieses Feld zur Synchronisation
 
+#### Revisions-Nummer (automatisch)
+
+- **Revisions-Zähler** für iCal-Kalender-Synchronisation
+- **Neue Events:** Startet bei 0
+- **Bei Bearbeitung:** Wird automatisch um 1 erhöht (1, 2, 3, ...)
+- **Hinweis:** Nicht manuell ändern! Wird vom System verwaltet
+- Kalender-Apps nutzen dies, um zu erkennen, welche Version neuer ist
+
 ### 5. Optionale Felder
 
 #### Enddatum

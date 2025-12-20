@@ -286,6 +286,7 @@
         let locationSet = false;
         let createdSet = false;
         let lastModifiedSet = false;
+        let sequenceSet = false;
 
         inputs.forEach((input) => {
           const container = input.closest('[class*="Field"], [class*="Widget"]') || input.parentElement?.parentElement;
@@ -334,6 +335,13 @@
             setInputValue(input, lastModifiedValue);
             lastModifiedSet = true;
             console.log('✅ LAST-MODIFIED gesetzt:', lastModifiedValue);
+          }
+
+          // SEQUENCE setzen - automatisch beim Erstellen (startet bei 0)
+          if (input.type === 'number' && labelText.includes('REVISIONS') && !sequenceSet && !input.value) {
+            setInputValue(input, '0');
+            sequenceSet = true;
+            console.log('✅ SEQUENCE gesetzt: 0');
           }
         });
 
@@ -388,6 +396,12 @@
               const lastModifiedString = now.toISOString().slice(0, 16).replace('T', ' ');
               modified = modified.setIn(['data', 'last_modified'], lastModifiedString);
               console.log(`💾 preSave: LAST-MODIFIED aktualisiert auf ${lastModifiedString}`);
+
+              // SEQUENCE inkrementieren bei Änderungen (oder initialisieren mit 0)
+              const currentSequence = modified.getIn(['data', 'sequence']);
+              const newSequence = currentSequence !== undefined && currentSequence !== null ? currentSequence + 1 : 0;
+              modified = modified.setIn(['data', 'sequence'], newSequence);
+              console.log(`💾 preSave: SEQUENCE aktualisiert auf ${newSequence}`);
 
               return modified;
             }

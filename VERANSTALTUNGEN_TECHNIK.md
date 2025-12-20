@@ -172,6 +172,7 @@ excerpt: String (10-200 Zeichen)
 published: Boolean
 created: DateTime (YYYY-MM-DD HH:mm) # Automatisch gesetzt
 last_modified: DateTime (YYYY-MM-DD HH:mm) # Automatisch aktualisiert
+sequence: Integer # Revisions-Zähler (startet bei 0, +1 bei jeder Änderung)
 
 # Optionale Felder
 end_date: DateTime

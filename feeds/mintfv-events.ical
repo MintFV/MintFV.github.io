@@ -82,11 +82,19 @@ END:VTIMEZONE
 {%- assign last_modified = dtstamp %}
 {% endif %}
 {% endif %}
+{%- comment %} SEQUENCE Feld - NEU {% endcomment %}
+{% if event.sequence %}
+{%- assign sequence = event.sequence %}
+{% else %}
+{%- comment %} Fallback: Wenn kein SEQUENCE, nutze 0 {% endcomment %}
+{%- assign sequence = 0 %}
+{% endif %}
 BEGIN:VEVENT
 UID:{{ uid }}
 DTSTAMP:{{ dtstamp }}
 CREATED:{{ created }}
 LAST-MODIFIED:{{ last_modified }}
+SEQUENCE:{{ sequence }}
 DTSTART;TZID=Europe/Berlin:{{ dtstart }}
 DTEND;TZID=Europe/Berlin:{{ dtend }}
 SUMMARY:{{ event.title | strip_html }}

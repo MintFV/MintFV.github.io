@@ -146,6 +146,14 @@ collections:
         required: false
         hint: "Wird automatisch bei jeder Bearbeitung aktualisiert. Initial = CREATED, bei Änderungen = aktuelles Datum/Zeit"
 
+      - label: "Revisions-Nummer (automatisch)"
+        name: "sequence"
+        widget: "number"
+        value_type: "int"
+        min: 0
+        required: false
+        hint: "Revisions-Zähler für iCal-Synchronisation. Startet bei 0, wird bei jeder Änderung automatisch erhöht. Nicht manuell ändern!"
+
       # ===== OPTIONALE FELDER =====
 
       - label: "Veranstaltungsort"

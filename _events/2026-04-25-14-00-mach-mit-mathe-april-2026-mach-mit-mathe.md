@@ -7,6 +7,7 @@ excerpt: Interaktive Mathematik-Ausstellung zum Anfassen und Ausprobieren. Für
   alle Altersgruppen geeignet.
 published: true
 last_modified: 2025-12-20 09:05
+sequence: 1
 created: 2025-12-20 09:05
 location: MINTarium Eingang A / Austellungsraum - Mümmelmannsberg 75 - 20255 Hamburg
 teaser_image: /assets/images/events/mathe-ausstellung.jpg
