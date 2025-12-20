@@ -1,8 +1,8 @@
 ---
 event_type: offene-werkstatt
 title: Offene Werkstatt - 3D Druck - Robotik - Elektronik
-start_date: 2026-02-17 16:00
-end_date: 2026-02-17 19:00
+start_date: 2026-10-20 16:00
+end_date: 2026-10-20 19:00
 excerpt: Offene Werkstatt für deine Projekte am 3D Drucker, Roboter
   programmieren und mehr
 published: true

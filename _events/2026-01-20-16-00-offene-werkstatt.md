@@ -9,8 +9,8 @@ published: true
 location: MINTarium Eingang B - Mümmelmannsberg 75 - 20255 Hamburg
 registration_required: false
 organizers:
-  - Jan Evers
-  - Christoph Büchler
+  - Evers, Jan
+  - Heidi
 ---
 
 ## Offene Werkstatt für Tüftler und Maker
