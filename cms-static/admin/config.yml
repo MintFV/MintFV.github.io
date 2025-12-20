@@ -126,6 +126,16 @@ collections:
         default: true
         hint: "Nur veröffentlichte Veranstaltungen werden auf der Website angezeigt"
 
+      - label: "Erstellt am (automatisch)"
+        name: "created"
+        widget: "datetime"
+        format: "YYYY-MM-DD HH:mm"
+        date_format: "DD.MM.YYYY"
+        time_format: "HH:mm"
+        picker_utc: false
+        required: false
+        hint: "Wird automatisch beim Erstellen gesetzt. Bei zukünftigen Events = Erstellungsdatum, bei vergangenen Events = Termin-Datum"
+
       # ===== OPTIONALE FELDER =====
 
       - label: "Veranstaltungsort"

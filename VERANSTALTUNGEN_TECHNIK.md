@@ -94,7 +94,31 @@ collections:
 
 **Limitation:** Funktioniert nur beim Erstellen neuer Events, nicht beim Bearbeiten.
 
-### 4. Zeitfilterung ohne Plugin
+### 4. CREATED-Feld für iCal-Synchronisation
+
+**Entscheidung:** Automatisches CREATED-Feld für RFC 5545 Compliance.
+
+**Regel:**
+
+- **Zukünftige Events:** CREATED = Aktuelles Datum/Uhrzeit (Erstellungszeitpunkt)
+- **Vergangene Events:** CREATED = Event-Datum (start_date)
+
+**Implementierung auf 3 Ebenen:**
+
+1. **Decap CMS Widget** - Manuelles Feld (optional editierbar)
+2. **JavaScript** - Automatisches Setzen beim Erstellen in `applyDefaults()`
+3. **preSave Hook** - Fallback-Validierung vor dem Speichern
+4. **iCal Feed** - Korrekte Ausgabe im VEVENT mit Fallback-Logik
+
+**Vorteil:**
+
+- iCal-Feeds sind RFC-konform
+- Kalender-Apps können Events korrekt synchronisieren
+- Keine manuelle Pflege erforderlich
+
+**Migration:** Script `_scripts/add_created_field.rb` für bestehende Events.
+
+### 5. Zeitfilterung ohne Plugin
 
 **Entscheidung:** Liquid-Templates für Zeitfilterung statt Jekyll-Pagination-Plugin.
 
@@ -140,6 +164,7 @@ title: String
 start_date: DateTime (YYYY-MM-DD HH:mm)
 excerpt: String (10-200 Zeichen)
 published: Boolean
+created: DateTime (YYYY-MM-DD HH:mm) # Automatisch gesetzt
 
 # Optionale Felder
 end_date: DateTime

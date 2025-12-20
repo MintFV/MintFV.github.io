@@ -284,6 +284,7 @@
         let startSet = false;
         let endSet = false;
         let locationSet = false;
+        let createdSet = false;
 
         inputs.forEach((input) => {
           const container = input.closest('[class*="Field"], [class*="Widget"]') || input.parentElement?.parentElement;
@@ -315,6 +316,15 @@
               endSet = true;
             }
           }
+
+          // CREATED setzen - automatisch beim Erstellen
+          if (input.type === 'datetime-local' && labelText.includes('ERSTELLT') && !createdSet && !input.value) {
+            const now = new Date();
+            const createdValue = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}T${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+            setInputValue(input, createdValue);
+            createdSet = true;
+            console.log('✅ CREATED gesetzt:', createdValue);
+          }
         });
 
         colorizeEditor();
@@ -333,6 +343,7 @@
           CMS.registerEventListener({
             name: 'preSave',
             handler: ({ entry }) => {
+              let modified = entry;
               const eventType = entry.getIn(['data', 'event_type']);
               const location = entry.getIn(['data', 'location']);
 
@@ -341,11 +352,28 @@
                 const defaults = EVENT_TYPE_DEFAULTS[eventType];
                 if (defaults.location) {
                   console.log(`💾 preSave: Setze Location für ${eventType}`);
-                  return entry.setIn(['data', 'location'], defaults.location);
+                  modified = modified.setIn(['data', 'location'], defaults.location);
                 }
               }
 
-              return entry;
+              // CREATED-Feld prüfen und setzen
+              const created = modified.getIn(['data', 'created']);
+              const startDate = modified.getIn(['data', 'start_date']);
+
+              if (!created && startDate) {
+                const now = new Date();
+                const eventDate = new Date(startDate);
+
+                // Regel: Zukunft = jetzt, Vergangenheit = Event-Datum
+                const createdDate = eventDate > now ? now : eventDate;
+
+                const createdString = createdDate.toISOString().slice(0, 16).replace('T', ' ');
+                modified = modified.setIn(['data', 'created'], createdString);
+
+                console.log(`💾 preSave: Setze CREATED auf ${createdString}`);
+              }
+
+              return modified;
             }
           });
         }

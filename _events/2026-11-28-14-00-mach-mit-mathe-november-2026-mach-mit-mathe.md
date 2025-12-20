@@ -6,6 +6,7 @@ end_date: 2026-11-28 16:00
 excerpt: Interaktive Mathematik-Ausstellung zum Anfassen und Ausprobieren. Für
   alle Altersgruppen geeignet.
 published: true
+created: 2025-12-20 09:11
 location: MINTarium Eingang A / Austellungsraum - Mümmelmannsberg 75 - 20255 Hamburg
 teaser_image: /assets/images/events/mathe-ausstellung.jpg
 teaser_alt: Kinder experimentieren mit mathematischen Modellen
@@ -15,7 +16,6 @@ organizers:
   - Evers, Jan
   - NN
 ---
-
 ## Mathematik erleben und entdecken
 
 Unsere beliebte "Mach mit Mathe"-Ausstellung öffnet wieder ihre Türen! Erleben Sie Mathematik auf eine völlig neue Art – interaktiv, spannend und für alle Altersgruppen verständlich.

@@ -58,9 +58,23 @@ END:VTIMEZONE
 {%- assign end_seconds = event.start_date | date: '%s' | plus: 7200 %}
 {%- assign dtend = end_seconds | date: '%Y%m%dT%H%M%S' %}
 {% endif %}
+{%- comment %} CREATED Feld - NEU {% endcomment %}
+{% if event.created %}
+{%- assign created = event.created | date: '%Y%m%dT%H%M%SZ' %}
+{% else %}
+{%- comment %} Fallback: Zukunft = jetzt, Vergangenheit = Event-Datum {% endcomment %}
+{%- assign now = site.time | date: '%s' %}
+{%- assign event_start_ts = event.start_date | date: '%s' %}
+{% if event_start_ts > now %}
+{%- assign created = site.time | date: '%Y%m%dT%H%M%SZ' %}
+{% else %}
+{%- assign created = event.start_date | date: '%Y%m%dT%H%M%SZ' %}
+{% endif %}
+{% endif %}
 BEGIN:VEVENT
 UID:{{ uid }}
 DTSTAMP:{{ dtstamp }}
+CREATED:{{ created }}
 DTSTART;TZID=Europe/Berlin:{{ dtstart }}
 DTEND;TZID=Europe/Berlin:{{ dtend }}
 SUMMARY:{{ event.title | strip_html }}

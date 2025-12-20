@@ -54,6 +54,12 @@ bundle exec jekyll serve
 
 Die Website ist dann unter `http://localhost:4000` erreichbar.
 
+#### Checker
+
+-
+
+<https://icalendar.org/validator.html?url=http://mintfv.github.io/feeds/mintfv-events.ical>
+
 ### Verzeichnisstruktur
 
 - `_config.yml` - Haupt-Konfigurationsdatei

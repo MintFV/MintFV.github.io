@@ -67,6 +67,14 @@ Kurzer, aussagekräftiger Name (z.B. "Roboter-Programmierung mit NAO")
 - ✅ **Aktiviert**: Event ist auf der Website sichtbar
 - ❌ **Deaktiviert**: Event ist nur als Entwurf gespeichert
 
+#### Erstellt am (automatisch)
+
+- Wird **automatisch beim Erstellen** gesetzt
+- **Zukünftige Events:** Aktuelles Datum/Uhrzeit (jetzt)
+- **Vergangene Events:** Event-Datum (start_date)
+- **Hinweis:** Sollte normalerweise nicht manuell geändert werden
+- Wird für iCal-Kalender-Synchronisation verwendet
+
 ### 5. Optionale Felder
 
 #### Enddatum
