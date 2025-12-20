@@ -46,9 +46,8 @@ layout: default
     COUNTDOWN (dynamisch via JavaScript)
     ======================================== {% endcomment %}
     {% if page.cancelled != true %}
-      <div id="event-countdown" 
-           data-event-date="{{ page.start_date | date: '%Y-%m-%dT%H:%M:%S' }}" 
-           class="notice notice--success" 
+      <div id="event-countdown" data-event-date="{{ page.start_date | date: '%Y-%m-%dT%H:%M:%S' }}"
+        class="notice notice--success"
            style="display: none;">
         <b id="countdown-text"></b>
       </div>
@@ -169,11 +168,13 @@ layout: default
 
   {% comment %} Aktionsbereich {% endcomment %}
   <footer class="event-detail__actions">
-    <a href="/veranstaltungen/" class="event-detail__action-btn event-detail__action-btn--secondary">
-      ← Zurück zur Übersicht
+    <a href="/veranstaltungen/" onclick="history.back(); return false;"
+      class="event-detail__action-btn event-detail__action-btn--secondary">
+      ← Zurück
     </a>
 
-    <a href="/feeds/events.ical" class="event-detail__action-btn">
+    <a href="/feeds/events.ical"
+      class="event-detail__action-btn event-detail__action-btn--secondary">
       📅 Kalender abonnieren
     </a>
   </footer>

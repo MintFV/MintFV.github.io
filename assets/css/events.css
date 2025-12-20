@@ -455,7 +455,7 @@
 .event-detail__action-btn {
   display: inline-block;
   padding: 0.8rem 1.5rem;
-  background-color: #0066cc;
+  background-color: #003d82;
   color: #fff;
   text-decoration: none;
   border-radius: 6px;
@@ -469,11 +469,20 @@
 }
 
 .event-detail__action-btn--secondary {
-  background-color: #6c757d;
+  background-color: #0d2faa;
+  color: #d4e5ea;
+  border: 2px solid #002855;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .event-detail__action-btn--secondary:hover {
-  background-color: #5a6268;
+  background-color: #0052a3;
+  color: #d4e5ea;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.event-detail__action-btn--secondary:visited {
+  color: #d4e5ea;
 }
 
 @media (max-width: 768px) {
