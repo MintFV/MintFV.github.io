@@ -324,8 +324,9 @@
       // 1. CMS Initialisierung (vereinfacht)
       // ============================================
       function initDecapCMS() {
-        // Kein Custom Preview mehr - preview.css wird nicht benötigt
+        // Lade CSS für Standard-Preview (kein Custom Template!)
         if (typeof CMS !== 'undefined') {
+          CMS.registerPreviewStyle('/cms-static/admin/preview.css');
           console.log('✅ Decap CMS initialisiert');
 
           // preSave Hook als Fallback für fehlende Defaults
