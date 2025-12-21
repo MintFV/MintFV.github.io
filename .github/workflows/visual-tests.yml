@@ -39,9 +39,9 @@ jobs:
 
       - name: Run visual regression tests
         run: |
-          cd tests
           bundle exec jekyll serve --port 4001 --detach
           sleep 5
+          cd tests
           PLAYWRIGHT_BASE_URL=http://localhost:4001 npm run test:visual
 
       - name: Upload Playwright report
