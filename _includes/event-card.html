@@ -19,10 +19,10 @@
 
 <article class="event-card {% if is_past_event or include.is_past %}event-card--past{% endif %} {% if event.cancelled %}event-card--cancelled{% endif %}"
          data-event-type="{{ event.event_type }}"
-         style="border-left: 4px solid {{ event_type_data.color | default: '#ccc' }};">
+         style="--event-type-color: {{ event_type_data.color | default: '#ccc' }};">
 
   {% comment %} Event Type Badge {% endcomment %}
-  <div class="event-card__badge" style="background-color: {{ event_type_data.color | default: '#ccc' }};">
+  <div class="event-card__badge">
     <span class="event-card__emoji">{{ event_type_data.emoji }}</span>
     <span class="event-card__type-name">{{ event_type_data.name }}</span>
   </div>

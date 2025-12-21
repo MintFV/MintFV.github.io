@@ -44,7 +44,7 @@ permalink: /veranstaltungen/
   {% endif %}
 
 {% if past_display.size > 0 %}
-  <div style="background: linear-gradient(to bottom, #f5f5f5 0%, #e8e8e8 100%); padding: 2rem 1.5rem; margin: 3rem 0 2rem 0; border-radius: 12px; border: 2px solid #d0d0d0; box-shadow: inset 0 2px 4px rgba(0,0,0,0.06); opacity: 0.9; filter: grayscale(8%)  saturate(0.9) brightness(1.04);" markdown="1">
+  <div class="events-past-highlight" markdown="1">
   <span style="opacity: 0.7;">⏳ 🕒</span> **Letzte vergangene Veranstaltungen**
   ---------------------------------------------------------------------------------
   {% for event in past_display %}
@@ -139,90 +139,3 @@ Künstliche Intelligenz verständlich erklärt: Einblicke und Anwendungen
 
 [Weitere Informationen](/assets/downloads/MINTarium_FV_Zimmerwetter_2023.jpg){: .btn .btn--info}
 
-<style>
-/* ========================================
-   KONTRAST-FIX: WCAG AAA für /veranstaltungen/
-   ======================================== */
-
-/* Navigation Links (Archiv, Alle Events) */
-.events-navigation__link {
-  background-color: #003d82 !important;
-  color: #ffffff !important;
-  font-weight: 600 !important;
-  padding: 0.8rem 1.5rem !important;
-  border-radius: 6px !important;
-  border: 2px solid #002855 !important;
-  text-decoration: none !important;
-  display: inline-block !important;
-  margin: 0.5rem !important;
-  transition: all 0.3s ease !important;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.2) !important;
-}
-
-.events-navigation__link:hover {
-  background-color: #002855 !important;
-  color: #ffffff !important;
-  transform: translateY(-2px) !important;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3) !important;
-  border-color: #001a3d !important;
-}
-
-/* Feed Links (iCal, RSS) */
-.events-feeds__link {
-  background-color: #003d82 !important;
-  color: #ffffff !important;
-  font-weight: 600 !important;
-  padding: 0.8rem 1.5rem !important;
-  border-radius: 6px !important;
-  border: 2px solid #002855 !important;
-  text-decoration: none !important;
-  display: inline-block !important;
-  margin: 0.5rem !important;
-  transition: all 0.3s ease !important;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.2) !important;
-}
-
-.events-feeds__link:hover {
-  background-color: #002855 !important;
-  color: #ffffff !important;
-  transform: translateY(-2px) !important;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3) !important;
-  border-color: #001a3d !important;
-}
-
-/* Workshop-Buttons (.btn .btn--info) */
-.btn.btn--info {
-  background-color: #003d82 !important;
-  color: #ffffff !important;
-  font-weight: 600 !important;
-  padding: 0.8rem 1.5rem !important;
-  border-radius: 6px !important;
-  border: 2px solid #002855 !important;
-  text-decoration: none !important;
-  display: inline-block !important;
-  margin: 0.5rem 0 !important;
-  transition: all 0.3s ease !important;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.2) !important;
-}
-
-.btn.btn--info:hover {
-  background-color: #002855 !important;
-  color: #ffffff !important;
-  transform: translateY(-2px) !important;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3) !important;
-  border-color: #001a3d !important;
-}
-
-/* Focus States für Accessibility */
-.events-navigation__link:focus,
-.events-feeds__link:focus,
-.btn.btn--info:focus {
-  outline: 3px solid #ffd700 !important;
-  outline-offset: 2px !important;
-}
-
-/* Kontrast-Werte:
-   #003d82 auf #ffffff: 8.59:1 ✅ WCAG AAA
-   #ffffff auf #003d82: 8.59:1 ✅ WCAG AAA
-*/
-</style>
