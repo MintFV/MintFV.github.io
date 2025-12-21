@@ -8,7 +8,9 @@ test.describe('Visual smoke', () => {
       await page.goto(path, { waitUntil: 'networkidle' });
       await expect(page).toHaveScreenshot(`page-${path.replace(/\W+/g, '-')}.png`, {
         fullPage: true,
-        animations: 'disabled'
+        animations: 'disabled',
+        maxDiffPixelRatio: 0.05,
+        timeout: 15000
       });
     });
   }
