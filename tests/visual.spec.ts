@@ -6,7 +6,7 @@ test.describe('Visual smoke', () => {
   for (const path of pages) {
     test(`page ${path}`, async ({ page }) => {
       await page.goto(path, { waitUntil: 'networkidle' });
-      await expect(page).toHaveScreenshot(`page-${path.replace(/\W+/g, '-')}.png`, {
+      await expect(page).toHaveScreenshot({
         fullPage: true,
         animations: 'disabled',
         maxDiffPixelRatio: 0.05,
