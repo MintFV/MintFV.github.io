@@ -1,17 +1,37 @@
 {
+  "extends": "stylelint-config-standard",
   "rules": {
     "declaration-property-value-disallowed-list": [
       {
         "color": [
           "/^(?!var\\(|transparent$|inherit$|currentColor$|initial$|unset$).*/"
+        ],
+        "background-color": [
+          "/^(?!var\\(|transparent$|inherit$|currentColor$|initial$|unset$).*/"
+        ],
+        "border-color": [
+          "/^(?!var\\(|transparent$|inherit$|currentColor$|initial$|unset$).*/"
+        ],
+        "border-left-color": [
+          "/^(?!var\\(|transparent$|inherit$|currentColor$|initial$|unset$).*/"
+        ],
+        "box-shadow": [
+          "/^(?!var\\(|transparent$|inherit$|currentColor$|initial$|unset$|[0-9].*)[a-zA-Z].*/"
         ]
       },
       {
-        "severity": "warning"
+        "severity": "warning",
+        "message": "Hardcoded Farben sind nicht erlaubt! Nutze CSS-Variablen aus :root oder --event-type-color. Siehe DESIGN_SYSTEM.md"
       }
     ],
-    "color-hex-case": null,
-    "color-hex-length": null,
-    "no-descending-specificity": null
+    "color-hex-case": "lower",
+    "color-hex-length": "short",
+    "no-descending-specificity": null,
+    "at-rule-no-unknown": [
+      true,
+      {
+        "ignoreAtRules": ["layer", "supports"]
+      }
+    ]
   }
 }

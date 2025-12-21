@@ -1,0 +1,49 @@
+name: Token Sync Validation
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - '_data/event_types.yml'
+      - 'cms-static/admin/event-types.json'
+      - 'cms-static/admin/custom-admin.css'
+  pull_request:
+    branches: [main, develop]
+    paths:
+      - '_data/event_types.yml'
+      - 'cms-static/admin/event-types.json'
+      - 'cms-static/admin/custom-admin.css'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    name: Validate Token Sync
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        working-directory: ./tests
+        run: npm install
+
+      - name: Run Token Validator
+        working-directory: ./tests
+        run: npm run validate:tokens
+
+      - name: Comment on PR (if failure)
+        if: failure() && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '❌ Token Sync Validation failed! Please ensure:\n\n- `_data/event_types.yml` (Primary)\n- `cms-static/admin/event-types.json` (Replica 1)\n- `cms-static/admin/custom-admin.css` (Replica 2)\n\nare synchronized. See the workflow logs for details.\n\nReference: [DESIGN_SYSTEM.md](https://github.com/MintFV/MintFV.github.io/blob/main/DESIGN_SYSTEM.md#-event-type-farben) & [ADR-CSS-REFACTOR.md](https://github.com/MintFV/MintFV.github.io/blob/main/ADR-CSS-REFACTOR.md)'
+            })
