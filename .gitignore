@@ -40,3 +40,7 @@ node_modules/
 *.bak
 *_bak
 
+# Playwright artifacts
+playwright-report/
+test-results/
+

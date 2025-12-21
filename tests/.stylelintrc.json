@@ -1,0 +1,17 @@
+{
+  "rules": {
+    "declaration-property-value-disallowed-list": [
+      {
+        "color": [
+          "/^(?!var\\(|transparent$|inherit$|currentColor$|initial$|unset$).*/"
+        ]
+      },
+      {
+        "severity": "warning"
+      }
+    ],
+    "color-hex-case": null,
+    "color-hex-length": null,
+    "no-descending-specificity": null
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "mintfv-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "MINTarium Website - Jekyll + Node Testing Tools",
+  "scripts": {
+    "lint:css": "cd tests && npm run lint:css",
+    "test:visual": "cd tests && npm run test:visual",
+    "test:visual:update": "cd tests && npm run test:visual:update",
+    "test:visual:docker": "cd tests && npm run test:visual:docker"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "mintfv-site-tests",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "lint:css": "stylelint \"../assets/css/**/*.css\" \"../cms-static/admin/**/*.css\" --config .stylelintrc.json",
+    "test:visual": "playwright test --config playwright.config.ts",
+    "test:visual:update": "PLAYWRIGHT_UPDATE_SNAPSHOTS=1 playwright test --config playwright.config.ts",
+    "test:visual:docker": "docker run --rm -v $(pwd)/..:/workspace -w /workspace/tests mcr.microsoft/playwright:v1.41.2-focal bash -lc \"npm install && npm run test:visual\""
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.41.2",
+    "stylelint": "^15.11.0",
+    "stylelint-config-standard": "^33.0.0"
+  }
+}
