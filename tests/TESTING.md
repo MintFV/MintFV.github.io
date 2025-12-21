@@ -215,34 +215,68 @@ docker desktop  # macOS
 
 ## 🔄 Continuous Integration / CI/CD
 
-Die Skripte sind CI/CD-ready und nutzen Exit-Codes:
+### GitHub Actions Workflows
+
+Zwei automatisierte Workflows sind bereits eingebunden:
+
+#### 1️⃣ **Visual Regression Testing** (`.github/workflows/visual-tests.yml`)
+
+Triggered on:
+- Push zu `main` oder `develop` Branch
+- Pull Request zu `main` oder `develop`
+
+**Workflow:**
+```yaml
+- Checkout Code
+- Setup Ruby (Jekyll)
+- Setup Node.js 18
+- npm ci (tests/)
+- npm install Playwright
+- Jekyll Build (lokal)
+- Starte Server auf Port 4001
+- Ausführe `npm run test:visual`
+- Upload Playwright Report Artifacts
+- Cleanup (Stop Server)
+```
+
+**Timeout:** 30 Minuten  
+**Artifacts:** Playwright HTML Report → Abrufbar in GitHub Actions Run
+
+#### 2️⃣ **CSS Linting** (`.github/workflows/css-lint.yml`)
+
+Triggered on:
+- Push zu `main` oder `develop` mit CSS-Änderungen
+- Pull Request zu `main` oder `develop` mit CSS-Änderungen
+
+**Workflow:**
+```yaml
+- Checkout Code
+- Setup Node.js 18
+- npm ci (tests/)
+- Ausführe `npm run lint:css`
+- (Opt.) Kommentar auf PR bei Fehler
+```
+
+**Timeout:** 10 Minuten  
+**PR-Feedback:** Automatischer Kommentar bei Linting-Fehlern
+
+### Lokale Exit-Code-Nutzung
+
+Die Skripte nutzen Exit-Codes für CI/CD:
 
 ```bash
 ./tests/run-visual-tests.sh
 echo $?  # 0 = erfolg, 1 = fehler
 ```
 
-Dies kann in GitHub Actions, GitLab CI etc. eingebunden werden:
+### Manuelle Workflow-Trigger
 
-```yaml
-# .github/workflows/visual-tests.yml
-name: Visual Tests
-on: [push, pull_request]
-
-jobs:
-  visual:
-    runs-on: macos-latest  # oder ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: ruby/setup-ruby@v1
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-      - run: bundle install
-      - run: cd tests && npm install
-      - run: npx playwright install --with-deps
-      - run: ./tests/run-visual-tests.sh
-```
+Über GitHub Actions UI:
+1. Gehe zu **Actions** Tab
+2. Wähle Workflow (`Visual Tests` oder `CSS Linting`)
+3. Klick **Run Workflow** Button
+4. Wähle Branch
+5. Klick **Run Workflow**
 
 ---
 
