@@ -1,8 +1,22 @@
 /* ============================================================
    MINT.FV Decap CMS Custom Admin Styles
    Zusätzliche Styles für verbesserte UX im CMS
+⚠️ WICHTIG: Event-Type Farben-Synchronisation============================================================ARCHITEKTUR-HINWEIS für Wartung: - cms-static/ wird AUTARK zu Netlify deployed - Farben sind in diesem File mit CSS-Variablen definiert - Event-Type Farben MÜSSEN synchron gehalten werden mit: * _data/event_types.yml (Jekyll: event card colors) * cms-static/admin/event-types.json (JavaScript: defaults) Bei Änderungen von Event-Type Farben: 1. Ändere: _data/event_types.yml (color: value) 2. Ändere: cms-static/admin/event-types.json (color: value) 3. Ändere: custom-admin.css (:root {
+        --event-color-X: ...
+    }) 4. Ändere: assets/css/events.css (falls vorhanden) Aktuell definierte Event-Types: - mach-mit-mathe #E8F4F8 (hellblau) - offene-werkstatt #F0F8E8 (hellgrün) - ferienpass #FFF4E6 (hell-orange) - sonstige #F5F0F8 (hellviolett)
    ============================================================ */
 
+:root {
+    /* Event-Type Farben aus _data/event_types.yml */
+    --event-color-mach-mit-mathe: #E8F4F8;
+    --event-color-offene-werkstatt: #F0F8E8;
+    --event-color-ferienpass: #FFF4E6;
+    --event-color-sonstige: #F5F0F8;
+    --event-border-mach-mit-mathe: #8EC5D4;
+    --event-border-offene-werkstatt: #A8D18A;
+    --event-border-ferienpass: #FFD699;
+    --event-border-sonstige: #C5B8D4;
+}
 /* Quick-Create Button Container */
 #quick-create-container {
   display: flex;
@@ -37,24 +51,25 @@ box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 /* Event-Type spezifische Farben für Quick-Buttons */
+/* Zentrale Quelle: _data/event_types.yml */
 .quick-btn.mach-mit-mathe {
-background: #E8F4F8;
-border-color: #8EC5D4;
+background: var(--event-color-mach-mit-mathe);
+    border-color: var(--event-border-mach-mit-mathe);
 }
 
 .quick-btn.offene-werkstatt {
-background: #F0F8E8;
-border-color: #A8D18A;
+background: var(--event-color-offene-werkstatt);
+    border-color: var(--event-border-offene-werkstatt);
 }
 
 .quick-btn.ferienpass {
-background: #FFF4E6;
-border-color: #FFD699;
+background: var(--event-color-ferienpass);
+    border-color: var(--event-border-ferienpass);
 }
 
 .quick-btn.sonstige {
-background: #F5F0F8;
-border-color: #C5B8D4;
+background: var(--event-color-sonstige);
+    border-color: var(--event-border-sonstige);
 }
 
 /* Color Indicator Bar - Visuelles Feedback im Editor */
@@ -93,8 +108,8 @@ a[href*="/events/entries/"] {
 /* Ferienpass */
 a[href*="/events/entries/"][data-event-type="ferienpass"],
 a[href*="ferienpass"] {
-    background: #FFF4E6 !important;
-    border: 2px solid #FFD699 !important;
+    background: var(--event-color-ferienpass) !important;
+        border: 2px solid var(--event-border-ferienpass) !important;
     border-radius: 4px !important;
     padding: 8px 12px !important;
     transition: all 0.2s ease !important;
@@ -109,8 +124,8 @@ a[href*="ferienpass"]:hover {
 /* Mach mit Mathe */
 a[href*="/events/entries/"][data-event-type="mach-mit-mathe"],
 a[href*="mach-mit-mathe"] {
-    background: #E8F4F8 !important;
-    border: 2px solid #8EC5D4 !important;
+    background: var(--event-color-mach-mit-mathe) !important;
+        border: 2px solid var(--event-border-mach-mit-mathe) !important;
     border-radius: 4px !important;
     padding: 8px 12px !important;
     transition: all 0.2s ease !important;
@@ -125,8 +140,8 @@ a[href*="mach-mit-mathe"]:hover {
 /* Offene Werkstatt */
 a[href*="/events/entries/"][data-event-type="offene-werkstatt"],
 a[href*="offene-werkstatt"] {
-    background: #F0F8E8 !important;
-    border: 2px solid #A8D18A !important;
+    background: var(--event-color-offene-werkstatt) !important;
+        border: 2px solid var(--event-border-offene-werkstatt) !important;
     border-radius: 4px !important;
     padding: 8px 12px !important;
     transition: all 0.2s ease !important;
@@ -141,8 +156,8 @@ a[href*="offene-werkstatt"]:hover {
 /* Sonstige */
 a[href*="/events/entries/"][data-event-type="sonstige"],
 a[href*="sonstige"] {
-    background: #F5F0F8 !important;
-    border: 2px solid #C5B8D4 !important;
+    background: var(--event-color-sonstige) !important;
+        border: 2px solid var(--event-border-sonstige) !important;
     border-radius: 4px !important;
     padding: 8px 12px !important;
     transition: all 0.2s ease !important;

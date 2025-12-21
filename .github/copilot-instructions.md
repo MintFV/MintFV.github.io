@@ -1,5 +1,22 @@
 # GitHub Copilot Instructions - MINTarium Website
 
+## Copilot Quick Checklist (bitte zuerst lesen)
+
+1) Vor Änderungen immer kurz diese beiden Dokumente querlesen:
+  - DESIGN_SYSTEM.md → Tokens, 3-Datei-Sync der Event-Typ-Farben
+  - ADR-CSS-REFACTOR.md → Warum CSS-Variablen, getrennte Token-Sets für Jekyll vs. CMS
+
+2) Wenn Event-Typ-Farben geändert werden sollen:
+  - _data/event_types.yml (Primär)
+  - cms-static/admin/event-types.json (Defaults fürs CMS)
+  - cms-static/admin/custom-admin.css (:root Variablen für Admin UI)
+
+3) Keine neuen Inline-Farben einbauen. Immer `var(--...)` nutzen.
+
+4) Bei neuen Komponenten: Tokens nutzen (`--color-*`, `--radius-*`, `--shadow-*`). Keine Hardcodes.
+
+5) cms-static/ ist autark (Netlify). Keine Abhängigkeiten auf assets/css/events.css herstellen.
+
 ## Project Overview
 
 This is a **Jekyll-based GitHub Pages website** for the Förderverein MINTarium Hamburg e.V., featuring a sophisticated event management system with Decap CMS integration. The site is a German-language (de-DE) static site using the Minimal Mistakes theme.

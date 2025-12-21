@@ -501,14 +501,14 @@
 }
 
 .event-detail__action-btn--secondary {
-  background-color: #0d2faa;
+  background-color: var(--color-primary-strong);
   color: #d4e5ea;
-  border: 2px solid #002855;
+  border: 2px solid var(--color-primary-stronger);
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .event-detail__action-btn--secondary:hover {
-  background-color: #0052a3;
+  background-color: var(--color-primary);
   color: #d4e5ea;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
@@ -528,16 +528,12 @@
   }
 }
 
-/* ===== FILTER BUTTONS ===== */
-
-
-/* Kompakter, CMS-inspirierter Filter-Kasten */
 .event-filters--compact {
   margin: 1.5rem 0 1.5rem 0;
   padding: 0.7rem 1.2rem;
-  background: #f7fafd;
+  background: var(--color-surface-soft);
   border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  box-shadow: var(--shadow-soft);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -548,49 +544,58 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-    width: 100%;
+  width: 100%;
     margin-bottom: 0.2rem;
 }
-
 
 .event-filter-btn {
   display: flex;
   align-items: center;
   gap: 0.4rem;
-    padding: 0.28rem 0.7rem;
-    border: none;
-    border-radius: 7px;
-    font-size: 0.86rem;
+  padding: 0.4rem 0.8rem;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  box-shadow: var(--shadow-soft);
     transition: box-shadow 0.18s, transform 0.18s, outline 0.18s;
     outline: none;
-    min-width: 0;
-    min-height: 1.7rem;
+  min-height: 1.9rem;
     line-height: 1.15;
 }
 
 .event-filter-btn--all {
-  background: #e0e7ef !important;
-  color: #003d82 !important;
+  background-color: #e0e7ef;
+    color: var(--color-primary);
+  }
+  
+  .event-filter-btn--all:hover {
+    background-color: #d4dce5;
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-1px);
 }
 
 .event-filter-btn--type {
-  /* Farbe per Inline-Style aus YAML */
-  color: #222;
+  background-color: var(--event-type-color, #f5f5f5);
+    color: var(--color-text);
+  }
+  
+  .event-filter-btn--type:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-1px);
 }
 
 .event-filter-btn--active {
-  box-shadow: 0 2px 8px rgba(0, 61, 130, 0.10);
-    outline: 3px solid #ffd700;
+  box-shadow: var(--shadow-hover);
+    outline: 3px solid var(--color-focus);
     outline-offset: 1px;
     z-index: 1;
     position: relative;
   }
 
-  .event-filter-btn:focus {
-    outline: 3px solid #ffd700;
+.event-filter-btn:focus {
+  outline: 3px solid var(--color-focus);
     outline-offset: 1px;
 }
 
@@ -598,14 +603,13 @@
   font-size: 1.05rem;
 }
 
-
 .event-filters__count {
   margin-top: 0.15rem;
-    font-size: 0.78rem;
-  color: #666;
+  font-size: 0.8rem;
+    color: var(--color-text-muted);
   font-style: italic;
   min-height: 1.1em;
-  }
+}
 
   @media (max-width: 600px) {
     .event-filters--compact .event-filters__buttons {
@@ -644,38 +648,38 @@
 .pagination__link {
   display: block;
   padding: 0.6rem 1rem;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  color: #0066cc;
+  background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    color: var(--color-link);
   text-decoration: none;
   font-weight: 600;
   transition: all 0.2s ease;
 }
 
 .pagination__link:hover {
-  background-color: #0066cc;
+  background-color: var(--color-link);
   color: #fff;
-  border-color: #0066cc;
+  border-color: var(--color-link);
 }
 
 .pagination__item--active .pagination__link {
-  background-color: #0066cc;
+  background-color: var(--color-link);
   color: #fff;
-  border-color: #0066cc;
+  border-color: var(--color-link);
   cursor: default;
 }
 
 .pagination__item--disabled .pagination__link {
   color: #999;
-  background-color: #f5f5f5;
+  background-color: var(--color-surface-muted);
   cursor: not-allowed;
   pointer-events: none;
 }
 
 .pagination__info {
   font-size: 0.9rem;
-  color: #666;
+  color: var(--color-text-muted);
   margin-top: 0.5rem;
 }
 
