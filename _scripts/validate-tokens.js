@@ -2,14 +2,14 @@
 
 /**
  * Token Sync Validator
- * 
+ *
  * Validiert, dass die 3-Datei-Sync für Event-Typ-Farben konsistent ist:
  * 1. _data/event_types.yml       (Primary - Jekyll, längere Namen)
  * 2. cms-static/admin/event-types.json  (Replica - CMS Config, kürzere Namen für Dateigenerierung)
  * 3. cms-static/admin/custom-admin.css  (Replica - CMS Styling)
- * 
+ *
  * WICHTIG: Namen müssen NICHT gleich sein! Farben, Emojis und CSS-Variablen müssen aber synchron sein.
- * 
+ *
  * Exit Code: 0 = OK, 1 = Fehler
  */
 
