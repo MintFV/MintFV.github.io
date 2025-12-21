@@ -4,9 +4,11 @@
  * Token Sync Validator
  * 
  * Validiert, dass die 3-Datei-Sync für Event-Typ-Farben konsistent ist:
- * 1. _data/event_types.yml       (Primary - Jekyll)
- * 2. cms-static/admin/event-types.json  (Replica - CMS Config)
+ * 1. _data/event_types.yml       (Primary - Jekyll, längere Namen)
+ * 2. cms-static/admin/event-types.json  (Replica - CMS Config, kürzere Namen für Dateigenerierung)
  * 3. cms-static/admin/custom-admin.css  (Replica - CMS Styling)
+ * 
+ * WICHTIG: Namen müssen NICHT gleich sein! Farben, Emojis und CSS-Variablen müssen aber synchron sein.
  * 
  * Exit Code: 0 = OK, 1 = Fehler
  */
@@ -105,7 +107,7 @@ for (const eventType of ymlKeys) {
   // Prüfe CSS Variable
   const cssVarName = `--event-color-${eventType}`;
   const cssVarPattern = new RegExp(`${cssVarName}:\\s*${ymlData.color.replace('#', '\\#')};`);
-  
+
   if (!cssVarPattern.test(cssContent)) {
     console.error(`❌ ${eventType}: CSS-Variable ${cssVarName} nicht oder falsch definiert`);
     console.error(`   Erwartet: ${cssVarName}: ${ymlData.color};`);
@@ -120,13 +122,10 @@ for (const eventType of ymlKeys) {
     hasErrors = true;
   }
 
-  // Prüfe Name
-  if (ymlData.name !== jsonData.name) {
-    console.error(`❌ ${eventType}: Name stimmt nicht überein`);
-    console.error(`   YAML: ${ymlData.name}`);
-    console.error(`   JSON: ${jsonData.name}`);
-    hasErrors = true;
-  }
+  // NOTE: Namen müssen NICHT synchron sein!
+  // - YAML: Längere, aussagekräftige Namen (z.B. "Ferienpass Aktion")
+  // - JSON: Kürzere Namen für CMS Dateiname-Generierung (z.B. "Ferienpass")
+  // Das ist gewollte Asymmetrie und verursacht KEINE Datensync-Fehler.
 }
 
 // 4.3 Prüfe auf Extra-Einträge in JSON/CSS
@@ -145,7 +144,7 @@ console.log('\n' + '='.repeat(50));
 if (!hasErrors) {
   console.log('✅ Alle Token sind synchron!');
   console.log('   • YAML, JSON und CSS sind konsistent');
-  console.log('   • Farben, Emojis und Namen matchen');
+  console.log('   • Farben und Emojis matchen');
   console.log('   • CSS-Variablen sind korrekt definiert');
   console.log('\n✨ Token validation passed');
   process.exit(0);

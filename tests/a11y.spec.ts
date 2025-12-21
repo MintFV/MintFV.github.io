@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 /**
  * WCAG Accessibility Tests for Event Pages
- * 
+ *
  * Validiert Color Contrast und andere A11y-Standards
  * mittels Playwright
  */
@@ -20,7 +20,7 @@ test.describe('WCAG Accessibility - Color Contrast', () => {
     test(`Color Contrast auf ${name} (${path})`, async ({ page }) => {
       // 1. Navigiere zur Seite
       await page.goto(`${BASE_URL}${path}`, { waitUntil: 'networkidle' });
-      
+
       // 2. Warte kurz für dynamische Inhalte
       await page.waitForTimeout(500);
 
@@ -29,14 +29,14 @@ test.describe('WCAG Accessibility - Color Contrast', () => {
 
       // 3.1 Prüfe Haupttext auf Hintergrund
       const textElements = await page.locator('body *:visible').all();
-      
+
       for (const element of textElements) {
         const computed = await element.evaluate((el) => {
           const style = window.getComputedStyle(el);
-          
+
           // Ignoriere versteckte oder durchsichtige Elemente
-          if (style.display === 'none' || 
-              style.visibility === 'hidden' || 
+            if (style.display === 'none' ||
+                style.visibility === 'hidden' ||
               style.opacity === '0' ||
               parseFloat(style.opacity) < 0.5) {
             return null;
@@ -58,7 +58,7 @@ test.describe('WCAG Accessibility - Color Contrast', () => {
 
         // Kontrast-Check für Textelemente
         const contrast = calculateContrast(computed.color, computed.bgColor);
-        
+
         // WCAG AA Standard: mindestens 4.5:1 für normalen Text, 3:1 für großen Text
         const fontSize = parseFloat(computed.fontSize);
         const isLargeText = fontSize >= 18; // 18px ist "large text" nach WCAG
@@ -77,7 +77,7 @@ test.describe('WCAG Accessibility - Color Contrast', () => {
 
       // 4. Prüfe Event-Card Farben spezifisch
       const eventCards = await page.locator('.event-card').all();
-      
+
       for (const card of eventCards) {
         const style = await card.evaluate((el) => {
           const computed = window.getComputedStyle(el);
@@ -89,7 +89,7 @@ test.describe('WCAG Accessibility - Color Contrast', () => {
 
         // Event-Cards sollten guten Kontrast haben
         const contrast = calculateContrast(style.borderLeft, style.bgColor);
-        
+
         if (contrast < 3 && contrast > 0) {
           issues.push({
             component: 'event-card',
@@ -103,7 +103,7 @@ test.describe('WCAG Accessibility - Color Contrast', () => {
 
       // 5. Prüfe Button-Farben
       const buttons = await page.locator('button, a.btn, a.events-*__link').all();
-      
+
       for (const button of buttons) {
         const style = await button.evaluate((el) => {
           const computed = window.getComputedStyle(el);
@@ -115,7 +115,7 @@ test.describe('WCAG Accessibility - Color Contrast', () => {
         });
 
         const contrast = calculateContrast(style.color, style.bgColor);
-        
+
         if (contrast < 4.5 && contrast > 0) {
           issues.push({
             element: 'button/link',
@@ -135,7 +135,7 @@ test.describe('WCAG Accessibility - Color Contrast', () => {
           console.error(`   ${idx + 1}. ${issue.element || issue.component} - Kontrast: ${issue.contrast}:1 (erforderlich: ${issue.required}:1)`);
           console.error(`      Farbe: ${issue.color}, Hintergrund: ${issue.bgColor}`);
         });
-        
+
         throw new Error(`${issues.length} Kontrast-Fehler gefunden`);
       } else {
         console.log(`✅ ${name}: Alle Kontraste sind WCAG AA konform`);
@@ -152,7 +152,7 @@ test.describe('WCAG Accessibility - Color Contrast', () => {
 
       // 1. Prüfe auf fehlende alt-Attribute
       const imagesWithoutAlt = await page.locator('img:not([alt])').count();
-      
+
       if (imagesWithoutAlt > 0) {
         console.warn(`⚠️ ${name}: ${imagesWithoutAlt} Bilder ohne alt-Text`);
         allPass = false;
@@ -160,7 +160,7 @@ test.describe('WCAG Accessibility - Color Contrast', () => {
 
       // 2. Prüfe auf unbeschriftete Buttons
       const unlabeledButtons = await page.locator('button:not([aria-label]):not([title])').count();
-      
+
       if (unlabeledButtons > 0) {
         console.warn(`⚠️ ${name}: ${unlabeledButtons} Buttons ohne aria-label/title`);
         allPass = false;
@@ -168,7 +168,7 @@ test.describe('WCAG Accessibility - Color Contrast', () => {
 
       // 3. Prüfe auf Überschriften-Struktur
       const h1Count = await page.locator('h1').count();
-      
+
       if (h1Count === 0) {
         console.warn(`⚠️ ${name}: Keine H1-Überschrift gefunden`);
         allPass = false;
