@@ -58,6 +58,7 @@ exclude:
   - LICENSE
   - log
   - node_modules
+  - tests
   - package.json
   - Rakefile
   - README
