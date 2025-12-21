@@ -6,6 +6,8 @@
   - DESIGN_SYSTEM.md → Tokens, 3-Datei-Sync der Event-Typ-Farben
   - ADR-CSS-REFACTOR.md → Warum CSS-Variablen, getrennte Token-Sets für Jekyll vs. CMS
 
+  6) Tool-Nutzung: Bitte keine Terminal-Heredocs verwenden. Dateien immer mit apply_patch/create_file bearbeiten.
+
 2) Wenn Event-Typ-Farben geändert werden sollen:
   - _data/event_types.yml (Primär)
   - cms-static/admin/event-types.json (Defaults fürs CMS)

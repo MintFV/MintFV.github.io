@@ -75,6 +75,12 @@ sonstige:
 | `cms-static/admin/event-types.json` | CMS Defaults + Quick-Buttons | Decap Admin (Netlify) |
 | `cms-static/admin/custom-admin.css` | Admin UI Farben | CMS Styling (autark) |
 
+Hinweis zur Name-Asymmetrie:
+- YAML (`_data/event_types.yml`) kann längere, sprechende Namen für die Anzeige nutzen
+- JSON (`cms-static/admin/event-types.json`) nutzt kurze Namen für CMS-Slugs
+- Synchron zu halten sind: Farben, Emojis, CSS-Variablen; nicht die Namen
+- Details siehe: docs/NAME_ASYMMETRY.md
+
 **Workflow bei Farb-Änderung:**
 1. Ändere Farbe in `_data/event_types.yml`
 2. Kopiere denselben Wert nach `cms-static/admin/event-types.json`
