@@ -5,7 +5,7 @@
     "end_time": "16:00",
     "color": "#E8F4F8",
     "emoji": "📐",
-    "name": "Mach mit Mathe - Ausstellung",
+    "name": "Mach mit Mathe",
     "description": "Monatliche interaktive Mathematik-Ausstellung",
     "registration_required": false,
     "registration_email": ""
@@ -28,7 +28,7 @@
     "end_time": "12:00",
     "color": "#FFF4E6",
     "emoji": "🎪",
-    "name": "Ferienpass Aktion",
+    "name": "Ferienpass",
     "description": "Ferienpass-Aktionen für Kinder und Jugendliche",
     "registration_required": true,
     "registration_email": "info@mintarium-fv.de"
@@ -39,7 +39,7 @@
     "end_time": "",
     "color": "#F5F0F8",
     "emoji": "📅",
-    "name": "Sonstige Veranstaltung",
+    "name": "Sonstige",
     "description": "Weitere Veranstaltungen des Vereins",
     "registration_required": false,
     "registration_email": "info@mintarium-fv.de"
