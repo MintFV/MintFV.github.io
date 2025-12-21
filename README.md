@@ -54,7 +54,50 @@ bundle exec jekyll serve
 
 Die Website ist dann unter `http://localhost:4000` erreichbar.
 
-#### Checker
+## 🧪 Testing & Linting
+
+Alle Test- und Linting-Tools befinden sich im `/tests/` Verzeichnis. Siehe [tests/TESTING.md](tests/TESTING.md) für vollständige Dokumentation.
+
+### Quick Start
+
+```bash
+# CSS Linting
+cd tests && npm run lint:css
+
+# Visual Regression Tests
+./tests/run-visual-tests.sh
+```
+
+### Verfügbare npm Scripts
+
+```bash
+cd tests
+
+npm run lint:css              # Überprüfe CSS auf Fehler/Warnungen
+npm run test:visual           # Führe Visual Tests aus (Server muss laufen)
+npm run test:visual:update    # Aktualisiere Baselines nach CSS-Änderungen
+npm run test:visual:docker    # Tests in Docker-Container
+```
+
+### GitHub Actions CI/CD
+
+Zwei automatisierte Workflows laufen auf jedem Push/PR:
+
+1. **Visual Regression Tests** (`.github/workflows/visual-tests.yml`)
+   - Triggered: Push/PR zu `main` oder `develop`
+   - Läuft auf: ubuntu-latest
+   - Tests: Screenshot-Vergleiche für 3 Event-Seiten
+   - Artifacts: Playwright HTML Report
+
+2. **CSS Linting** (`.github/workflows/css-lint.yml`)
+   - Triggered: Push/PR mit CSS-Änderungen zu `main` oder `develop`
+   - Läuft auf: ubuntu-latest
+   - Tests: Stylelint Standard + Custom-Regeln
+   - Feedback: Automatischer PR-Kommentar bei Fehlern
+
+**Status der Workflows:** `https://github.com/MintFV/MintFV.github.io/actions`
+
+### Checker
 
 -
 
