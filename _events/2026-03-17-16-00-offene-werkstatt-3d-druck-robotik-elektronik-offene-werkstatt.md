@@ -35,7 +35,7 @@ In unserer gut ausgestatteten Werkstatt findest Du:
 
 - Anfänger ohne Vorkenntnisse (wir helfen gerne beim Einstieg!)
 - Fortgeschrittene mit eigenen Projektideen
-- Schüler und Studenten
+- Schülerinnen, Schüler und Studierende
 - Hobbybastler jeden Alters
 
 ### Wichtige Hinweise
