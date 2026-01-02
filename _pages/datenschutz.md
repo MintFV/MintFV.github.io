@@ -21,7 +21,7 @@ Förderverein MINTarium Hamburg e. V.
 Mümmelmannsberg 75
 22115 Hamburg
 
-**Vertretungsberechtigte Personen:** Dr. Regina Marek, Dr.-Ing. Jörg Mutschler, Jan Evers
+**Vertretungsberechtigte Personen:**Heike Elvers, Antje Radke, Jan Evers
 
 **E-Mail-Adresse:** info [at] mintarium-fv.de
 **Telefon:** +49 40 428842120
