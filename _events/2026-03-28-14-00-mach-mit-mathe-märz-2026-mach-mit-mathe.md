@@ -15,8 +15,7 @@ teaser_alt: Kinder experimentieren mit mathematischen Modellen
 registration_required: false
 registration_email: ""
 organizers:
-  - Kratz, Michael
-  - Rolf
+  - Michael Kratz, Rolf Urban
 ---
 ## Mathematik erleben und entdecken
 
