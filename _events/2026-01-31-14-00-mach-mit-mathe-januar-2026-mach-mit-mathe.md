@@ -15,7 +15,7 @@ teaser_alt: Kinder experimentieren mit mathematischen Modellen
 registration_required: false
 registration_email: ""
 organizers:
-  - Elvers, Heike
+  - Heike Elvers, Jan Evers
   - Evers, Jan
 ---
 ## Mathematik erleben und entdecken
