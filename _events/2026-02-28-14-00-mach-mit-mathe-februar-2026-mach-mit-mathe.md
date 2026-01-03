@@ -15,8 +15,7 @@ teaser_alt: Kinder experimentieren mit mathematischen Modellen
 registration_required: false
 registration_email: ""
 organizers:
-  - Antje
-  - Rolf
+  - Antje Radke, Rolf Urban
 ---
 ## Mathematik erleben und entdecken
 
