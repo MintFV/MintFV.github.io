@@ -16,7 +16,6 @@ registration_required: false
 registration_email: ""
 organizers:
   - Heike Elvers, Jan Evers
-  - Evers, Jan
 ---
 ## Mathematik erleben und entdecken
 
