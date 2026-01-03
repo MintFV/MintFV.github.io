@@ -14,8 +14,7 @@ registration_required: false
 teaser_image: /assets/images/events/offeneWerkstatt.jpg
 teaser_alt: "3D-Druck, Nao Roboterprogrammierung, Elektronik-Basteln"
 organizers:
-  - Jan Evers
-  - Heidi
+  - Jan Evers, Heidi
 ---
 ## Offene Werkstatt für Tüftler und Maker
 
@@ -29,7 +28,7 @@ In unserer gut ausgestatteten Werkstatt findest Du:
 
 - **3D-Drucker** für Deine Projekte
 - **Mikrocontroller** (Arduino, ESP32)
-- **Nao-Roboter** Programmierung
+- **Nao-Roboter** für deine Programmierung
 - **Bauteile-Sortiment** für erste Experimente
 - **Fachkundige Betreuung** durch erfahrene Maker
 
