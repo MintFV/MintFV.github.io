@@ -20,4 +20,4 @@ Eingetragen beim Amtsgericht Hamburg.
 
 ## Vertretungsberechtigte Personen im Vorstand
 
-Heike Elvers, Antje Radke
+Heike Elvers, Antje Radke, Jan Evers
