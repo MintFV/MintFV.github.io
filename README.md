@@ -99,9 +99,7 @@ Zwei automatisierte Workflows laufen auf jedem Push/PR:
 
 ### Checker
 
--
-
-<https://icalendar.org/validator.html?url=http://mintfv.github.io/feeds/mintfv-events.ical>
+- <https://icalendar.org/validator.html?url=http://mintfv.github.io/feeds/mintfv-events.ical>
 
 ### Verzeichnisstruktur
 
