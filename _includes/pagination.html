@@ -10,7 +10,8 @@
     {% comment %} Vorherige Seite {% endcomment %}
     {% if paginator.previous_page %}
       <li class="pagination__item">
-        <a href="{{ paginator.previous_page_path | relative_url }}" class="pagination__link pagination__link--prev" rel="prev">
+        <a href="{{ paginator.previous_page_path | relative_url }}" class="pagination__link pagination__link--prev" rel="prev"
+          aria-label="Vorherige Seite">
           ← Zurück
         </a>
       </li>
@@ -30,11 +31,13 @@
         </li>
       {% elsif page == 1 %}
         <li class="pagination__item">
-          <a href="{{ paginator.first_page_path | relative_url }}" class="pagination__link">{{ page }}</a>
+          <a href="{{ paginator.first_page_path | relative_url }}" class="pagination__link" aria-label="Seite {{ page }}">{{ page
+            }}</a>
         </li>
       {% else %}
         <li class="pagination__item">
-          <a href="{{ site.paginate_path | relative_url | replace: ':num', page }}" class="pagination__link">{{ page }}</a>
+          <a href="{{ site.paginate_path | relative_url | replace: ':num', page }}" class="pagination__link"
+            aria-label="Seite {{ page }}">{{ page }}</a>
         </li>
       {% endif %}
     {% endfor %}
@@ -42,7 +45,8 @@
     {% comment %} Nächste Seite {% endcomment %}
     {% if paginator.next_page %}
       <li class="pagination__item">
-        <a href="{{ paginator.next_page_path | relative_url }}" class="pagination__link pagination__link--next" rel="next">
+        <a href="{{ paginator.next_page_path | relative_url }}" class="pagination__link pagination__link--next" rel="next"
+          aria-label="Nächste Seite">
           Weiter →
         </a>
       </li>
