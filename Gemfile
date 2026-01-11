@@ -1,5 +1,10 @@
 source "https://rubygems.org"
 
+# Ruby 3.4.0 Kompatibilität: Fehlende Standard-Bibliotheken
+gem "csv"
+gem "base64"
+gem "bigdecimal"
+
 gem "github-pages", group: :jekyll_plugins
 gem "tzinfo-data"
 gem "wdm", "~> 0.1.0" if Gem.win_platform?
