@@ -22,8 +22,8 @@ Das Design System besteht aus **zwei unabhängigen aber synchronisierten Teilen*
   --color-surface-muted: #f5f5f5;
   --color-surface-soft: #f9f9f9;
   --color-border: #d0d0d0;
-  --color-text: #333333;
-  --color-text-muted: #666666;
+  --color-text: #111111;
+  --color-text-muted: #444444;
   --color-link: #0066cc;
   --color-link-strong: #004999;
   --color-focus: #ffd700;

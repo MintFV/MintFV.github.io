@@ -140,13 +140,20 @@ cms-static/admin/custom-admin.css
 :root {
   --color-primary: #003d82;
   --color-primary-strong: #002855;
+  --color-primary-stronger: #001a3d;
   --color-surface: #ffffff;
+  --color-surface-muted: #f5f5f5;
+  --color-surface-soft: #f9f9f9;
   --color-border: #d0d0d0;
+  --color-text: #111111;
+  --color-text-muted: #444444;
   --color-link: #0066cc;
+  --color-link-strong: #004999;
   --color-focus: #ffd700;
   --radius-sm: 6px;
   --radius-md: 8px;
   --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 ```
 

@@ -26,14 +26,24 @@ Den Namen des neu erstellten Accounts bitte Andreas nennen, dieser lädt dann de
 
 ### Pflege von Veranstaltungen
 
-TODO
-<https://mintfv-cms.netlify.app/admin/#/collections/events>
-<https://github.com/MintFV/MintFV.github.io/actions>
+Die Veranstaltungspflege erfolgt über das **Decap CMS**:
+
+- **CMS-Zugang:** <https://mintfv-cms.netlify.app/admin/>
+- **Anleitung:** Siehe [VERANSTALTUNGEN_ANLEITUNG.md](VERANSTALTUNGEN_ANLEITUNG.md)
+- **CI/CD Status:** <https://github.com/MintFV/MintFV.github.io/actions>
+
+#### Wichtige Links
+
+- **Netlify Dashboard:** <https://app.netlify.com/projects/mintfv-cms/overview>
+- **iCal Feed Validator:** <https://icalendar.org/validator.html?url=http://mintfv.github.io/feeds/mintfv-events.ical>
 
 ## Strukturelle Weiterentwicklung der Webseite
 
-TODO
-DROP cms-static to <https://app.netlify.com/projects/mintfv-cms/overview>
+Für strukturelle Änderungen (neue Veranstaltungstypen, Design-Anpassungen, etc.) siehe:
+
+- **Design System:** [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md) - Token System & Farben
+- **CSS Architektur:** [ADR-CSS-REFACTOR.md](ADR-CSS-REFACTOR.md) - Architecture Decision Record
+- **Technische Details:** [VERANSTALTUNGEN_TECHNIK.md](VERANSTALTUNGEN_TECHNIK.md) - Backend & Feeds
 
 ### Installation
 
@@ -56,7 +66,9 @@ Die Website ist dann unter `http://localhost:4000` erreichbar.
 
 ## 🧪 Testing & Linting
 
-Alle Test- und Linting-Tools befinden sich im `/tests/` Verzeichnis. Siehe [tests/TESTING.md](tests/TESTING.md) für vollständige Dokumentation.
+Alle Test- und Linting-Tools befinden sich im `/tests/` Verzeichnis.
+
+**📖 Vollständige Dokumentation:** [tests/TESTING.md](tests/TESTING.md)
 
 ### Quick Start
 
