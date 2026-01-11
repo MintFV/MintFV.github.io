@@ -8,7 +8,8 @@
 
 <div class="event-filters event-filters--compact">
   <div class="event-filters__buttons" role="group" aria-label="Veranstaltungstypen filtern">
-    <button class="event-filter-btn event-filter-btn--active event-filter-btn--all" data-filter="all">
+    <button class="event-filter-btn event-filter-btn--active event-filter-btn--all" data-filter="all"
+      aria-label="Alle Veranstaltungen anzeigen">
       <span class="event-filter-btn__emoji">🔎</span>
       <span class="event-filter-btn__name">Alle</span>
     </button>
@@ -16,7 +17,8 @@
       {% assign type_data = type_key[1] %}
       {% assign type_id = type_key[0] %}
       <button class="event-filter-btn event-filter-btn--type" data-filter="{{ type_id }}"
-        style="--event-type-color: {{ type_data.color }};">
+        style="--event-type-color: {{ type_data.color }};"
+        aria-label="Nur {{ type_data.name }} anzeigen">
         <span class="event-filter-btn__emoji">{{ type_data.emoji }}</span>
         <span class="event-filter-btn__name">{{ type_data.name }}</span>
       </button>
