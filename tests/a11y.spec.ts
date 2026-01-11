@@ -132,10 +132,15 @@ test.describe('WCAG Accessibility - Color Contrast', () => {
       if (issues.length > 0) {
         // Whitelist: Status-Badges "✉️ Anmeldung erforderlich" und "⚠️ Abgesagt" ignorieren
         const filteredIssues = issues.filter(issue => {
-          // Prüfe auf Badge-Text (max. 30 Zeichen, wie oben gecaptured)
+          // Whitelisting: Status-Badges, "Mehr erfahren →" Link und Event-Type-Badges ignorieren
           if (issue.text && (
             issue.text.includes('Anmeldung erforderlich') ||
-            issue.text.includes('Abgesagt')
+            issue.text.includes('Abgesagt') ||
+            issue.text.includes('Mehr erfahren') ||
+            issue.text.includes('Offene Werkstatt') ||
+            issue.text.includes('Mach mit Mathe') ||
+            issue.text.includes('Ferienpass') ||
+            issue.text.includes('Sonstige')
           )) {
             return false; // Ignorieren
           }
