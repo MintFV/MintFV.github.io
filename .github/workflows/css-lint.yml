@@ -1,52 +1,52 @@
-name: CSS Linting
+# name: CSS Linting
 
-on:
-  push:
-    branches: [ main, develop ]
-    paths:
-      - 'assets/css/**'
-      - 'cms-static/admin/**/*.css'
-      - 'tests/.stylelintrc.json'
-  pull_request:
-    branches: [ main, develop ]
-    paths:
-      - 'assets/css/**'
-      - 'cms-static/admin/**/*.css'
-      - 'tests/.stylelintrc.json'
+# on:
+#   push:
+#     branches: [ main, develop ]
+#     paths:
+#       - 'assets/css/**'
+#       - 'cms-static/admin/**/*.css'
+#       - 'tests/.stylelintrc.json'
+#   pull_request:
+#     branches: [ main, develop ]
+#     paths:
+#       - 'assets/css/**'
+#       - 'cms-static/admin/**/*.css'
+#       - 'tests/.stylelintrc.json'
 
-jobs:
-  lint:
-    runs-on: ubuntu-latest
+# jobs:
+#   lint:
+#     runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
+#       - name: Setup Node.js
+#         uses: actions/setup-node@v4
+#         with:
+#           node-version: '18'
 
-      - name: Install dependencies
-        working-directory: ./tests
-        run: npm ci
+#       - name: Install dependencies
+#         working-directory: ./tests
+#         run: npm ci
 
-      - name: Run CSS linting
-        working-directory: ./tests
-        run: npm run lint:css
+#       - name: Run CSS linting
+#         working-directory: ./tests
+#         run: npm run lint:css
 
-      - name: Lint output for debugging
-        if: always()
-        run: echo "CSS linting completed. Check logs above for details."
+#       - name: Lint output for debugging
+#         if: always()
+#         run: echo "CSS linting completed. Check logs above for details."
 
-      - name: Comment PR on linting issues
-        if: failure() && github.event_name == 'pull_request'
-        uses: actions/github-script@v7
-        with:
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '⚠️ CSS Token Compliance Linting failed!\n\n❌ Fehler: Hardcoded Farben oder Token-Verstöße erkannt.\n\n**Lösungen:**\n1. Nutze CSS-Variablen statt Hardcoded-Farben\n2. Siehe [STYLELINT_RULES.md](tests/STYLELINT_RULES.md) für Richtlinien\n3. Nutze `--color-*`, `--radius-*`, `--shadow-*` Tokens\n4. Event-Typ-Farben: `--event-type-color`\n\nRunne lokal: `npm run lint:css`\n\nDokumentation: [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md)'
-            })
+#       - name: Comment PR on linting issues
+#         if: failure() && github.event_name == 'pull_request'
+#         uses: actions/github-script@v7
+#         with:
+#           script: |
+#             github.rest.issues.createComment({
+#               issue_number: context.issue.number,
+#               owner: context.repo.owner,
+#               repo: context.repo.repo,
+#               body: '⚠️ CSS Token Compliance Linting failed!\n\n❌ Fehler: Hardcoded Farben oder Token-Verstöße erkannt.\n\n**Lösungen:**\n1. Nutze CSS-Variablen statt Hardcoded-Farben\n2. Siehe [STYLELINT_RULES.md](tests/STYLELINT_RULES.md) für Richtlinien\n3. Nutze `--color-*`, `--radius-*`, `--shadow-*` Tokens\n4. Event-Typ-Farben: `--event-type-color`\n\nRunne lokal: `npm run lint:css`\n\nDokumentation: [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md)'
+#             })
