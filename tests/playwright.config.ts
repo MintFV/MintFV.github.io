@@ -13,7 +13,11 @@ export default defineConfig({
   ],
   use: {
     baseURL,
-    headless: true
+    headless: true,
+    viewport: { width: 1280, height: 720 },
+    deviceScaleFactor: 1,
+    locale: 'de-DE',
+    timezoneId: 'Europe/Berlin'
   },
   projects: [
     {

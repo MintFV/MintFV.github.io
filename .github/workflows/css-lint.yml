@@ -1,0 +1,68 @@
+name: CSS Linting
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - 'assets/css/**/*.css'
+      - '_sass/**/*.scss'
+      - 'tests/.stylelintrc.json'
+      - '.github/workflows/css-lint.yml'
+  pull_request:
+    branches: [main, develop]
+    paths:
+      - 'assets/css/**/*.css'
+      - '_sass/**/*.scss'
+      - 'tests/.stylelintrc.json'
+      - '.github/workflows/css-lint.yml'
+
+jobs:
+  css-lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: tests/package-lock.json
+
+      - name: Install Node dependencies
+        working-directory: tests
+        run: npm ci
+
+      - name: Run Stylelint
+        working-directory: tests
+        run: npm run lint:css
+
+      - name: Comment PR with CSS issues
+        if: failure() && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            let comment = '## ❌ CSS Linting Failed\n\n';
+            comment += 'CSS/SCSS files have linting errors or warnings.\n\n';
+            comment += '**To fix locally:**\n';
+            comment += '```bash\n';
+            comment += 'cd tests\n';
+            comment += 'npm run lint:css\n';
+            comment += '```\n\n';
+            comment += '**Common issues:**\n';
+            comment += '- Missing semicolons or trailing commas\n';
+            comment += '- Invalid property values\n';
+            comment += '- Color format inconsistencies (use lowercase hex)\n';
+            comment += '- Missing vendor prefixes for experimental properties\n';
+            comment += '- Overly specific selectors (check specificity)\n\n';
+            comment += 'Please review the workflow logs for detailed error messages.\n';
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });

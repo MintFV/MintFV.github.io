@@ -12,6 +12,9 @@ test.describe('Visual smoke (structure only)', () => {
     test(`${name} (structure only)`, async ({ page }) => {
       await page.goto(path, { waitUntil: 'networkidle' });
 
+      // Wait for fonts to be fully loaded to prevent rendering inconsistencies
+      await page.evaluate(() => document.fonts.ready);
+
       // Mask all event cards and past highlight blocks (dynamic content)
       const maskSelectors = ['.event-card', '.events-past-highlight'];
       await expect(page).toHaveScreenshot({
