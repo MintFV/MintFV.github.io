@@ -11,7 +11,7 @@
   --color-surface-muted: #f5f5f5;
   --color-surface-soft: #f9f9f9;
   --color-border: #d0d0d0;
-  --color-text: #333333;
+  --color-text: #111111;
   --color-text-muted: #666666;
   --color-link: #0066cc;
   --color-link-strong: #004999;
@@ -569,7 +569,7 @@
   background-color: #e0e7ef;
     color: var(--color-primary);
   }
-  
+
   .event-filter-btn--all:hover {
     background-color: #d4dce5;
     box-shadow: var(--shadow-hover);
@@ -580,7 +580,7 @@
   background-color: var(--event-type-color, #f5f5f5);
     color: var(--color-text);
   }
-  
+
   .event-filter-btn--type:hover {
     box-shadow: var(--shadow-hover);
     transform: translateY(-1px);
