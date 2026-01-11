@@ -102,7 +102,7 @@ test.describe('WCAG Accessibility - Color Contrast', () => {
       }
 
       // 5. Prüfe Button-Farben
-      const buttons = await page.locator('button, a.btn, a.events-*__link').all();
+      const buttons = await page.locator('button, a.btn, a.events-navigation__link').all();
 
       for (const button of buttons) {
         const style = await button.evaluate((el) => {
