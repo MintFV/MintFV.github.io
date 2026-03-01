@@ -7,10 +7,10 @@ excerpt: Offene Werkstatt für deine Projekte am 3D Drucker, Roboter
   programmieren und mehr
 published: true
 created: 2025-12-20 14:43
-last_modified: 2026-03-01 23:56
-sequence: 4
+last_modified: 2026-03-01 23:58
+sequence: 5
 location: MINTarium Eingang B - Mümmelmannsberg 75 - 20255 Hamburg
-teaser_image: /assets/images/events/offeneWerkstatt.jpg
+teaser_image: /assets/images/events/offeneWertstatt.png
 teaser_alt: 3D-Druck, Nao Roboterprogrammierung, Elektronik-Basteln
 registration_required: false
 organizers: []
