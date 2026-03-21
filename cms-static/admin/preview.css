@@ -16,14 +16,16 @@ h1, h2, h3 {
 
 h1 {
   font-size: 1.8em;
-  border-bottom: 2px solid #0066cc;
+  border-bottom: 2px solid #06c;
   padding-bottom: 0.3em;
   margin-bottom: 1em;
 }
+
 h2 {
   font-size: 1.4em;
   margin-top: 1.5em;
 }
+
 h3 {
   font-size: 1.2em;
 }
@@ -34,19 +36,20 @@ img {
   height: auto;
   border-radius: 8px;
   margin: 1rem 0;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
 }
 
 a {
-  color: #0066cc;
+  color: #06c;
   text-decoration: none;
 }
+
 a:hover {
   text-decoration: underline;
 }
 
 blockquote {
-  border-left: 4px solid #0066cc;
+  border-left: 4px solid #06c;
   margin-left: 0;
   padding-left: 1em;
   color: #666;

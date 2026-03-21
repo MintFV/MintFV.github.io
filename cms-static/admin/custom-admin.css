@@ -8,15 +8,16 @@
 
 :root {
     /* Event-Type Farben aus _data/event_types.yml */
-    --event-color-mach-mit-mathe: #E8F4F8;
-    --event-color-offene-werkstatt: #F0F8E8;
-    --event-color-ferienpass: #FFF4E6;
-    --event-color-sonstige: #F5F0F8;
-    --event-border-mach-mit-mathe: #8EC5D4;
-    --event-border-offene-werkstatt: #A8D18A;
-    --event-border-ferienpass: #FFD699;
-    --event-border-sonstige: #C5B8D4;
+    --event-color-mach-mit-mathe: #e8f4f8;
+    --event-color-offene-werkstatt: #f0f8e8;
+    --event-color-ferienpass: #fff4e6;
+    --event-color-sonstige: #f5f0f8;
+    --event-border-mach-mit-mathe: #8ec5d4;
+    --event-border-offene-werkstatt: #a8d18a;
+    --event-border-ferienpass: #ffd699;
+    --event-border-sonstige: #c5b8d4;
 }
+
 /* Quick-Create Button Container */
 #quick-create-container {
   display: flex;
@@ -35,22 +36,23 @@ padding: 10px 16px;
   font-size: 13px;
   font-weight: 600;
 transition: transform 0.1s, box-shadow 0.1s, border-color 0.2s;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2px 6px rgb(0 0 0 / 15%);
     color: #333;
     border: 2px solid;
 }
 
 .quick-btn:hover {
   transform: translateY(-1px);
-box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+box-shadow: 0 4px 10px rgb(0 0 0 / 20%);
 }
 
 .quick-btn:active {
   transform: translateY(0);
-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+box-shadow: 0 2px 6px rgb(0 0 0 / 15%);
 }
 
 /* Event-Type spezifische Farben für Quick-Buttons */
+
 /* Zentrale Quelle: _data/event_types.yml */
 .quick-btn.mach-mit-mathe {
 background: var(--event-color-mach-mit-mathe);
@@ -82,16 +84,20 @@ height: 8px;
   z-index: 9999;
   pointer-events: none;
   transition: background-color 0.3s ease;
-border-bottom: 2px solid rgba(0, 0, 0, 0.1);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+border-bottom: 2px solid rgb(0 0 0 / 10%);
+    box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
 }
 
 /* Top-Indicator-Bar im Editor */
+
 /* Farbe und Emoji werden via JavaScript dynamisch gesetzt (aus event-types.json) */
+
 /* Keine Duplikation von Emojis oder Farben hier - Single Source of Truth: event-types.json */
 
 /* Farbcodierung für Event-Karten in der Listen-Ansicht */
+
 /* Vollflächiger Hintergrund + Border + Emoji-Badge für bessere Sichtbarkeit */
+
 /* Positionierung für Event-Einträge */
 li:has(a[href*="/events/entries/"]),
 div:has(> a[href*="/events/entries/"]):not([class*="App"]) {
@@ -117,7 +123,7 @@ a[href*="ferienpass"] {
 
 a[href*="/events/entries/"][data-event-type="ferienpass"]:hover,
 a[href*="ferienpass"]:hover {
-    box-shadow: 0 2px 8px rgba(255, 214, 153, 0.4) !important;
+    box-shadow: 0 2px 8px rgb(255 214 153 / 40%) !important;
     transform: translateX(2px) !important;
 }
 
@@ -133,7 +139,7 @@ a[href*="mach-mit-mathe"] {
 
 a[href*="/events/entries/"][data-event-type="mach-mit-mathe"]:hover,
 a[href*="mach-mit-mathe"]:hover {
-    box-shadow: 0 2px 8px rgba(142, 197, 212, 0.4) !important;
+    box-shadow: 0 2px 8px rgb(142 197 212 / 40%) !important;
     transform: translateX(2px) !important;
 }
 
@@ -149,7 +155,7 @@ a[href*="offene-werkstatt"] {
 
 a[href*="/events/entries/"][data-event-type="offene-werkstatt"]:hover,
 a[href*="offene-werkstatt"]:hover {
-    box-shadow: 0 2px 8px rgba(168, 209, 138, 0.4) !important;
+    box-shadow: 0 2px 8px rgb(168 209 138 / 40%) !important;
     transform: translateX(2px) !important;
 }
 
@@ -165,11 +171,12 @@ a[href*="sonstige"] {
 
 a[href*="/events/entries/"][data-event-type="sonstige"]:hover,
 a[href*="sonstige"]:hover {
-    box-shadow: 0 2px 8px rgba(197, 184, 212, 0.4) !important;
+    box-shadow: 0 2px 8px rgb(197 184 212 / 40%) !important;
     transform: translateX(2px) !important;
 }
 
 /* Editor-Hintergrund: Subtiler Pastellfarb-Hintergrund für Formularbereich */
+
 /* Färbt den kompletten Editor-Bereich basierend auf Event-Typ */
 
 /* Wrapper für Formular-Bereich (wenn Event-Typ erkennbar ist) */
@@ -185,26 +192,26 @@ body[data-event-type="mach-mit-mathe"] div[class*="ControlPane"],
 body[data-event-type="mach-mit-mathe"] div[class*="EditorContainer"],
 body[data-event-type="mach-mit-mathe"] div[class*="EditorInterface"],
 body[data-event-type="mach-mit-mathe"] main[class*="main"] {
-    background-color: rgba(232, 244, 248, 0.3) !important;
+    background-color: rgb(232 244 248 / 30%) !important;
 }
 
 body[data-event-type="offene-werkstatt"] div[class*="ControlPane"],
 body[data-event-type="offene-werkstatt"] div[class*="EditorContainer"],
 body[data-event-type="offene-werkstatt"] div[class*="EditorInterface"],
 body[data-event-type="offene-werkstatt"] main[class*="main"] {
-    background-color: rgba(240, 248, 232, 0.3) !important;
+    background-color: rgb(240 248 232 / 30%) !important;
 }
 
 body[data-event-type="ferienpass"] div[class*="ControlPane"],
 body[data-event-type="ferienpass"] div[class*="EditorContainer"],
 body[data-event-type="ferienpass"] div[class*="EditorInterface"],
 body[data-event-type="ferienpass"] main[class*="main"] {
-    background-color: rgba(255, 244, 230, 0.3) !important;
+    background-color: rgb(255 244 230 / 30%) !important;
 }
 
 body[data-event-type="sonstige"] div[class*="ControlPane"],
 body[data-event-type="sonstige"] div[class*="EditorContainer"],
 body[data-event-type="sonstige"] div[class*="EditorInterface"],
 body[data-event-type="sonstige"] main[class*="main"] {
-    background-color: rgba(245, 240, 248, 0.3) !important;
+    background-color: rgb(245 240 248 / 30%) !important;
 }

@@ -15,7 +15,17 @@
 
 const fs = require('fs');
 const path = require('path');
-const yaml = require('js-yaml');
+let yaml;
+try {
+  yaml = require('js-yaml');
+} catch (e) {
+  try {
+    yaml = require(path.join(__dirname, '../tests/node_modules/js-yaml'));
+  } catch (err) {
+    console.error('❌ FEHLER: "js-yaml" Modul nicht gefunden. Bitte `npm install` im "tests" Ordner ausführen.');
+    process.exit(1);
+  }
+}
 
 const REPO_ROOT = path.resolve(__dirname, '..');
 const FILES = {
@@ -95,19 +105,34 @@ for (const eventType of ymlKeys) {
   }
 
   // Prüfe Farbe
-  if (ymlData.color !== jsonData.color) {
+  if (ymlData.color.toLowerCase() !== jsonData.color.toLowerCase()) {
     console.error(`❌ ${eventType}: Farbe stimmt nicht überein`);
     console.error(`   YAML: ${ymlData.color}`);
     console.error(`   JSON: ${jsonData.color}`);
     hasErrors = true;
   } else {
-    console.log(`   ✅ ${eventType}: color = ${ymlData.color}`);
+    // Erzwinge Kleinschreibung für Hex-Farben (lowercase)
+    let formatError = false;
+    if (ymlData.color !== ymlData.color.toLowerCase()) {
+      console.error(`❌ ${eventType}: Farbe in event_types.yml muss kleingeschrieben sein! (${ymlData.color} -> ${ymlData.color.toLowerCase()})`);
+      formatError = true;
+      hasErrors = true;
+    }
+    if (jsonData.color !== jsonData.color.toLowerCase()) {
+      console.error(`❌ ${eventType}: Farbe in event-types.json muss kleingeschrieben sein! (${jsonData.color} -> ${jsonData.color.toLowerCase()})`);
+      formatError = true;
+      hasErrors = true;
+    }
+
+    if (!formatError) {
+      console.log(`   ✅ ${eventType}: color = ${ymlData.color}`);
+    }
   }
 
   // Prüfe CSS Variable
   const cssVarName = `--event-color-${eventType}`;
-  const cssVarPattern = new RegExp(`${cssVarName}:\\s*${ymlData.color.replace('#', '\\#')};`);
-
+  // Bei CSS erzwingen wir nun auch exakte Kleinschreibung!
+  const cssVarPattern = new RegExp(`${cssVarName}:\\s*${ymlData.color.toLowerCase().replace('#', '\\#')};`);
   if (!cssVarPattern.test(cssContent)) {
     console.error(`❌ ${eventType}: CSS-Variable ${cssVarName} nicht oder falsch definiert`);
     console.error(`   Erwartet: ${cssVarName}: ${ymlData.color};`);
