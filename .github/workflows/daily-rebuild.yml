@@ -1,0 +1,25 @@
+name: Daily Pages Rebuild
+
+on:
+  schedule:
+    # Läuft jeden Tag um 01:00 Uhr UTC (entspricht 02:00 / 03:00 Uhr deutscher Zeit)
+    - cron: '0 1 * * *'
+  # Erlaubt auch das manuelle Starten des Workflows über den "Actions" Tab auf GitHub
+  workflow_dispatch:
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+
+    steps:
+      - name: Trigger GitHub Pages rebuild
+        run: |
+          curl -L \
+            -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/repos/${{ github.repository }}/pages/builds
