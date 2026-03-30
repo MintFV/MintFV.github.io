@@ -1,0 +1,41 @@
+sponsoren:
+  - name: "Hamburger Volksbank"
+    logo: /assets/images/partner/hamburger-volksbank.svg
+    url: https://www.hamburger-volksbank.de
+    description: "Die Hamburger Volksbank unterstützt unser Vereinsleben und ermöglicht es uns, Schülerinnen und Schülern aus dem Stadtteil kostenlose MINT-Angebote zu machen."
+
+  - name: "Technik AG Hamburg"
+    logo: /assets/images/partner/technik-ag.svg
+    url: https://www.beispiel-technikag.de
+    description: "Als langjähriger Sponsor stellt die Technik AG Hamburg Materialien und Werkzeuge für unsere offenen Werkstätten zur Verfügung."
+
+  - name: "EDEKA Minden-Hannover"
+    logo: /assets/images/partner/edeka.svg
+    url: https://www.edeka.de
+    description: "Die EDEKA Minden-Hannover Stiftung fördert regionale Bildungsinitiativen und unterstützt unseren Verein bei der Durchführung von Ferienprojekten."
+
+  - name: "MINT Stiftung Hamburg"
+    logo: /assets/images/partner/mint-stiftung.svg
+    url: https://www.beispiel-mintstiftung.de
+    description: "Die MINT Stiftung Hamburg fördert die Begeisterung für Mathematik, Informatik, Naturwissenschaften und Technik bei Kindern und Jugendlichen in der ganzen Stadt."
+
+  - name: "Ingenieurbüro Müller & Partner"
+    logo: /assets/images/partner/ingenieurbuero-mueller.svg
+    url: https://www.beispiel-mueller-partner.de
+    description: "Ingenieurbüro Müller & Partner bringt echte Berufspraxis in unsere Veranstaltungen und stellt regelmäßig Fachleute für Workshops zur Verfügung."
+
+kooperationen:
+  - name: "Universität Hamburg"
+    logo: /assets/images/partner/uni-hamburg.svg
+    url: https://www.uni-hamburg.de
+    description: "In Kooperation mit der Universität Hamburg entwickeln wir neue Lehrkonzepte und profitieren von wissenschaftlicher Begleitung unserer Mach-mit-Mathe-Ausstellungen."
+
+  - name: "Bezirksamt Hamburg-Mitte"
+    logo: /assets/images/partner/bezirksamt.svg
+    url: https://www.hamburg.de/bezirke/mitte/
+    description: "Das Bezirksamt Hamburg-Mitte unterstützt unsere Arbeit im Stadtteil Mümmelmannsberg und vermittelt Kontakte zu weiteren Bildungseinrichtungen."
+
+  - name: "Stadtteilschule Mümmelmannsberg"
+    logo: /assets/images/partner/stadtteilschule.svg
+    url: https://stadtteilschule-muemmelmannsberg.de
+    description: "Mit der Stadtteilschule Mümmelmannsberg verbindet uns eine enge Zusammenarbeit: Schülerinnen und Schüler besuchen unsere Ausstellungen und nehmen an gemeinsamen Projekttagen teil."
