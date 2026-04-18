@@ -57,7 +57,7 @@ offene-werkstatt:
   emoji: "🔧"
   color: "#F0F8E8"
   defaults:
-    location: "MINTarium Eingang B - Mümmelmannsberg 75 - 20255 Hamburg"
+    location: "MINTarium Eingang C - Mümmelmannsberg 75 - 20255 Hamburg"
     registration_required: false
     organizers: ["Jan Evers", "Christoph Büchler"]
 ```

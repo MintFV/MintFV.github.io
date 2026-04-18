@@ -19,7 +19,7 @@ offene-werkstatt:
   emoji: "🔧"
   color: "#f0f8e8"
   defaults:
-    location: "MINTarium Eingang B - Mümmelmannsberg 75 - 20255 Hamburg"
+    location: "MINTarium Eingang C - Mümmelmannsberg 75 - 20255 Hamburg"
     registration_required: false
     registration_email: ""
     organizers:
@@ -32,7 +32,7 @@ ferienpass:
   emoji: "🎪"
   color: "#fff4e6"
   defaults:
-    location: "MINTarium Eingang B - Mümmelmannsberg 75 - 20255 Hamburg"
+    location: "MINTarium Eingang C - Mümmelmannsberg 75 - 20255 Hamburg"
     registration_required: true
     registration_email: "info@mintarium-fv.de"
   description: "Ferienpass-Aktionen für Kinder und Jugendliche"

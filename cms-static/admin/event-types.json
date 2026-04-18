@@ -11,7 +11,7 @@
     "registration_email": ""
   },
   "offene-werkstatt": {
-    "location": "MINTarium Eingang B - Mümmelmannsberg 75 - 20255 Hamburg",
+    "location": "MINTarium Eingang C - Mümmelmannsberg 75 - 20255 Hamburg",
     "start_time": "16:00",
     "end_time": "19:00",
     "color": "#f0f8e8",
@@ -23,7 +23,7 @@
     "organizers": ["Jan Evers", "Christoph Büchler"]
   },
   "ferienpass": {
-    "location": "MINTarium Eingang B - Mümmelmannsberg 75 - 20255 Hamburg",
+    "location": "MINTarium Eingang C - Mümmelmannsberg 75 - 20255 Hamburg",
     "start_time": "11:00",
     "end_time": "12:00",
     "color": "#fff4e6",
