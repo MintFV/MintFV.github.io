@@ -6,6 +6,8 @@ gem "base64"
 gem "bigdecimal"
 
 gem "github-pages", group: :jekyll_plugins
+# Liquid 4.0.3 calls Ruby's removed Hash#tainted? method under Ruby 3.3.
+gem "liquid", ">= 4.0.4", "< 5.0"
 gem "tzinfo-data"
 gem "wdm", "~> 0.1.0" if Gem.win_platform?
 

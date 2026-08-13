@@ -3,6 +3,8 @@ main:
     url: /
   - title: "Veranstaltungen"
     url: /veranstaltungen/
+  - title: "Specials"
+    url: /veranstaltungen/specials/
   - title: "Mitglied werden"
     url: /mitgliedschaft/
   - title: "Github"
@@ -13,6 +15,8 @@ main:
     url: /datenschutz/
   - title: "Impressum"
     url: /impressum/
+  - title: "Zum MINTarium"
+    url: https://li.hamburg.de/ausserschulische-lernorte/mintarium
 
 
 
