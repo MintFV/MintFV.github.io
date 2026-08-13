@@ -7,10 +7,10 @@ header:
   # overlay_filter: "0.5"
   # overlay_image: /assets/images/header-bg.jpg
   actions:
-    - label: "Zum MINTarium"
-      url: "https://li.hamburg.de/ausserschulische-lernorte/mintarium"
     - label: "Veranstaltungen"
       url: "/veranstaltungen/"
+    - label: "Specials auf Anfrage"
+      url: "/veranstaltungen/specials/"
 excerpt: "Das MINTarium in Mümmelmannsberg macht Mathematik, Informatik, Naturwissenschaften und Technik zum Erlebnis."
 intro_welcome:
   - title: "Willkommen ..."
