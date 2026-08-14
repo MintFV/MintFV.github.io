@@ -1,0 +1,19 @@
+{% comment %}
+Locale-unabhaengige deutsche Datumsformatierung fuer Eventseiten.
+Erwartet: include.date
+Optional: include.with_weekday (default: true)
+Format mit Wochentag: Dienstag, 20. Oktober 2026, 16:00
+Format ohne Wochentag: 20. Oktober 2026, 16:00
+{% endcomment %}
+
+{% assign day_names = "Sonntag,Montag,Dienstag,Mittwoch,Donnerstag,Freitag,Samstag" | split: "," %}
+{% assign month_names = "Januar,Februar,März,April,Mai,Juni,Juli,August,September,Oktober,November,Dezember" | split: "," %}
+{% assign weekday_index = include.date | date: "%w" | plus: 0 %}
+{% assign month_index = include.date | date: "%m" | plus: 0 | minus: 1 %}
+{% assign with_weekday = include.with_weekday %}
+
+{% if with_weekday == nil or with_weekday %}
+  {{ day_names[weekday_index] }}, {{ include.date | date: '%d.' }} {{ month_names[month_index] }} {{ include.date | date: '%Y, %H:%M' }}
+{% else %}
+  {{ include.date | date: '%d.' }} {{ month_names[month_index] }} {{ include.date | date: '%Y, %H:%M' }}
+{% endif %}
