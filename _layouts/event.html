@@ -28,7 +28,7 @@ layout: default
       <div class="event-detail__datetime">
         <strong>📅 Wann:</strong>
         <time datetime="{{ page.start_date | date_to_xmlschema }}" itemprop="startDate">
-          {{ page.start_date | date: '%A, %d. %B %Y, %H:%M' }} Uhr
+          {% include date-de.html date=page.start_date %} Uhr
         </time>
         {% if page.end_date %}
           bis
@@ -38,7 +38,7 @@ layout: default
             {% if start_day == end_day %}
               {{ page.end_date | date: '%H:%M' }} Uhr
             {% else %}
-              {{ page.end_date | date: '%A, %d. %B %Y, %H:%M' }} Uhr
+              {% include date-de.html date=page.end_date %} Uhr
             {% endif %}
           </time>
         {% endif %}
