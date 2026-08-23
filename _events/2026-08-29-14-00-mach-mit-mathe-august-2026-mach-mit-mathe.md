@@ -3,7 +3,7 @@ event_type: mach-mit-mathe
 title: Mach mit Mathe - August 2026
 start_date: 2026-08-29 14:00
 end_date: 2026-08-29 16:00
-excerpt: Interaktive Mathematik-Ausstellung zum Anfassen und Ausprobieren. Für
+excerpt: Interaktive Mathematik-Ausstellung und Miniphänomenta zum Anfassen und Ausprobieren. Für
   alle Altersgruppen geeignet.
 published: true
 last_modified: 2025-12-20 09:07
@@ -21,6 +21,8 @@ organizers:
 ## Mathematik erleben und entdecken
 
 Unsere beliebte "Mach mit Mathe"-Ausstellung öffnet wieder ihre Türen! Erleben Sie Mathematik auf eine völlig neue Art – interaktiv, spannend und für alle Altersgruppen verständlich.
+
+**Neu:** Parallel zur Ausstellung können Sie auch die [Miniphänomenta](/veranstaltungen/specials/miniphaenomenta/) besuchen, eine Auswahl von 30 Exponaten der Flensburger PHÄNOMENTA, die zum Staunen, Machen und Denken einlädt.
 
 ### Was erwartet Sie?
 

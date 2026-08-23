@@ -24,6 +24,16 @@ Der Rover Workshop ist in Vorbereitung (ab Herbst 2026)
 
 ---
 
+### Miniphänomenta
+
+Eine Auswahl von 30 Exponaten der Flensburger PHÄNOMENTA lädt im MINTarium zum Staunen, Machen und Denken ein.
+
+**Termin:** auf Anfrage und immer parallel zur [Mach-mit-Mathe-Ausstellung](/veranstaltungen/zukunft/)
+
+[Weitere Informationen](/veranstaltungen/specials/miniphaenomenta/){: .btn .btn--info}
+
+---
+
 ### Programmiere den NAO-Roboter
 
 **Termin:** auf Anfrage
