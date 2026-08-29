@@ -7,6 +7,8 @@ main:
     url: /veranstaltungen/specials/
   - title: "Mitglied werden"
     url: /mitgliedschaft/
+  - title: "Kooperationen"
+    url: /kooperationen/
   - title: "Github"
     url: https://github.com/MintFV/
   - title: "Instagram"
