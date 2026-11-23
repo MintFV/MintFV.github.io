@@ -355,7 +355,15 @@ Implementiert in `_layouts/event.html`:
 }
 ```
 
-**Vorteil:** Rich Snippets in Google Search Results
+Das Event wird ausschließlich als JSON-LD ausgezeichnet; der Verein ist als
+`performer` und `organizer` eingetragen. Für Veranstaltungen mit Kostenangabe
+„Kostenfrei“ oder „Kostenlos“ sowie für die Offene Werkstatt ohne Kostenangabe
+enthält `offers` den Preis 0 EUR. Bei anderen unbekannten oder abweichenden
+Kosten wird kein kostenloser Preis angenommen. `validFrom` wird nur bei
+vorhandenem Erstellungsdatum ausgegeben.
+
+**Vorteil:** Möglichkeit für Rich Snippets in Google Search Results; die Anzeige
+liegt bei Google.
 
 ### Permalinks
 
