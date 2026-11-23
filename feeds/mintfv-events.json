@@ -1,0 +1,44 @@
+---
+layout: null
+permalink: /feeds/mintfv-events.json
+---
+{%- assign now = site.time | date: '%s' -%}
+{%- assign upcoming_events = '' | split: '' -%}
+{%- assign all_events = site.events | where: "published", true | sort: "start_date" -%}
+{%- for event in all_events -%}
+  {%- assign event_start = event.start_date | date: '%s' -%}
+  {%- if event_start >= now -%}
+    {%- assign upcoming_events = upcoming_events | push: event -%}
+  {%- endif -%}
+{%- endfor -%}
+{
+  "version": "https://jsonfeed.org/version/1.1",
+  "title": {{ site.name | append: " - Veranstaltungen" | jsonify }},
+  "home_page_url": "{{ '/veranstaltungen/' | absolute_url }}",
+  "feed_url": "{{ '/feeds/mintfv-events.json' | absolute_url }}",
+  "language": "de-DE",
+  "items": [
+    {%- for event in upcoming_events -%}
+    {%- assign event_type_data = site.data.event_types[event.event_type] -%}
+    {
+      "id": "{{ event.url | absolute_url }}",
+      "url": "{{ event.url | absolute_url }}",
+      "title": {{ event.title | jsonify }},
+      "summary": {{ event.excerpt | jsonify }},
+      "date_published": "{{ event.start_date | date_to_xmlschema }}",
+      {%- if event.teaser_image %}"image": "{{ event.teaser_image | absolute_url }}",{%- endif %}
+      "tags": [{{ event_type_data.name | jsonify }}],
+      "_mintfv": {
+        "event_type": {{ event.event_type | jsonify }},
+        "start_date": "{{ event.start_date | date_to_xmlschema }}",
+        {%- if event.end_date %}"end_date": "{{ event.end_date | date_to_xmlschema }}",{%- endif %}
+        "location": {{ event.location | jsonify }},
+        "age_group": {{ event.age_group | jsonify }},
+        "cost": {{ event.cost | jsonify }},
+        "registration_required": {{ event.registration_required | default: false }},
+        "cancelled": {{ event.cancelled | default: false }}
+      }
+    }{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+  ]
+}
