@@ -9,7 +9,7 @@ mach-mit-mathe:
   emoji: "📐"
   color: "#e8f4f8"
   defaults:
-    location: "MINTarium Eingang A / Ausstellungsraum - Mümmelmannsberg 75 - 20255 Hamburg"
+    location: "MINTarium Eingang A / Ausstellungsraum - Mümmelmannsberg 75 - 22115 Hamburg"
     registration_required: false
     registration_email: ""
   description: "Monatliche interaktive Mathematik-Ausstellung"
@@ -19,7 +19,7 @@ offene-werkstatt:
   emoji: "🔧"
   color: "#f0f8e8"
   defaults:
-    location: "MINTarium Eingang C - Mümmelmannsberg 75 - 20255 Hamburg"
+    location: "MINTarium Eingang C - Mümmelmannsberg 75 - 22115 Hamburg"
     registration_required: false
     registration_email: ""
     organizers:
@@ -32,7 +32,7 @@ ferienpass:
   emoji: "🎪"
   color: "#fff4e6"
   defaults:
-    location: "MINTarium Eingang C - Mümmelmannsberg 75 - 20255 Hamburg"
+    location: "MINTarium Eingang C - Mümmelmannsberg 75 - 22115 Hamburg"
     registration_required: true
     registration_email: "info@mintarium-fv.de"
   description: "Ferienpass-Aktionen für Kinder und Jugendliche"
@@ -42,7 +42,7 @@ sonstige:
   emoji: "📅"
   color: "#f5f0f8"
   defaults:
-    location: "MINTarium Eingang A - Mümmelmannsberg 75 - 20255 Hamburg"
+    location: "MINTarium Eingang A - Mümmelmannsberg 75 - 22115 Hamburg"
     registration_required: false
     registration_email: "info@mintarium-fv.de"
   description: "Weitere Veranstaltungen des Vereins"

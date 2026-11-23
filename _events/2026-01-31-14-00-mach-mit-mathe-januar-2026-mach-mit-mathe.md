@@ -9,7 +9,7 @@ published: true
 last_modified: 2025-12-20 08:51
 sequence: 1
 created: 2025-12-20 08:51
-location: MINTarium Eingang A / Austellungsraum - Mümmelmannsberg 75 - 20255 Hamburg
+location: MINTarium Eingang A / Austellungsraum - Mümmelmannsberg 75 - 22115 Hamburg
 teaser_image: /assets/images/events/mathe-ausstellung.jpg
 teaser_alt: Kinder experimentieren mit mathematischen Modellen
 registration_required: false

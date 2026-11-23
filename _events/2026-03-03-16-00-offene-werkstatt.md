@@ -9,7 +9,7 @@ published: true
 last_modified: 2026-02-03 14:41
 sequence: 1
 created: 2026-02-03 14:41
-location: MINTarium Eingang B - Mümmelmannsberg 75 - 20255 Hamburg
+location: MINTarium Eingang B - Mümmelmannsberg 75 - 22115 Hamburg
 registration_required: false
 teaser_image: /assets/images/events/offeneWerkstatt.jpg
 teaser_alt: "3D-Druck, Nao Roboterprogrammierung, Elektronik-Basteln"
