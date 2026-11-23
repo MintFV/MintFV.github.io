@@ -98,7 +98,7 @@ SEQUENCE:{{ sequence }}
 DTSTART;TZID=Europe/Berlin:{{ dtstart }}
 DTEND;TZID=Europe/Berlin:{{ dtend }}
 SUMMARY:{{ event.title | strip_html }}
-{% if event.location %}LOCATION:{{ event.location | strip_html }}{% endif %}
+{% if event.location %}LOCATION:{{ event.location | strip_html | replace: '\', '\\' | replace: ';', '\;' | replace: ',', '\,' | newline_to_br | replace: '<br />', '\n' | strip_newlines }}{% endif %}
 DESCRIPTION:{{ event.excerpt | default: event.content | strip_html | truncate: 500 }}\n\nMehr Infos: {{ event.url | absolute_url }}
 URL:{{ event.url | absolute_url }}
 CATEGORIES:{{ event_type_data.name }}

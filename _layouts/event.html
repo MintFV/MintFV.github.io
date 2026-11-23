@@ -26,7 +26,9 @@ layout: default
     <div class="event-detail__meta">
       {% comment %} Datum und Uhrzeit {% endcomment %}
       <div class="event-detail__datetime">
-        <strong>📅 Wann:</strong>
+        <strong><a href="#download-single-ics" id="download-single-ics-icon"
+          aria-label="Einzeltermin als Kalenderdatei herunterladen"
+          title="Einzeltermin als Kalenderdatei herunterladen">📅</a> Wann:</strong>
         <time datetime="{{ page.start_date | date_to_xmlschema }}" itemprop="startDate">
           {% include date-de.html date=page.start_date %} Uhr
         </time>
@@ -177,41 +179,89 @@ layout: default
       class="event-detail__action-btn event-detail__action-btn--secondary">
       📅 Kalender abonnieren
     </a>
+
+    {% assign ics_end_fallback = page.start_date | date: '%s' | plus: 7200 %}
+    {% assign ics_end = page.end_date | default: ics_end_fallback %}
+    {% assign ics_uid = page.url | remove: '/' | append: '@' | append: site.url %}
+    <a href="#"
+       id="download-single-ics"
+       class="event-detail__action-btn event-detail__action-btn--secondary"
+       data-uid="{{ ics_uid }}"
+       data-title="{{ page.title | escape }}"
+       data-start="{{ page.start_date | date: '%Y-%m-%d %H:%M' }}"
+       data-end="{{ ics_end | date: '%Y-%m-%d %H:%M' }}"
+       data-location="{{ page.location | default: 'MINTarium Hamburg' | escape }}"
+       data-description="{{ page.excerpt | default: page.content | strip_html | normalize_whitespace | truncate: 300 | escape }}"
+       data-url="{{ page.url | absolute_url }}"
+       data-slug="{{ page.slug }}"
+       data-cancelled="{{ page.cancelled | default: false }}">
+      📥 Einzeltermin (.ics)
+    </a>
   </footer>
 
 </article>
 
 {% comment %} JavaScript für dynamischen Countdown {% endcomment %}
 <script src="/assets/js/event-countdown.js"></script>
+<script src="{{ '/assets/js/event-ics.js' | relative_url }}" defer></script>
 
 {% comment %} Schema.org Structured Data {% endcomment %}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Event",
-  "name": "{{ page.title | escape }}",
+  "name": {{ page.title | jsonify }},
+  "description": {{ page.excerpt | default: page.content | strip_html | normalize_whitespace | truncate: 300 | jsonify }},
   "startDate": "{{ page.start_date | date_to_xmlschema }}",
   {% if page.end_date %}"endDate": "{{ page.end_date | date_to_xmlschema }}",{% endif %}
+  "eventStatus": "{% if page.cancelled %}https://schema.org/EventCancelled{% else %}https://schema.org/EventScheduled{% endif %}",
+  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
   {% if page.location %}
   "location": {
     "@type": "Place",
-    "name": "{{ page.location | escape }}"
+    "name": {{ page.location | jsonify }}
+    {% if page.location contains "MINTarium" %}
+    ,
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Mümmelmannsberg 75",
+      "addressLocality": "Hamburg",
+      "postalCode": "22115",
+      "addressCountry": "DE"
+    }
+    {% endif %}
   },
   {% endif %}
-  "description": "{{ page.excerpt | default: content | strip_html | truncate: 200 | escape }}",
-  {% if page.teaser_image %}"image": "{{ page.teaser_image | absolute_url }}",{% endif %}
+  {% if page.teaser_image %}
+  "image": [{{ page.teaser_image | absolute_url | jsonify }}],
+  {% endif %}
+  {% if page.cost == "Kostenfrei" or page.cost == "kostenfrei" %}
+  "isAccessibleForFree": true,
+  "offers": {
+    "@type": "Offer",
+    "url": "{{ page.url | absolute_url }}",
+    "price": "0",
+    "priceCurrency": "EUR",
+    "availability": "https://schema.org/InStock"
+  },
+  {% elsif page.registration_required and page.registration_email %}
+  "offers": {
+    "@type": "Offer",
+    "url": "{{ page.url | absolute_url }}",
+    "availability": "https://schema.org/InStock"
+  },
+  {% endif %}
+  {% if page.age_group %}
+  "audience": {
+    "@type": "EducationalAudience",
+    "audienceType": {{ page.age_group | jsonify }}
+  },
+  {% endif %}
   "organizer": {
     "@type": "Organization",
     "name": "Förderverein MINTarium Hamburg e.V.",
     "url": "{{ site.url }}"
-  }
-  {% if page.registration_required and page.registration_email %}
-  ,"offers": {
-    "@type": "Offer",
-    "url": "{{ page.url | absolute_url }}",
-    {% if page.cost %}"price": "{{ page.cost }}",{% endif %}
-    "availability": "https://schema.org/InStock"
-  }
-  {% endif %}
+  },
+  "url": "{{ page.url | absolute_url }}"
 }
 </script>
