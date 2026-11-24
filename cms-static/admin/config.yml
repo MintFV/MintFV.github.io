@@ -272,7 +272,7 @@ collections:
         widget: "boolean"
         default: false
         required: false
-        hint: "Aktivieren, wenn die Veranstaltung abgesagt wurde (wird prominent angezeigt)"
+        hint: "Standard false. Nur aktivieren, wenn die Veranstaltung abgesagt wurde (wird prominent angezeigt). Ausnahme im Bestand: die auf den 26.01.2026 verschobene Jahreshauptversammlung ist mit true markiert."
 
   # Seitenverwaltung (behalten)
   - name: "pages"

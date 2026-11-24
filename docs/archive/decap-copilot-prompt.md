@@ -108,7 +108,7 @@ Implementiere eine Lösung, die automatisch sinnvolle Standardwerte setzt, wenn 
 - Kosten (String, Standard "Kostenfrei")
 - Verantwortliche Personen (Liste)
 - Besondere Hinweise (Text)
-- Veranstaltung abgesagt? (Boolean)
+- Veranstaltung abgesagt? (Boolean, Standard `false`; Ausnahme: verschobene JHV mit `true`)
 
 ---
 

@@ -61,6 +61,7 @@ offene-werkstatt:
     registration_required: false
     cost: "Kostenfrei"
     age_group: "6-99 Jahre"
+    cancelled: false
     organizers: ["Jan Evers", "Christoph Büchler"]
 ```
 

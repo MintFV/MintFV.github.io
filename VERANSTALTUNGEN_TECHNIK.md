@@ -193,9 +193,12 @@ notes: Text
 cancelled: Boolean
 ```
 
-Standardwerte: `cost: "Kostenfrei"` und `age_group: "6-99 Jahre"`. Bei Text
-„für alle Altersgruppen" wird `age_group: "0-99 Jahre"` verwendet, bei
-„ab 10 Jahre" entsprechend `age_group: "10-99 Jahre"`.
+Standardwerte: `cost: "Kostenfrei"`, `age_group: "6-99 Jahre"` und
+`cancelled: false`. Bei Text „für alle Altersgruppen" wird
+`age_group: "0-99 Jahre"` verwendet, bei „ab 10 Jahre" entsprechend
+`age_group: "10-99 Jahre"`. Die auf den 26.01.2026 verschobene
+Jahreshauptversammlung ist als einzige Ausnahme mit `cancelled: true`
+markiert.
 
 ## Frontend-Logik
 
@@ -372,9 +375,9 @@ liegt bei Google.
 
 ### Permalinks
 
-**Pattern:** `/veranstaltungen/:categories/:title/`
+**Pattern:** `/veranstaltungen/:year/:month/:day/:name/`
 
-**Beispiel:** `/veranstaltungen/workshop/nao-roboter-ferienpass/`
+**Beispiel:** `/veranstaltungen/2025/03/18/2025-03-18-15-15-ferienpass/`
 
 **SEO-Vorteile:**
 - Sprechende URLs
@@ -531,6 +534,6 @@ Siehe `LICENSE` im Repository.
 
 ---
 
-**Letzte Aktualisierung:** November 2025  
+**Letzte Aktualisierung:** November 2026  
 **Version:** 1.0  
 **Autor:** GitHub Copilot (Claude Sonnet 4.5)

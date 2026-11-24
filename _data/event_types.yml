@@ -14,6 +14,7 @@ mach-mit-mathe:
     registration_email: ""
     cost: "Kostenfrei"
     age_group: "0-99 Jahre"
+    cancelled: false
   description: "Monatliche interaktive Mathematik-Ausstellung"
 
 offene-werkstatt:
@@ -26,6 +27,7 @@ offene-werkstatt:
     registration_email: ""
     cost: "Kostenfrei"
     age_group: "6-99 Jahre"
+    cancelled: false
     organizers:
       - "Jan Evers"
       - "Christoph Büchler"
@@ -41,6 +43,7 @@ ferienpass:
     registration_email: "info@mintarium-fv.de"
     cost: "Kostenfrei"
     age_group: "6-99 Jahre"
+    cancelled: false
   description: "Ferienpass-Aktionen für Kinder und Jugendliche"
 
 sonstige:
@@ -53,4 +56,5 @@ sonstige:
     registration_email: "info@mintarium-fv.de"
     cost: "Kostenfrei"
     age_group: "6-99 Jahre"
+    cancelled: false
   description: "Weitere Veranstaltungen des Vereins"

@@ -154,8 +154,10 @@ Nur ausfüllen, wenn:
 - "USB-Stick mitbringen"
 
 **Veranstaltung abgesagt?**
+- Standard: ❌ `false`
 - ⚠️ Nur aktivieren, wenn Event abgesagt wurde
 - Wird prominent auf der Website angezeigt
+- Ausnahme im Bestand: die auf den 26.01.2026 verschobene Jahreshauptversammlung ist mit `true` markiert
 
 ### 6. Speichern
 
