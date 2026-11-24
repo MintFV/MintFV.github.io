@@ -31,20 +31,20 @@ Das System muss 4 verschiedene Veranstaltungstypen unterscheiden:
 ### 1. Mach mit Mathe - Ausstellung
 - **Frequenz:** ~1x pro Monat
 - **Anmeldung:** Standard NEIN
-- **Ort:** Fester Standardort (z.B. "Ausstellungsraum")
+- **Ort:** MINTarium Eingang A / Ausstellungsraum, Mümmelmannsberg 75, 22115 Hamburg
 - **Farbe:** Dezentes Hellblau (#E8F4F8 oder ähnlich)
 
 ### 2. Offene Werkstatt
 - **Frequenz:** ~2x pro Monat
 - **Anmeldung:** Standard NEIN
-- **Ort:** Fester Standardort (z.B. "Werkstatt")
+- **Ort:** MINTarium Eingang C, Mümmelmannsberg 75, 22115 Hamburg
 - **Farbe:** Dezentes Hellgrün (#F0F8E8 oder ähnlich)
 
 ### 3. Ferienpass Aktionen
 - **Frequenz:** ~2x pro Jahr
 - **Anmeldung:** Standard JA (ferienpass@mintfv.de)
-- **Ort:** Standardort (z.B. "Vereinsräume")
-- **Zusatzfelder:** Altersgruppe, Kosten pro Teilnehmer
+- **Ort:** MINTarium Eingang C, Mümmelmannsberg 75, 22115 Hamburg
+- **Zusatzfelder:** Altersgruppe (Standard "6-99 Jahre"), Kosten (Standard "Kostenfrei")
 - **Farbe:** Dezentes Hellorange (#FFF4E6 oder ähnlich)
 
 ### 4. Sonstige Veranstaltungen
@@ -104,11 +104,11 @@ Implementiere eine Lösung, die automatisch sinnvolle Standardwerte setzt, wenn 
   - Anmelde-E-Mail
   - Anmeldefrist
   - Maximale Teilnehmerzahl
-- Altersgruppe (primär für Ferienpass)
-- Kosten (String, primär für Ferienpass)
+- Altersgruppe (Standard "6-99 Jahre", "0-99 Jahre" bei "für alle Altersgruppen", "10-99 Jahre" bei "ab 10 Jahre")
+- Kosten (String, Standard "Kostenfrei")
 - Verantwortliche Personen (Liste)
 - Besondere Hinweise (Text)
-- Veranstaltung abgesagt? (Boolean)
+- Veranstaltung abgesagt? (Boolean, Standard `false`; Ausnahme: verschobene JHV mit `true`)
 
 ---
 

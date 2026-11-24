@@ -45,3 +45,6 @@ playwright-report/
 test-results/
 
 assets/images/qr/muster.html
+
+# eigenes Verzeichnis für temporäre Dateien
+tmp/
