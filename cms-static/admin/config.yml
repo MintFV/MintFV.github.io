@@ -64,9 +64,9 @@ collections:
         widget: "select"
         hint: |
           Wählen Sie den passenden Veranstaltungstyp. Bei Verwendung der Quick-Create-Buttons werden automatisch passende Standardwerte gesetzt:
-          • Mach mit Mathe: Ausstellungsraum, 14:00-16:00 Uhr
-          • Offene Werkstatt: Werkstatt, 16:00-19:00 Uhr
-          • Ferienpass: Vereinsräume, 11:00-12:00 Uhr, Anmeldung erforderlich
+          • Mach mit Mathe: MINTarium Eingang A / Ausstellungsraum, 14:00-16:00 Uhr
+          • Offene Werkstatt: MINTarium Eingang C, 16:00-19:00 Uhr
+          • Ferienpass: MINTarium Eingang C, 11:00-12:00 Uhr, Anmeldung erforderlich
           • Sonstige: Flexible Einstellungen
         # WICHTIG: Icons müssen mit cms-static/admin/event-types.json synchron bleiben!
         # Single Source of Truth für alle anderen Definitionen: event-types.json
@@ -241,13 +241,15 @@ collections:
         name: "age_group"
         widget: "string"
         required: false
-        hint: "Optional: Für welches Alter ist die Veranstaltung geeignet? (z.B. '8-12 Jahre')"
+        default: "6-99 Jahre"
+        hint: "Standard '6-99 Jahre'. Bei 'für alle Altersgruppen' -> '0-99 Jahre', bei 'ab 10 Jahre' -> '10-99 Jahre'."
 
       - label: "Kosten"
         name: "cost"
         widget: "string"
         required: false
-        hint: "Optional: Kosten pro Teilnehmer (z.B. '5 Euro', 'Kostenfrei', '10 Euro inkl. Material')"
+        default: "Kostenfrei"
+        hint: "Standard 'Kostenfrei'. Abweichende Kosten z.B. '5 Euro' oder '10 Euro inkl. Material'."
 
       - label: "Verantwortliche Personen"
         name: "organizers"

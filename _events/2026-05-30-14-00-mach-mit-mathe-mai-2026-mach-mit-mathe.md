@@ -10,12 +10,14 @@ last_modified: 2025-12-20 09:03
 sequence: 1
 created: 2025-12-20 09:03
 location: MINTarium Eingang A / Ausstellungsraum, Mümmelmannsberg 75, 22115 Hamburg
+cost: "Kostenfrei"
+age_group: "0-99 Jahre"
 teaser_image: /assets/images/events/mathe-ausstellung.jpg
 teaser_alt: Kinder experimentieren mit mathematischen Modellen
 registration_required: false
 registration_email: ""
 organizers:
-  - Antje
+  - Antje Radke
   - NN
 ---
 ## Mathematik erleben und entdecken

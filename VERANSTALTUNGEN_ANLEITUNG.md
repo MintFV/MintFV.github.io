@@ -26,11 +26,11 @@ Diese Anleitung erklärt, wie Sie Veranstaltungen mit dem Decap CMS verwalten.
 
 - **🎨 Mach mit Mathe - Ausstellung**
   - Für monatliche Mathematik-Ausstellungen
-  - Standard: Keine Anmeldung, Ort "Ausstellungsraum"
+  - Standard: Keine Anmeldung, Ort "MINTarium Eingang A / Ausstellungsraum, Mümmelmannsberg 75, 22115 Hamburg"
 
 - **🔧 Offene Werkstatt**
   - Für offene Werkstatt-Termine
-  - Standard: Keine Anmeldung, Ort "Werkstatt"
+  - Standard: Keine Anmeldung, Ort "MINTarium Eingang C, Mümmelmannsberg 75, 22115 Hamburg"
 
 - **🎪 Ferienpass Aktion**
   - Für Ferienpass-Workshops
@@ -137,10 +137,12 @@ Nur ausfüllen, wenn:
 #### Zusatzinformationen (primär für Ferienpass)
 
 **Altersgruppe:**
+- Standard: "6-99 Jahre"; bei Text "für alle Altersgruppen" entsprechend "0-99 Jahre"; bei "ab 10 Jahre" entsprechend "10-99 Jahre"
 - z.B. "8-12 Jahre", "Ab 10 Jahren"
 
 **Kosten:**
-- z.B. "Kostenfrei", "5 Euro", "10 Euro inkl. Material"
+- Standard: "Kostenfrei" (auch für Veranstaltungen ohne gesonderte Kostenangabe)
+- z.B. "5 Euro", "10 Euro inkl. Material"
 
 **Verantwortliche Personen:**
 - Liste der Organisatoren/Betreuer

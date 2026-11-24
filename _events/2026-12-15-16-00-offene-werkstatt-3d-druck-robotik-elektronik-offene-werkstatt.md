@@ -1,7 +1,7 @@
 ---
 event_type: offene-werkstatt
 title: Offene Werkstatt - 3D Druck - Robotik - Elektronik
-start_date: 2026-12-15 16:01
+start_date: 2026-12-15 16:00
 end_date: 2026-12-15 19:00
 excerpt: Offene Werkstatt für deine Projekte am 3D Drucker, Roboter
   programmieren und mehr
@@ -10,6 +10,8 @@ created: 2025-12-20 14:43
 last_modified: 2026-03-01 23:58
 sequence: 5
 location: MINTarium Eingang C, Mümmelmannsberg 75, 22115 Hamburg
+cost: "Kostenfrei"
+age_group: "6-99 Jahre"
 teaser_image: /assets/images/events/offeneWerkstatt.jpg
 teaser_alt: 3D-Druck, Nao Roboterprogrammierung, Elektronik-Basteln
 registration_required: false

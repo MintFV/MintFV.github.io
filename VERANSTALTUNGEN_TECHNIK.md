@@ -193,6 +193,10 @@ notes: Text
 cancelled: Boolean
 ```
 
+Standardwerte: `cost: "Kostenfrei"` und `age_group: "6-99 Jahre"`. Bei Text
+„für alle Altersgruppen" wird `age_group: "0-99 Jahre"` verwendet, bei
+„ab 10 Jahre" entsprechend `age_group: "10-99 Jahre"`.
+
 ## Frontend-Logik
 
 ### Hauptübersicht (4+2 Strategie)
@@ -357,10 +361,11 @@ Implementiert in `_layouts/event.html`:
 
 Das Event wird ausschließlich als JSON-LD ausgezeichnet; der Verein ist als
 `performer` und `organizer` eingetragen. Für Veranstaltungen mit Kostenangabe
-„Kostenfrei“ oder „Kostenlos“ sowie für die Offene Werkstatt ohne Kostenangabe
-enthält `offers` den Preis 0 EUR. Bei anderen unbekannten oder abweichenden
-Kosten wird kein kostenloser Preis angenommen. `validFrom` wird nur bei
-vorhandenem Erstellungsdatum ausgegeben.
+„Kostenfrei“ oder „Kostenlos“ enthält `offers` den Preis 0 EUR. Da `cost` für
+alle Veranstaltungen mit „Kostenfrei“ vorbelegt ist, wird der Preis 0 EUR
+regelmäßig ausgegeben. Bei abweichenden Kostenangaben wird kein kostenloser
+Preis angenommen. `validFrom` wird nur bei vorhandenem Erstellungsdatum
+ausgegeben.
 
 **Vorteil:** Möglichkeit für Rich Snippets in Google Search Results; die Anzeige
 liegt bei Google.

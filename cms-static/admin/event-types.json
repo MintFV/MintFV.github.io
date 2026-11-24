@@ -8,7 +8,9 @@
     "name": "Mach mit Mathe",
     "description": "Monatliche interaktive Mathematik-Ausstellung",
     "registration_required": false,
-    "registration_email": ""
+    "registration_email": "",
+    "cost": "Kostenfrei",
+    "age_group": "0-99 Jahre"
   },
   "offene-werkstatt": {
     "location": "MINTarium Eingang C, Mümmelmannsberg 75, 22115 Hamburg",
@@ -20,6 +22,8 @@
     "description": "Zweiwöchentliche offene Werkstatt für praktische Projekte",
     "registration_required": false,
     "registration_email": "",
+    "cost": "Kostenfrei",
+    "age_group": "6-99 Jahre",
     "organizers": ["Jan Evers", "Christoph Büchler"]
   },
   "ferienpass": {
@@ -31,7 +35,9 @@
     "name": "Ferienpass",
     "description": "Ferienpass-Aktionen für Kinder und Jugendliche",
     "registration_required": true,
-    "registration_email": "info@mintarium-fv.de"
+    "registration_email": "info@mintarium-fv.de",
+    "cost": "Kostenfrei",
+    "age_group": "6-99 Jahre"
   },
   "sonstige": {
     "location": "MINTarium Eingang A, Mümmelmannsberg 75, 22115 Hamburg",
@@ -42,6 +48,8 @@
     "name": "Sonstige",
     "description": "Weitere Veranstaltungen des Vereins",
     "registration_required": false,
-    "registration_email": "info@mintarium-fv.de"
+    "registration_email": "info@mintarium-fv.de",
+    "cost": "Kostenfrei",
+    "age_group": "6-99 Jahre"
   }
 }

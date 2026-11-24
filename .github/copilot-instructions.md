@@ -59,6 +59,8 @@ offene-werkstatt:
   defaults:
     location: "MINTarium Eingang C, Mümmelmannsberg 75, 22115 Hamburg"
     registration_required: false
+    cost: "Kostenfrei"
+    age_group: "6-99 Jahre"
     organizers: ["Jan Evers", "Christoph Büchler"]
 ```
 

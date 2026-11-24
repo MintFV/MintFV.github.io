@@ -2,6 +2,8 @@
 layout: single
 title: "Specials -- Miniphänomenta"
 permalink: /veranstaltungen/specials/miniphaenomenta/
+cost: "Kostenfrei"
+age_group: "10-99 Jahre"
 ---
 
 ![Miniphänomenta](/assets/images/events/miniphänomenta_4zu6.jpg){: style="width: 100%; height: auto; display: block; margin-bottom: 2rem;"}
